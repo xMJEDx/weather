@@ -135,7 +135,8 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 .glass{background:rgba(12,16,38,.62);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(255,255,255,.14)}
 .rtop{position:absolute;top:calc(var(--safe-t) + 12px);inset-inline:12px;z-index:500;display:flex;align-items:center;justify-content:space-between;pointer-events:none}
 .rtop>*{pointer-events:auto}
-.rtop .chip{border-radius:30px;padding:9px 16px;font-weight:800;display:flex;gap:6px;align-items:center}
+.rtop .chip{border-radius:30px;padding:9px 16px;font-weight:800;display:flex;gap:6px;align-items:center;width:fit-content}
+#radar .glass{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(12,16,38,.86)}
 .rside{position:absolute;inset-inline-end:12px;top:calc(var(--safe-t) + 70px);z-index:500;display:flex;flex-direction:column;gap:8px}
 .rside button{width:44px;height:44px;border-radius:14px;color:#fff;font-size:20px;display:grid;place-items:center;font-weight:700}
 .rside button.on{background:#fff;color:#12204a}
@@ -145,7 +146,13 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 .rtime{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;direction:ltr;line-height:1}
 .rbadge{font-size:11.5px;color:var(--sub);font-weight:700;margin-top:3px}
 .rbadge.f{color:#ffd27a}
-#rsl{width:100%;margin:12px 0 4px;accent-color:#fff;height:28px}
+.rtrack{position:relative;height:30px;margin:10px 0 2px;--p:100%}
+.rtrack .bg{position:absolute;top:12px;left:0;right:0;height:6px;border-radius:6px;background:linear-gradient(90deg,rgba(255,255,255,.4) var(--p),rgba(255,210,122,.75) var(--p))}
+#rsl{position:absolute;inset:0;width:100%;height:30px;margin:0;background:transparent;-webkit-appearance:none;appearance:none}
+#rsl::-webkit-slider-runnable-track{background:transparent;height:30px}
+#rsl::-moz-range-track{background:transparent}
+#rsl::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;margin-top:3px;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+#rsl::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#fff;border:0}
 .rleg{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--sub);direction:rtl}
 .rleg i{flex:1;height:7px;border-radius:7px;background:linear-gradient(90deg,#9fe5ff,#3aa0ff,#1760e6,#6b2fd0,#e0309a,#ff4d4d)}
 .rmsg{position:absolute;inset:0;z-index:600;display:none;place-items:center;text-align:center;padding:30px;background:rgba(8,10,24,.7);backdrop-filter:blur(4px);font-weight:700}
@@ -161,7 +168,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 <body>
 <div id="radar">
  <div id="rmap"></div>
- <div class="rtop"><div class="glass chip" id="rcity">📍</div><button class="ib glass" id="rgear" aria-label="الإعدادات"></button></div>
+ <div class="rtop"><div><div class="glass chip" id="rcity">📍</div><div class="glass chip" id="rwind" style="display:none;margin-top:8px;font-size:12px;padding:7px 12px"></div></div><button class="ib glass" id="rgear" aria-label="الإعدادات"></button></div>
  <div class="rside">
   <button class="glass" id="rzin" aria-label="تكبير">+</button>
   <button class="glass" id="rzout" aria-label="تصغير">−</button>
@@ -173,9 +180,9 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
    <button class="rplay" id="rplay" aria-label="تشغيل">▶</button>
    <div class="sp"><div class="rtime" id="rtime">--:--</div><div class="rbadge" id="rbadge"></div></div>
   </div>
-  <div dir="ltr"><input type="range" id="rsl" min="0" max="0" value="0" aria-label="الوقت"></div>
+  <div dir="ltr" class="rtrack" id="rtrack"><div class="bg"></div><input type="range" id="rsl" min="0" max="0" value="0" aria-label="الوقت"></div>
   <div class="rleg"><span>خفيف</span><i></i><span>غزير</span></div>
-  <div class="rattr">RainViewer • © OpenStreetMap • CARTO</div>
+  <div class="rattr">الأبيض: رادار حقيقي • الذهبي: توقّع تقديري باتجاه الرياح • RainViewer • © OpenStreetMap • CARTO</div>
  </div>
  <div class="rmsg" id="rmsg"><div><div id="rmsgt" style="margin-bottom:14px"></div><button class="btn" id="rretry">إعادة المحاولة</button></div></div>
 </div>
@@ -492,6 +499,7 @@ function _render(){
  $("#radar").style.display=rv?"block":"none";
  $("#app").style.display=rv?"none":"block";
  if(rv){radarShow();return}
+ radarStop();
  const V={weather:vWeather,prayer:vPrayer,cal:vCal};
  const app=$("#app"),sc=app.scrollTop,keep=S.keep;
  app.innerHTML=V[S.view]();
@@ -606,7 +614,10 @@ function enableNotif(){
 }
 
 /* ============ radar (RainViewer) ============ */
-const RV={map:null,Lf:null,frames:[],layers:[],i:0,timer:null,mode:"radar",past:[],now:[],sat:[],host:"",fts:0,loading:false,marker:null,booting:false};
+/* ملاحظة ذاكرة: طبقات RainViewer جاهزة لحد زوم 7 فقط، وأي تقريب أكثر يكبّرها.
+   عشان Safari ما ينهار: سقف التقريب 8، ونخلي بس طبقتين حيّتين + طبقة التوقع. */
+const MAXZ=8,FCSTEPS=6,FCMIN=10,STEER_K=0.8;
+const RV={map:null,Lf:null,frames:[],live:{},fc:null,i:-1,timer:null,mode:"radar",past:[],real:[],sat:[],host:"",fts:0,loading:false,marker:null,booting:false,steer:null,nPast:0,fcOn:false};
 function rmsg(txt){const m=$("#rmsg");if(txt){$("#rmsgt").textContent=txt;m.classList.add("on")}else m.classList.remove("on")}
 function rLabel(){const e=$("#rcity");if(e)e.textContent="📍 "+locNow().label}
 function loadLeaflet(){
@@ -629,76 +640,151 @@ async function radarShow(){
  try{
   await loadLeaflet();
   const Lf=RV.Lf=window.L,loc=locNow();
-  const map=RV.map=Lf.map("rmap",{zoomControl:false,attributionControl:false,minZoom:3,maxZoom:10,worldCopyJump:true,zoomSnap:.5}).setView([loc.lat,loc.lon],6);
-  map.createPane("rpane").style.zIndex=250;map.createPane("lpane").style.zIndex=300;map.getPane("lpane").style.pointerEvents="none";
+  const map=RV.map=Lf.map("rmap",{zoomControl:false,attributionControl:false,minZoom:3,maxZoom:MAXZ,zoomSnap:1,zoomDelta:1,fadeAnimation:false,markerZoomAnimation:false,worldCopyJump:true}).setView([loc.lat,loc.lon],6);
+  map.createPane("rpane").style.zIndex=250;map.createPane("fpane").style.zIndex=251;map.createPane("lpane").style.zIndex=300;map.getPane("lpane").style.pointerEvents="none";
   const sub=["a","b","c","d"];
-  Lf.tileLayer("https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png",{subdomains:sub,maxZoom:12}).addTo(map);
-  Lf.tileLayer("https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png",{subdomains:sub,maxZoom:12,pane:"lpane"}).addTo(map);
+  Lf.tileLayer("https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png",{subdomains:sub,maxZoom:MAXZ+2}).addTo(map);
+  Lf.tileLayer("https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png",{subdomains:sub,maxZoom:MAXZ+2,pane:"lpane"}).addTo(map);
   RV.marker=Lf.marker([loc.lat,loc.lon],{icon:Lf.divIcon({className:"",html:'<div class="rdot"></div>',iconSize:[16,16],iconAnchor:[8,8]}),interactive:false,keyboard:false}).addTo(map);
+  map.on("zoomend",applyFc);
   setTimeout(()=>{try{map.invalidateSize()}catch(e){}},80);
   rmsg("");RV.booting=false;
   radarLoad();
  }catch(e){RV.booting=false;rmsg("تعذّر تحميل الخريطة. تأكد من الإنترنت.")}
 }
+/* الرياح العلوية (700hPa ≈ 3 كم) تحرّك السحب: نستخدمها نقدّر وين تروح السحب */
+async function fetchSteer(){
+ try{
+  const c=RV.map.getCenter();
+  const r=await fetch("https://api.open-meteo.com/v1/forecast?latitude="+c.lat.toFixed(2)+"&longitude="+c.lng.toFixed(2)+"&hourly=wind_speed_700hPa,wind_direction_700hPa&wind_speed_unit=ms&forecast_days=2&timezone=auto");
+  if(!r.ok)return null;const j=await r.json(),h=j&&j.hourly;if(!h||!h.time)return null;
+  const off=(j.utc_offset_seconds||0)*1000,nowMs=Date.now();let bi=-1,bd=1e18;
+  h.time.forEach((s,i)=>{const d=Math.abs(Date.parse(s+":00Z")-off-nowMs);if(d<bd){bd=d;bi=i}});
+  const sp=h.wind_speed_700hPa[bi],dir=h.wind_direction_700hPa[bi];
+  if(!isFinite(sp)||!isFinite(dir))return null;
+  return{sp,dir};
+ }catch(e){return null}
+}
+const DIRN=["الشمال","الشمال الشرقي","الشرق","الجنوب الشرقي","الجنوب","الجنوب الغربي","الغرب","الشمال الغربي"];
+function windChip(){
+ const e=$("#rwind");if(!e)return;
+ if(!RV.steer||RV.mode==="sat"){e.style.display="none";return}
+ const to=(RV.steer.dir+180)%360;
+ e.textContent="☁️ السحب تتجه نحو "+DIRN[Math.round(to/45)%8]+" • "+Math.round(RV.steer.sp*3.6*STEER_K)+" كم/س";
+ e.style.display="flex";
+}
 async function radarLoad(){
  if(RV.loading||!RV.map)return;
  RV.loading=true;
  try{
-  const r=await fetch("https://api.rainviewer.com/public/weather-maps.json",{cache:"no-store"});
+  const [r,st]=await Promise.all([fetch("https://api.rainviewer.com/public/weather-maps.json",{cache:"no-store"}),fetchSteer()]);
   if(!r.ok)throw new Error("rv "+r.status);
   const j=await r.json();
   RV.host=j.host||"https://tilecache.rainviewer.com";
-  RV.past=(j.radar&&j.radar.past)||[];RV.now=(j.radar&&j.radar.nowcast)||[];
+  RV.past=(j.radar&&j.radar.past)||[];RV.real=(j.radar&&j.radar.nowcast)||[];
   RV.sat=(j.satellite&&j.satellite.infrared)||[];
-  if(!RV.past.length&&!RV.now.length)throw new Error("no frames");
+  RV.steer=st;
+  if(!RV.past.length)throw new Error("no frames");
   RV.fts=Date.now();
   $("#rlay").style.display=RV.sat.length?"grid":"none";
   radarBuild();rmsg("");
- }catch(e){if(!RV.layers.length)rmsg("تعذّر تحميل بيانات الرادار.")}
+ }catch(e){if(!RV.frames.length)rmsg("تعذّر تحميل بيانات الرادار.")}
  RV.loading=false;
 }
+const tileUrl=(path,sat)=>RV.host+path+"/256/{z}/{x}/{y}/"+(sat?"0/0_0":"2/1_1")+".png";
+function clearLayers(){
+ const map=RV.map;
+ Object.keys(RV.live).forEach(k=>{try{map.removeLayer(RV.live[k])}catch(e){}});RV.live={};
+ if(RV.fc){try{map.removeLayer(RV.fc)}catch(e){}RV.fc=null}
+ const fp=map.getPane("fpane");if(fp)fp.style.transform="";
+}
 function radarBuild(){
- const map=RV.map,Lf=RV.Lf;if(!map)return;
- radarStop();
- RV.layers.forEach(l=>{try{map.removeLayer(l)}catch(e){}});RV.layers=[];
- const sat=RV.mode==="sat",list=sat?RV.sat:RV.past.concat(RV.now);
- RV.frames=list;
- const scheme=sat?"0/0_0":"2/1_1";
- RV.layers=list.map(f=>Lf.tileLayer(RV.host+f.path+"/256/{z}/{x}/{y}/"+scheme+".png",{pane:"rpane",opacity:0,maxNativeZoom:7,maxZoom:12,tileSize:256,className:"rvtile"}).addTo(map));
- const sl=$("#rsl");sl.max=Math.max(0,list.length-1);
- const idx=sat?list.length-1:Math.max(0,RV.past.length-1);
- RV.i=-1;setFrame(idx);
+ const map=RV.map;if(!map)return;
+ radarStop();clearLayers();
+ const sat=RV.mode==="sat";let frames;
+ if(sat){frames=RV.sat.map(f=>({time:f.time,path:f.path}));RV.nPast=frames.length}
+ else{
+  frames=RV.past.map(f=>({time:f.time,path:f.path}));RV.nPast=frames.length;
+  if(RV.real.length)RV.real.forEach((f,k)=>frames.push({time:f.time,path:f.path,fc:true,real:true,min:Math.round((f.time-RV.past[RV.past.length-1].time)/60)}));
+  else if(RV.steer){const last=RV.past[RV.past.length-1];for(let k=1;k<=FCSTEPS;k++)frames.push({time:last.time+k*FCMIN*60,path:last.path,fc:true,min:k*FCMIN})}
+ }
+ RV.frames=frames;RV.fcOn=frames.some(f=>f.fc&&!f.real);
+ /* طبقة التوقع: نفس آخر لقطة حقيقية لكن نزيحها باتجاه الرياح */
+ if(RV.fcOn){
+  RV.fc=RV.Lf.tileLayer(tileUrl(RV.past[RV.past.length-1].path),{pane:"fpane",opacity:0,maxNativeZoom:7,maxZoom:MAXZ,tileSize:256,keepBuffer:1,updateWhenZooming:false}).addTo(map);
+ }
+ const max=Math.max(1,frames.length-1),sl=$("#rsl");sl.max=Math.max(0,frames.length-1);
+ const pct=RV.fcOn||RV.real.length?((RV.nPast-0.5)/max*100):100;
+ $("#rtrack").style.setProperty("--p",Math.min(100,Math.max(0,pct))+"%");
+ windChip();
+ RV.i=-1;setFrame(sat?frames.length-1:RV.nPast-1);
+}
+function liveLayer(i){
+ if(!RV.live[i]){
+  const f=RV.frames[i],l=RV.Lf.tileLayer(tileUrl(f.path,RV.mode==="sat"),{pane:"rpane",opacity:0,maxNativeZoom:7,maxZoom:MAXZ,tileSize:256,keepBuffer:1,updateWhenZooming:false});
+  l._rvLoaded=false;l.on("load",()=>{l._rvLoaded=true});
+  l.addTo(RV.map);RV.live[i]=l;
+ }
+ return RV.live[i];
+}
+function liveCleanup(keep){
+ Object.keys(RV.live).forEach(k=>{if(!keep.includes(+k)){try{RV.map.removeLayer(RV.live[k])}catch(e){}delete RV.live[k]}});
+}
+/* إزاحة طبقة التوقع بالبكسل حسب الرياح والزوم */
+function fcShift(min){
+ const st=RV.steer,map=RV.map;if(!st||!map)return[0,0];
+ const to=((st.dir+180)%360)*Math.PI/180,d=st.sp*STEER_K*min*60;
+ const c=map.getCenter(),mpp=156543.03392*Math.cos(c.lat*Math.PI/180)/Math.pow(2,map.getZoom());
+ return[d*Math.sin(to)/mpp,-d*Math.cos(to)/mpp];
+}
+function applyFc(){
+ const f=RV.frames[RV.i];if(!f||!f.fc||f.real||!RV.map)return;
+ const s=fcShift(f.min);RV.map.getPane("fpane").style.transform="translate("+s[0].toFixed(1)+"px,"+s[1].toFixed(1)+"px)";
 }
 function setFrame(i){
- if(!RV.layers.length)return;
- i=Math.max(0,Math.min(RV.layers.length-1,i));
- if(RV.layers[RV.i])RV.layers[RV.i].setOpacity(0);
- RV.i=i;RV.layers[i].setOpacity(.85);
- const f=RV.frames[i],d=new Date(f.time*1000);
+ if(!RV.frames.length||!RV.map)return;
+ i=Math.max(0,Math.min(RV.frames.length-1,i));
+ const f=RV.frames[i];RV.i=i;
+ if(f.fc&&!f.real){
+  /* توقع مبني على اتجاه السحب */
+  Object.keys(RV.live).forEach(k=>RV.live[k].setOpacity(0));
+  liveCleanup([]);
+  if(RV.fc)RV.fc.setOpacity(.85);
+  applyFc();
+ }else{
+  if(RV.fc){RV.fc.setOpacity(0);RV.map.getPane("fpane").style.transform=""}
+  const l=liveLayer(i);l.setOpacity(.85);
+  const keep=[i];
+  if(i+1<RV.frames.length&&!RV.frames[i+1].fc){liveLayer(i+1);keep.push(i+1)}
+  const done=()=>{Object.keys(RV.live).forEach(k=>{if(+k!==i&&RV.live[k])RV.live[k].setOpacity(0)});liveCleanup(keep)};
+  if(l._rvLoaded)done();else{l.once("load",done);setTimeout(()=>{if(RV.i===i)done()},1500)}
+ }
+ const d=new Date(f.time*1000);
  $("#rtime").textContent=pad(d.getHours())+":"+pad(d.getMinutes());
  const diff=Math.round((Date.now()-d.getTime())/60000),b=$("#rbadge");
- if(RV.mode==="radar"&&i>=RV.past.length){b.textContent="توقّع بعد "+Math.max(1,-diff)+" د";b.className="rbadge f"}
+ if(f.fc){b.textContent=(f.real?"توقّع":"توقّع تقديري")+" +"+f.min+" د";b.className="rbadge f"}
  else if(diff<=12){b.textContent="الآن";b.className="rbadge"}
  else{b.textContent="قبل "+(diff>=60?Math.floor(diff/60)+" س "+(diff%60?(diff%60)+" د":""):diff+" د");b.className="rbadge"}
  $("#rsl").value=i;
 }
 function radarStop(){if(RV.timer){clearInterval(RV.timer);RV.timer=null}const p=$("#rplay");if(p)p.textContent="▶"}
 function radarPlay(){
- if(!RV.layers.length)return;
+ if(!RV.frames.length)return;
  if(RV.timer){radarStop();return}
  $("#rplay").textContent="⏸";
- if(RV.i>=RV.layers.length-1)setFrame(0);
+ if(RV.i>=RV.frames.length-1)setFrame(0);
  let hold=0;
  RV.timer=setInterval(()=>{
-  if(RV.i>=RV.layers.length-1){if(++hold<3)return;hold=0;setFrame(0);return}
+  if(RV.i>=RV.frames.length-1){if(++hold<3)return;hold=0;setFrame(0);return}
   setFrame(RV.i+1);
- },500);
+ },700);
 }
 function radarRecenter(){
  if(!RV.map)return;const l=locNow();
- RV.map.setView([l.lat,l.lon],Math.max(RV.map.getZoom(),6));
+ RV.map.setView([l.lat,l.lon],Math.min(MAXZ,Math.max(RV.map.getZoom(),6)));
  if(RV.marker)RV.marker.setLatLng([l.lat,l.lon]);
  rLabel();
+ if(RV.past.length)fetchSteer().then(st=>{RV.steer=st;windChip();applyFc()});
 }
 $("#rplay").onclick=radarPlay;
 $("#rsl").oninput=e=>{radarStop();setFrame(+e.target.value)};
@@ -730,7 +816,7 @@ function tick(){
  if(S.view==="radar"&&RV.map&&!RV.loading&&!RV.timer&&Date.now()-RV.fts>10*6e4)radarLoad();
 }
 setInterval(tick,1000);
-document.addEventListener("visibilitychange",()=>{if(!document.hidden){fetchWx();if(S.view==="radar")radarShow();if(S.view==="prayer"){S.keep=true;render()}}});
+document.addEventListener("visibilitychange",()=>{if(document.hidden)radarStop();if(!document.hidden){fetchWx();if(S.view==="radar")radarShow();if(S.view==="prayer"){S.keep=true;render()}}});
 
 /* ============ PWA ============ */
 (function(){
