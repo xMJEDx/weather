@@ -182,7 +182,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
   </div>
   <div dir="ltr" class="rtrack" id="rtrack"><div class="bg"></div><input type="range" id="rsl" min="0" max="0" value="0" aria-label="الوقت"></div>
   <div class="rleg"><span>خفيف</span><i></i><span>غزير</span></div>
-  <div class="rattr">الأبيض: رادار حقيقي • الذهبي: توقّع تقديري باتجاه الرياح • RainViewer • © OpenStreetMap • CARTO</div>
+  <div class="rattr">الأبيض: رادار حقيقي • الذهبي: توقّع تقديري باتجاه الرياح • RainViewer • © مساهمو OpenStreetMap</div>
  </div>
  <div class="rmsg" id="rmsg"><div><div id="rmsgt" style="margin-bottom:14px"></div><button class="btn" id="rretry">إعادة المحاولة</button></div></div>
 </div>
@@ -641,10 +641,10 @@ async function radarShow(){
   await loadLeaflet();
   const Lf=RV.Lf=window.L,loc=locNow();
   const map=RV.map=Lf.map("rmap",{zoomControl:false,attributionControl:false,minZoom:3,maxZoom:MAXZ,zoomSnap:1,zoomDelta:1,fadeAnimation:false,markerZoomAnimation:false,worldCopyJump:true}).setView([loc.lat,loc.lon],6);
-  map.createPane("rpane").style.zIndex=250;map.createPane("fpane").style.zIndex=251;map.createPane("lpane").style.zIndex=300;map.getPane("lpane").style.pointerEvents="none";
-  const sub=["a","b","c","d"];
-  Lf.tileLayer("https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png",{subdomains:sub,maxZoom:MAXZ+2}).addTo(map);
-  Lf.tileLayer("https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png",{subdomains:sub,maxZoom:MAXZ+2,pane:"lpane"}).addTo(map);
+  const bp=map.createPane("bpane");bp.style.zIndex=200;bp.style.filter="invert(1) hue-rotate(200deg) saturate(.55) brightness(.82) contrast(.92)";
+  map.createPane("rpane").style.zIndex=250;map.createPane("fpane").style.zIndex=251;
+  /* خريطة OpenStreetMap (بدون مفتاح، أسماء عربية محلية) نقلبها لداكنة بالفلتر */
+  Lf.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{pane:"bpane",maxZoom:MAXZ+2,maxNativeZoom:19}).addTo(map);
   RV.marker=Lf.marker([loc.lat,loc.lon],{icon:Lf.divIcon({className:"",html:'<div class="rdot"></div>',iconSize:[16,16],iconAnchor:[8,8]}),interactive:false,keyboard:false}).addTo(map);
   map.on("zoomend",applyFc);
   setTimeout(()=>{try{map.invalidateSize()}catch(e){}},80);
