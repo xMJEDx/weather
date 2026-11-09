@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
 <style>
-:root{--g1:#0a1030;--g2:#18215a;--g3:#2b3a7a;--tx:#fff;--sub:rgba(255,255,255,.7);--cd:rgba(255,255,255,.13);--cd2:rgba(255,255,255,.22);--ln:rgba(255,255,255,.16);--ac:#7cc4ff;--gold:#ffd27a;--safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px)}
+:root{--g1:#0a1030;--g2:#18215a;--g3:#2b3a7a;--tx:#fff;--sub:rgba(255,255,255,.7);--cd:rgba(255,255,255,.07);--cd2:rgba(255,255,255,.14);--ln:rgba(255,255,255,.1);--ac:#7cc4ff;--gold:#ffd27a;--safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%}
 body{font-family:"Tajawal",-apple-system,"SF Arabic","Segoe UI",Tahoma,system-ui,sans-serif;color:var(--tx);background:var(--g1);overflow:hidden;font-size:15px;line-height:1.45}
@@ -23,16 +23,21 @@ button{cursor:pointer}
 :focus-visible{outline:2px solid #fff;outline-offset:2px}
 svg{display:block}
 #app{position:fixed;inset:0;overflow-y:auto;padding:calc(var(--safe-t) + 14px) 14px calc(104px + var(--safe-b));max-width:720px;margin:auto;-webkit-overflow-scrolling:touch}
-#app.in{animation:fade .28s ease}
+#app.in>*{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}
+#app.in>*:nth-child(2){animation-delay:.05s}#app.in>*:nth-child(3){animation-delay:.1s}#app.in>*:nth-child(4){animation-delay:.15s}#app.in>*:nth-child(5){animation-delay:.2s}#app.in>*:nth-child(n+6){animation-delay:.25s}
+@keyframes rise{from{opacity:0;transform:translate3d(0,18px,0)}to{opacity:1;transform:none}}
+#app{overscroll-behavior:contain;will-change:scroll-position}
+.dh,.card,.hero2{contain:layout paint}
+.dh:active{transform:scale(.99)}.dh{transition:transform .2s}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
 .top h1{font-size:25px;margin:0;font-weight:800}
-.ib{width:42px;height:42px;border-radius:50%;border:1px solid var(--ln);background:var(--cd);display:grid;place-items:center;flex:none;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:transform .12s}
+.ib{width:42px;height:42px;border-radius:50%;border:1px solid var(--ln);background:var(--cd);display:grid;place-items:center;flex:none;transition:transform .12s}
 .ib:active{transform:scale(.9)}
 .row{display:flex;align-items:center;gap:10px}
 .sp{flex:1;min-width:0}
 .sub{color:var(--sub);font-size:12.5px}
-.card{background:var(--cd);border:1px solid var(--ln);border-radius:22px;padding:15px;margin-bottom:12px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.card{background:linear-gradient(180deg,rgba(24,32,70,.62),rgba(16,22,50,.62));border:1px solid var(--ln);border-radius:24px;padding:16px;margin-bottom:12px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
 .card h3{margin:0 0 12px;font-size:13px;font-weight:700;color:var(--sub);letter-spacing:.2px}
 .btn{border:0;background:#fff;color:#12204a;border-radius:15px;padding:11px 16px;font-weight:800;transition:transform .12s}
 .btn:active{transform:scale(.97)}
@@ -51,7 +56,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 .hero .t{font-size:96px;font-weight:300;line-height:1;margin:4px 0 0;letter-spacing:-3px;padding-inline-start:12px}
 .hero .c{font-size:20px;font-weight:700;margin-top:4px}
 .hero .hl{color:var(--sub);margin-top:2px}
-.pill{display:inline-flex;align-items:center;gap:6px;background:var(--cd2);border:1px solid var(--ln);border-radius:30px;padding:8px 14px;font-weight:700;font-size:13.5px;margin-top:12px;backdrop-filter:blur(10px)}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--cd2);border:1px solid var(--ln);border-radius:30px;padding:8px 14px;font-weight:700;font-size:13.5px;margin-top:12px}
 .nx3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .nx3>div{background:var(--cd);border-radius:18px;padding:12px 4px;text-align:center}
 .nx3 b{font-size:26px;display:block;font-weight:700}
@@ -88,7 +93,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 @keyframes sk{to{background-position:-200% 0}}
 .empty{text-align:center;color:var(--sub);padding:24px 0}
 /* nav */
-.nav{position:fixed;bottom:calc(10px + var(--safe-b));left:50%;transform:translateX(-50%);width:min(520px,calc(100% - 24px));display:flex;padding:6px;background:rgba(10,14,36,.55);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid var(--ln);border-radius:28px;z-index:40;box-shadow:0 14px 34px rgba(0,0,0,.3)}
+.nav{position:fixed;bottom:calc(10px + var(--safe-b));left:50%;transform:translateX(-50%);width:min(520px,calc(100% - 24px));display:flex;padding:6px;background:rgba(12,17,40,.94);border:1px solid var(--ln);border-radius:28px;z-index:40;box-shadow:0 14px 34px rgba(0,0,0,.3)}
 .nav button{flex:1;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--sub);font-weight:700;padding:8px 2px;border-radius:22px;transition:all .2s}
 .nav button.on{color:#fff;background:var(--cd2)}
 /* sheet */
@@ -130,7 +135,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 .oc-r:last-child{border:0}
 .oc-r .e{font-size:24px}
 /* date hero */
-.dh{border-radius:28px;padding:12px;margin-bottom:14px;background:linear-gradient(160deg,rgba(24,30,58,.78),rgba(10,14,32,.82));border:1px solid rgba(217,180,95,.42);box-shadow:0 12px 34px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06)}
+.dh{border-radius:28px;padding:12px;margin-bottom:14px;background:linear-gradient(160deg,#141c3e,#0a0f26);border:1px solid rgba(217,180,95,.42);box-shadow:0 12px 34px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06)}
 .dh .tg{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
 .dh .tag{border:1px solid rgba(217,180,95,.45);border-radius:14px;padding:6px 12px;font-size:12px;color:#d9b45f;background:rgba(217,180,95,.08);font-weight:700}
 .dh .g3{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:8px}
@@ -141,7 +146,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 .dh .yr{font-size:14px;color:var(--sub)}
 .dh .wd{font-family:"Aref Ruqaa","Tajawal",serif;font-size:38px;color:#d9b45f;line-height:1.25;text-shadow:0 2px 14px rgba(217,180,95,.35)}
 .dh .wde{border:1px solid rgba(217,180,95,.45);border-radius:14px;padding:3px 12px;font-size:11px;letter-spacing:2px;color:#d9b45f;font-weight:800;background:rgba(217,180,95,.08)}
-.hero2{border-radius:30px;padding:18px 14px 16px;margin-bottom:12px;text-align:center;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.14);box-shadow:0 14px 36px rgba(0,0,0,.22)}
+.hero2{border-radius:30px;padding:18px 14px 16px;margin-bottom:12px;text-align:center;background:radial-gradient(120% 90% at 50% 0%,rgba(80,120,230,.28),rgba(20,28,64,.6) 70%);border:1px solid rgba(255,255,255,.12);box-shadow:0 14px 36px rgba(0,0,0,.28)}
 .hero2 .hero{padding:0}
 .hero2 .hero .t{font-size:88px}
 .hero2 .mm{display:flex;justify-content:center;gap:10px;margin-top:12px}
@@ -383,19 +388,7 @@ function wxCalc(){
  const line=rs?"احتمال أمطار الساعة "+hourLabel(rs.t)+" ("+(rs.p||"—")+"%)":trend;
  return{temp,feels:Math.round(cur.apparent_temperature),info,hi:Math.round(dl.temperature_2m_max[0]),lo:Math.round(dl.temperature_2m_min[0]),nx,rs,line,cur,trend,diff,dl};
 }
-function skyColors(){
- const c=wxCalc(),air=S.wx.air,hr=new Date().getHours();
- const day=c?!!c.cur.is_day:(hr>=6&&hr<18),code=c?c.cur.weather_code:0,temp=c?c.temp:30;
- const dusty=air&&((air.dust||0)>150||(air.pm10||0)>250);
- const rain=c&&c.info.rain;
- if(dusty&&day)return["#7a5c2e","#a98450","#d0b07a"];
- if(rain)return day?["#2b3d55","#42607c","#6382a0"]:["#0e1624","#1b2a3e","#2b4058"];
- if(!day)return code>=2?["#0d1224","#1a2240","#2b3560"]:["#0a1030","#18215a","#2b3a7a"];
- if(code>=45)return["#5a6f8c","#7b8fa9","#9fb0c6"];
- if(code>=2)return["#3f6296","#5c82b4","#86a8d0"];
- if(temp>=42)return["#b8481a","#e5832a","#f2b45c"];
- return["#1b5fd1","#3a8aef","#7ec0ff"];
-}
+function skyColors(){return["#070b1c","#0d1534","#16224e"]} /* دارك مود ثابت مهما كان الوقت أو الطقس */
 function applySky(){
  const c=skyColors(),st=document.documentElement.style;
  st.setProperty("--g1",c[0]);st.setProperty("--g2",c[1]);st.setProperty("--g3",c[2]);
