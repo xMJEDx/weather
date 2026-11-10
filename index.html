@@ -215,6 +215,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 #rl0{left:0}#rl1{right:0}#rlnow{transform:translateX(-50%);color:#fff;font-weight:700}
 .rleg{display:flex;align-items:center;gap:7px;font-size:10.5px;color:var(--sub);direction:rtl;width:120px;flex:none}
 .rleg i{flex:1;height:6px;border-radius:7px;background:linear-gradient(90deg,#9fe5ff,#3aa0ff,#1760e6,#6b2fd0,#e0309a,#ff4d4d)}
+.rdiag{font-size:11px;line-height:1.6;color:#ffd27a;text-align:center;margin-top:8px;min-height:0}
 .rattr{font-size:10px;color:rgba(255,255,255,.4);text-align:center;margin-top:8px}
 .rhint{position:absolute;left:50%;bottom:calc(298px + var(--safe-b));transform:translate(-50%,10px);z-index:520;background:rgba(14,18,38,.94);border:1px solid rgba(255,255,255,.12);padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;max-width:92vw;text-align:center}
 .rhint.on{opacity:1;transform:translate(-50%,0)}
@@ -245,7 +246,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 #sktgt button{border:0;background:rgba(255,255,255,.12);border-radius:50%;width:24px;height:24px;font-size:12px;line-height:1}
 #sktoast{position:absolute;left:50%;top:calc(var(--safe-t) + 190px);transform:translate(-50%,-8px);background:rgba(10,15,36,.94);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:10px 16px;font:700 12.5px Tajawal,sans-serif;max-width:88vw;text-align:center;opacity:0;pointer-events:none;transition:.3s}
 #sktoast.on{opacity:1;transform:translate(-50%,0)}
-#skday{position:absolute;left:50%;top:38%;transform:translateX(-50%);display:none;background:rgba(10,15,36,.7);border-radius:16px;padding:8px 14px;font:700 12.5px Tajawal,sans-serif;pointer-events:none;white-space:nowrap}
+#skday{position:absolute;left:50%;bottom:calc(140px + var(--safe-b));transform:translateX(-50%);display:none;background:rgba(10,15,36,.7);border-radius:16px;padding:8px 14px;font:700 12.5px Tajawal,sans-serif;pointer-events:none;max-width:86vw;text-align:center;line-height:1.6}
 .skbar{position:absolute;left:12px;right:12px;bottom:calc(86px + var(--safe-b));display:flex;gap:8px;justify-content:center;align-items:center}
 .skbar button{border:1px solid rgba(255,255,255,.12)}
 #sktime{min-width:60px;text-align:center}
@@ -299,6 +300,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
   </div>
   <div class="rtl" id="rtl" dir="ltr"><div class="rln"></div><div class="rfill" id="rfill"></div><div class="rticks" id="rticks"></div><div class="rhead" id="rhead"></div></div>
   <div class="rlbl" dir="ltr"><span id="rl0"></span><span id="rlnow"></span><span id="rl1"></span></div>
+  <div class="rdiag" id="rdiag"></div>
   <div class="rattr">أبيض: رادار حقيقي • ذهبي: توقّع تقديري باتجاه الرياح • RainViewer • © OpenStreetMap</div>
  </div>
  <div class="rmsg" id="rmsg"><div><div id="rmsgt" style="margin-bottom:14px"></div><button class="btn" id="rretry">إعادة المحاولة</button></div></div>
@@ -309,7 +311,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
  <div class="skchips"><button class="skc" id="sknames">عربي + English</button><button class="skc" id="sklines">الأبراج</button><button class="skc" id="skmw">درب التبانة</button><button class="skc" id="skgrid">الشبكة</button></div>
  <div id="sktgt"><span id="sktgtn"></span><button id="sktgtx" aria-label="إلغاء">✕</button></div>
  <div id="skctr" role="button"></div>
- <div id="skday">☀️ الشمس فوق الأفق — النجوم تظهر بعد الغروب</div>
+ <div id="skday">☀️ الشمس فوق الأفق الحين — هذا عرض فلكي، النجوم موجودة لكن ما تُرى بالعين إلا بعد الغروب</div>
  <div id="sktoast"></div>
  <div id="skinfo"></div>
  <div class="skbar"><button class="skc" id="sktm" aria-label="ساعة للخلف">−١ س</button><button class="skc" id="sktime">الآن</button><button class="skc" id="sktp" aria-label="ساعة للأمام">+١ س</button><button class="skc" id="skfind">🔍 ابحث عن نجم</button></div>
@@ -991,20 +993,20 @@ function skFrame(ts){
  }
  if(!SK.B)SK.B=basisFromAzAlt(SK.az,SK.alt);
  SK.f=(SK.h/2)/Math.tan(SK.fov*D2R/2);
- skDraw(ts/1000);
+ try{skDraw(ts/1000)}catch(err){if(!SK.errShown){SK.errShown=1;skToast("خطأ بالرسم: "+(err&&err.message),6000);console.error(err)}}
 }
 function skDraw(t){
  const g=SK.g,W=SK.w,H=SK.h,dpr=SK.dpr,B=SK.B,S=SK.ss;
  g.setTransform(dpr,0,0,dpr,0,0);
  /* ارتفاع الشمس وسطوع السماء */
  const sh=skHor(S.Sun.ra,S.Sun.dec),sunAlt=sh[0]*R2D;SK.sunAlt=sunAlt;
- const dark=Math.max(0,Math.min(1,(-sunAlt-1)/14));
+ const dark=1; /* عرض فلكي: النجوم تظهر دايماً حتى بالنهار */
  const mix=(a,b,k)=>a.map((x,i)=>Math.round(x+(b[i]-x)*k));
  const nightT=[4,8,20],nightB=[10,19,46],dayT=[28,70,130],dayB=[96,150,210],twT=[22,34,76],twB=[120,80,92];
  let top=mix(dayT,nightT,dark),bot=mix(dayB,nightB,dark);
- if(sunAlt<2&&sunAlt>-14){const k=Math.sin(Math.max(0,Math.min(1,(sunAlt+14)/16))*Math.PI);top=mix(top,twT,k*.5);bot=mix(bot,twB,k*.55)}
+ 
  const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,`rgb(${top})`);gr.addColorStop(1,`rgb(${bot})`);g.fillStyle=gr;g.fillRect(0,0,W,H);
- const sa=Math.max(0,Math.min(1,(-sunAlt-3)/9)); /* ظهور النجوم */
+ const sa=1;
  const zf=Math.max(.8,Math.min(1.7,Math.sqrt(60/SK.fov)));
  /* درب التبانة */
  if(SK.mw&&sa>.05){
@@ -1067,7 +1069,7 @@ function skDraw(t){
   if(k==="Moon"){alt-=Math.asin(1/b.dist)*Math.cos(alt)} /* اختلاف المنظر */
   const pp=skProj(skVec(alt,h[1]));b.alt=alt;b.az=h[1];if(!pp)return;
   if(pp[0]<-30||pp[0]>W+30||pp[1]<-30||pp[1]>H+30){return}
-  const vis=k==="Sun"||k==="Moon"?1:Math.max(0,Math.min(1,(-sunAlt-(b.mag<-3?0:3))/(b.mag<-3?4:9)));
+  const vis=1;
   if(vis<.03)return;
   g.globalAlpha=vis*(alt<0?.35:1);skBody(g,k,pp[0],pp[1],b,zf,h);g.globalAlpha=1;
   const o={x:pp[0],y:pp[1],t:"planet",k,b,mag:b.mag,r:k==="Sun"||k==="Moon"?16:8,name:ar,en,below:alt<0};SK.objs.push(o);
@@ -1442,7 +1444,7 @@ function radarBuild(){
 /* ===== توقّع محسوب من حركة السحب الفعلية =====
    نقدّر حركة الغيوم (وتكبّرها/تصغّرها) من فرق آخر لقطات الرادار الحقيقية، ثم نكمّل نفس الحركة للأمام.
    هذا تقدير خوارزمي (مو توقّع رسمي) ويضعف مع المدى. لو الصور ما انقرأت نرجع لإزاحة الرياح. */
-const NC={N:5,T:128,W:640,G:320,BS:32,ST:16,R:8,tok:0,tm:0};
+const NC={N:5,T:128,W:640,G:320,BS:32,ST:16,R:12,DT:3,tok:0,tm:0};
 const ncTz=()=>Math.max(4,Math.min(7,Math.round(RV.map.getZoom())));
 function ncCenter(tz){const c=RV.map.getCenter(),n=1<<tz,s=Math.sin(c.lat*Math.PI/180);return{x:Math.floor((c.lng+180)/360*n),y:Math.floor((0.5-Math.log((1+s)/(1-s))/(4*Math.PI))*n)}}
 function ncTile(path,z,x,y){
@@ -1507,6 +1509,8 @@ function ncMotion(A0,A1){
  }
  const sm=a=>{const o=a.slice();for(let y=0;y<nb;y++)for(let x=0;x<nb;x++){let s=0,n=0;for(let j=Math.max(0,y-1);j<=Math.min(nb-1,y+1);j++)for(let i=Math.max(0,x-1);i<=Math.min(nb-1,x+1);i++){s+=a[j*nb+i];n++}o[y*nb+x]=s/n}return o};
  let a=fvx,b=fvy,c=fgr;for(let k=0;k<2;k++){a=sm(a);b=sm(b);c=sm(c)}
+ /* الغيوم القريبة تتحرك بنفس الاتجاه تقريباً: ندمج الحركة المحلية مع الوسيط عشان ما يتموّج الشكل */
+ for(let i=0;i<a.length;i++){a[i]=.65*mx+.35*a[i];b[i]=.65*my+.35*b[i];c[i]=1+(c[i]-1)*.6}
  return{nb,vx:a,vy:b,gr:c,mx,my,nOk:gx.length};
 }
 /* نحوّل حقل الكتل لحقل لكل بكسل: إزاحة (بكسل/10 دقايق) ومعدل نمو */
@@ -1517,10 +1521,10 @@ function ncFields(M,uni){
   for(let x=0;x<W;x++){
    const fx=Math.max(0,Math.min(nb-1.001,(x/2-BS/2)/ST)),i=fx|0,tx=fx-i,k=j*nb+i;
    const w00=(1-tx)*(1-ty),w10=tx*(1-ty),w01=(1-tx)*ty,w11=tx*ty,o=y*W+x;
-   VX[o]=M.vx[k]*w00+M.vx[k+1]*w10+M.vx[k+nb]*w01+M.vx[k+nb+1]*w11;
-   VY[o]=M.vy[k]*w00+M.vy[k+1]*w10+M.vy[k+nb]*w01+M.vy[k+nb+1]*w11;
+   VX[o]=(M.vx[k]*w00+M.vx[k+1]*w10+M.vx[k+nb]*w01+M.vx[k+nb+1]*w11)*2/NC.DT;
+   VY[o]=(M.vy[k]*w00+M.vy[k+1]*w10+M.vy[k+nb]*w01+M.vy[k+nb+1]*w11)*2/NC.DT;
    const g=M.gr[k]*w00+M.gr[k+1]*w10+M.gr[k+nb]*w01+M.gr[k+nb+1]*w11;
-   LG[o]=uni?0:Math.log(g)*0.5*0.6; /* لكل 10 دقايق، مخفّف */
+   LG[o]=uni?0:Math.log(g)/NC.DT*0.5; /* لكل 10 دقايق، مخفّف */
   }
  }
  return{VX,VY,LG};
@@ -1577,21 +1581,21 @@ async function ncStart(){
  const tok=++NC.tok,map=RV.map;
  RV.nc=null;ncHide();if(RV.ncv)RV.ncv._k="";
  const at=$("#rattr");if(at)at.textContent=RV.attr0||at.textContent;
- if(!map||RV.mode!=="radar"||RV.real.length||RV.past.length<3||map.getZoom()>RADMAX)return;
+ if(!map||RV.mode!=="radar"||RV.real.length||RV.past.length<NC.DT+1||map.getZoom()>RADMAX)return;
  const tz=ncTz(),c=ncCenter(tz),x0=c.x-2,y0=c.y-2,P=RV.past,n=P.length;
- RV.nc={loading:true,tz,cx:c.x,cy:c.y};
+ RV.nc={loading:true,tz,cx:c.x,cy:c.y};ncDiag("يحسب حركة السحب من آخر لقطات الرادار…");
  try{
-  const [d0,d1]=await Promise.all([ncMosaic(P[n-3].path,tz,x0,y0,tok),ncMosaic(P[n-1].path,tz,x0,y0,tok)]);
+  const [d0,d1]=await Promise.all([ncMosaic(P[n-1-NC.DT].path,tz,x0,y0,tok),ncMosaic(P[n-1].path,tz,x0,y0,tok)]);
   await ncYield();if(tok!==NC.tok)return;
   const A0=ncGrid(d0),A1=ncGrid(d1);let tot=0;for(let i=0;i<A1.length;i++)tot+=A1[i];
   let M=ncMotion(A0,A1),uni=false;
   const lat=map.getCenter().lat,cellM=4*156543.03392*Math.cos(lat*Math.PI/180)/(1<<tz);
   if(!M){
    if(!RV.steer)throw new Error("nomotion");
-   const to=((RV.steer.dir+180)%360)*Math.PI/180,d=RV.steer.sp*STEER_K*1200/cellM,nb=Math.floor((NC.G-NC.BS)/NC.ST)+1,N2=nb*nb;
+   const to=((RV.steer.dir+180)%360)*Math.PI/180,d=RV.steer.sp*STEER_K*600*NC.DT/cellM,nb=Math.floor((NC.G-NC.BS)/NC.ST)+1,N2=nb*nb;
    M={nb,vx:new Float32Array(N2).fill(d*Math.sin(to)),vy:new Float32Array(N2).fill(-d*Math.cos(to)),gr:new Float32Array(N2).fill(1),mx:d*Math.sin(to),my:-d*Math.cos(to),nOk:0};uni=true;
   }
-  const sp=Math.hypot(M.mx,M.my)*cellM/1200;
+  const sp=Math.hypot(M.mx,M.my)*cellM/(NC.DT*600);
   if(sp>45)throw new Error("fast");
   const F=ncFields(M,uni),frames=[];
   for(let k=0;k<=FCSTEPS;k++){
@@ -1603,15 +1607,17 @@ async function ncStart(){
   RV.nc={ready:true,F:frames,tz,x0,y0,cx:c.x,cy:c.y,mv:{sp,to:(Math.atan2(M.mx,-M.my)*180/Math.PI+360)%360,own:!uni,nOk:M.nOk},empty:tot<1};
   ncEnsure();ncPlace();windChip();
   const at2=$("#rattr");if(at2){RV.attr0=RV.attr0||at2.textContent;at2.textContent="أبيض: رادار حقيقي • ذهبي: توقّع محسوب من حركة السحب بين آخر اللقطات (تقدير، مو رسمي) • RainViewer • © OpenStreetMap"}
+  ncDiag(uni?"ما لقيت أمطار كافية بالمنطقة لقياس حركتها، فاستخدمت اتجاه الرياح العلوية ("+Math.round(sp*3.6)+" كم/س)":"التوقّع محسوب من حركة السحب الفعلية: "+M.nOk+" منطقة قياس • "+Math.round(sp*3.6)+" كم/س نحو "+DIRN[Math.round(RV.nc.mv.to/45)%8]+" • فرق "+(NC.DT*10)+" دقيقة بين اللقطات");
   RV.lastTxt="";renderPos(RV.pos);
  }catch(e){
-  if(tok===NC.tok){RV.nc={failed:true,tz,cx:c.x,cy:c.y};if(e&&e.message!=="stale")console.warn("nowcast fallback:",e.message)}
+  if(tok===NC.tok){RV.nc={failed:true,tz,cx:c.x,cy:c.y};const msg=e&&e.message||"";if(msg!=="stale"){console.warn("nowcast fallback:",e);ncDiag("تعذّر حساب الحركة ("+(msg==="notiles"?"صور الرادار ما انقرأت":/secur|taint|insecure/i.test(msg+(e&&e.name))?"المتصفح منع قراءة الصور":msg==="fast"?"قياس غير منطقي":msg==="nomotion"?"ما فيه سحب كافية":msg)+") — الحركة المعروضة إزاحة تقديرية بالرياح فقط")}}
  }
 }
+function ncDiag(t){const e=$("#rdiag");if(e)e.textContent=t}
 function ncCheck(){
  clearTimeout(NC.tm);
  NC.tm=setTimeout(()=>{
-  const m=RV.map;if(!m||RV.mode!=="radar"||RV.real.length||RV.loading||RV.past.length<3||m.getZoom()>RADMAX)return;
+  const m=RV.map;if(!m||RV.mode!=="radar"||RV.real.length||RV.loading||RV.past.length<NC.DT+1||m.getZoom()>RADMAX)return;
   const tz=ncTz(),c=ncCenter(tz),n=RV.nc;
   if(n&&n.tz===tz&&Math.abs(c.x-n.cx)<=1&&Math.abs(c.y-n.cy)<=1)return;
   ncStart();
