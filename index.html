@@ -225,6 +225,59 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 .leaflet-container{background:#0b0f1d;font-family:inherit}
 .leaflet-control-attribution{display:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== السماء ===== */
+#sky{position:fixed;inset:0;z-index:5;background:#050914;display:none;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+#skcv{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#sky .skc{background:rgba(10,15,36,.84);border:1px solid rgba(255,255,255,.12);border-radius:16px;color:#fff;font:700 12.5px Tajawal,sans-serif;padding:8px 12px;white-space:nowrap}
+#sky button{font-family:inherit;color:#fff;cursor:pointer}
+.sktop{position:absolute;top:calc(var(--safe-t) + 10px);left:12px;right:12px;display:flex;gap:8px;justify-content:space-between;align-items:center;pointer-events:none}
+.sktop>*{pointer-events:auto}
+.sktop .rd{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+#skread{font-variant-numeric:tabular-nums}
+#skmode.on{background:rgba(70,130,255,.35);border-color:rgba(130,170,255,.6)}
+.skchips{position:absolute;top:calc(var(--safe-t) + 100px);left:12px;right:12px;display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;direction:rtl}
+.skchips::-webkit-scrollbar{display:none}
+.skchips button{flex:none;opacity:.6}.skchips button.on{opacity:1;background:rgba(70,130,255,.3);border-color:rgba(130,170,255,.55)}
+#skctr{position:absolute;left:50%;top:calc(50% + 40px);transform:translateX(-50%);display:none;flex-direction:column;align-items:center;gap:1px;background:rgba(10,15,36,.8);border:1px solid rgba(255,215,122,.5);border-radius:14px;padding:6px 14px;pointer-events:auto}
+#skctr b{font-size:15px;font-weight:800;color:#ffd27a}#skctr span{font-size:11px;color:rgba(255,255,255,.75);direction:ltr}
+#sktgt{position:absolute;left:12px;top:calc(var(--safe-t) + 146px);display:none;align-items:center;gap:8px;background:rgba(10,15,36,.88);border:1px solid rgba(255,215,122,.5);color:#ffd27a;border-radius:16px;padding:6px 6px 6px 12px;font:800 12.5px Tajawal,sans-serif}
+#sktgt button{border:0;background:rgba(255,255,255,.12);border-radius:50%;width:24px;height:24px;font-size:12px;line-height:1}
+#sktoast{position:absolute;left:50%;top:calc(var(--safe-t) + 190px);transform:translate(-50%,-8px);background:rgba(10,15,36,.94);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:10px 16px;font:700 12.5px Tajawal,sans-serif;max-width:88vw;text-align:center;opacity:0;pointer-events:none;transition:.3s}
+#sktoast.on{opacity:1;transform:translate(-50%,0)}
+#skday{position:absolute;left:50%;top:38%;transform:translateX(-50%);display:none;background:rgba(10,15,36,.7);border-radius:16px;padding:8px 14px;font:700 12.5px Tajawal,sans-serif;pointer-events:none;white-space:nowrap}
+.skbar{position:absolute;left:12px;right:12px;bottom:calc(86px + var(--safe-b));display:flex;gap:8px;justify-content:center;align-items:center}
+.skbar button{border:1px solid rgba(255,255,255,.12)}
+#sktime{min-width:60px;text-align:center}
+#skperm{position:absolute;inset:0;background:rgba(5,9,20,.78);display:none;align-items:center;justify-content:center;padding:24px;z-index:3}
+#skperm .box{background:linear-gradient(180deg,#141c3e,#0a0f26);border:1px solid rgba(217,180,95,.4);border-radius:28px;padding:24px 20px;text-align:center;max-width:360px}
+#skperm .big{font-size:44px;margin-bottom:6px}#skperm h2{margin:0 0 8px;font-size:20px;color:#ffd27a}
+#skperm p{margin:0 0 16px;font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.8)}
+#skperm button{display:block;width:100%;border:0;border-radius:18px;padding:13px;font:800 14.5px Tajawal,sans-serif}
+#skpermgo{background:linear-gradient(145deg,#ffe08a,#e0b24a);color:#2a1d00!important}
+#skpermno{background:transparent;color:rgba(255,255,255,.75)!important;margin-top:6px;font-weight:600!important}
+#skinfo{position:absolute;left:12px;right:12px;bottom:calc(142px + var(--safe-b));max-width:520px;margin:auto;background:rgba(10,15,36,.96);border:1px solid rgba(217,180,95,.4);border-radius:26px;padding:16px;display:none;max-height:48vh;overflow:auto;z-index:2}
+#skinfo.on{display:block}
+#skinfo .x{position:absolute;left:12px;top:12px;border:0;background:rgba(255,255,255,.1);border-radius:50%;width:30px;height:30px}
+#skinfo .t1{font-size:24px;font-weight:800;color:#ffd27a;padding-left:40px}
+#skinfo .t2{font-size:13px;color:rgba(255,255,255,.7);margin:2px 0 8px;text-align:right}
+#skinfo .tg{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+#skinfo .tg i{font-style:normal;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.1);border-radius:10px;padding:3px 10px}
+#skinfo .r{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid rgba(255,255,255,.07);font-size:13px}
+#skinfo .r span{color:rgba(255,255,255,.65)}
+#skinfo .nt{font-size:12.5px;line-height:1.7;color:rgba(255,255,255,.85);background:rgba(217,180,95,.1);border-radius:14px;padding:10px 12px;margin-top:10px}
+#skinfo .bt{display:flex;gap:8px;margin-top:12px}
+#skinfo .bt button{flex:1;border:0;border-radius:16px;padding:11px;font:800 13px Tajawal,sans-serif;background:rgba(70,130,255,.35)}
+#skinfo .bt button:disabled{opacity:.35}
+#sksearch{position:absolute;inset:0;background:rgba(5,9,20,.97);display:none;flex-direction:column;padding:calc(var(--safe-t) + 14px) 14px calc(90px + var(--safe-b));z-index:4}
+#sksearch.on{display:flex}
+#sksearch .hd{display:flex;gap:8px;margin-bottom:10px}
+#skq{flex:1;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:16px;color:#fff;padding:12px 14px;font:600 15px Tajawal,sans-serif;outline:0}
+#sksearchx{border:0;background:rgba(255,255,255,.1);border-radius:16px;padding:0 16px}
+#sklist{overflow:auto;flex:1;display:flex;flex-direction:column;gap:4px}
+#sklist button{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:0;border-radius:14px;padding:11px 12px;text-align:right}
+#sklist .a{font-weight:800;font-size:14.5px}#sklist .e{flex:1;font-size:12px;color:rgba(255,255,255,.6);text-align:left}
+#sklist .m{font-size:11px;color:#8be0a8;font-weight:700}#sklist .dn .m{color:rgba(255,255,255,.4)}#sklist .dn .a{opacity:.7}
 </style>
 </head>
 <body>
@@ -250,6 +303,19 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
  </div>
  <div class="rmsg" id="rmsg"><div><div id="rmsgt" style="margin-bottom:14px"></div><button class="btn" id="rretry">إعادة المحاولة</button></div></div>
 </div>
+<div id="sky">
+ <canvas id="skcv"></canvas>
+ <div class="sktop"><div class="rd"><div class="skc" id="skcity">📍</div><div class="skc" id="skread">--</div></div><button class="skc" id="skmode">✋ باللمس</button></div>
+ <div class="skchips"><button class="skc" id="sknames">عربي + English</button><button class="skc" id="sklines">الأبراج</button><button class="skc" id="skmw">درب التبانة</button><button class="skc" id="skgrid">الشبكة</button></div>
+ <div id="sktgt"><span id="sktgtn"></span><button id="sktgtx" aria-label="إلغاء">✕</button></div>
+ <div id="skctr" role="button"></div>
+ <div id="skday">☀️ الشمس فوق الأفق — النجوم تظهر بعد الغروب</div>
+ <div id="sktoast"></div>
+ <div id="skinfo"></div>
+ <div class="skbar"><button class="skc" id="sktm" aria-label="ساعة للخلف">−١ س</button><button class="skc" id="sktime">الآن</button><button class="skc" id="sktp" aria-label="ساعة للأمام">+١ س</button><button class="skc" id="skfind">🔍 ابحث عن نجم</button></div>
+ <div id="skperm"><div class="box"><div class="big">✨</div><h2>وجّه جوالك نحو السماء</h2><p>حرّك جوالك وتتحرك الخريطة معك، وتتعرف على النجوم والكواكب والقمر بأسمائها العربية والأجنبية. وجّه الجوال للأعلى بحيث يكون ظهره نحو السماء.</p><button id="skpermgo">تفعيل الحساسات</button><button id="skpermno">لاحقاً — أحرّك بإصبعي</button></div></div>
+ <div id="sksearch"><div class="hd"><input id="skq" type="search" placeholder="ابحث: سهيل، Sirius، المشتري، الجبار..." autocomplete="off"><button id="sksearchx">إغلاق</button></div><div id="sklist"></div></div>
+</div>
 <div id="app"></div>
 <div id="sheetWrap" onclick="if(event.target===this)closeSheet()"><div id="sheetBody"></div></div>
 <nav class="nav" id="nav" aria-label="التنقل"></nav>
@@ -257,6 +323,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 "use strict";
 /* ============ icons ============ */
 const IC={
+ sky:'<path d="M12 3l2.5 5.7 6.2.6-4.7 4.1 1.4 6.1L12 16.4 6.6 19.5 8 13.4 3.3 9.3l6.2-.6z"/><circle cx="19" cy="4.5" r="1"/><circle cx="4.5" cy="18.5" r="1"/>',
  weather:'<path d="M7 18a4.5 4.5 0 1 1 .9-8.9A6 6 0 0 1 19.5 11 3.5 3.5 0 0 1 19 18z"/>',
  radar:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12l6.4-6.4"/>',
  prayer:'<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/><path d="M17 4v3M15.5 5.5h3"/>',
@@ -537,7 +604,7 @@ function vPrayer(){
 function pDay(n){S.pdate=addDays(S.pdate,n);loadPrayer(S.pdate);S.keep=true;render()}
 
 /* ============ rendering ============ */
-const TABS=[["weather","الطقس"],["radar","الرادار"],["prayer","الصلاة"],["cal","التقويم"]];
+const TABS=[["weather","الطقس"],["radar","الرادار"],["sky","السماء"],["prayer","الصلاة"],["cal","التقويم"]];
 function render(){
  try{_render()}catch(e){
   console.error(e);
@@ -547,9 +614,12 @@ function render(){
 function _render(){
  applySky();
  $("#nav").innerHTML=TABS.map(([k,n])=>`<button class="${S.view===k?"on":""}" onclick="go('${k}')" aria-label="${n}">${ic(k,23)}${n}</button>`).join("");
- const rv=S.view==="radar";
+ const rv=S.view==="radar",sv=S.view==="sky";
  $("#radar").style.display=rv?"block":"none";
- $("#app").style.display=rv?"none":"block";
+ $("#sky").style.display=sv?"block":"none";
+ $("#app").style.display=(rv||sv)?"none":"block";
+ if(sv){radarStop();skyShow();return}
+ skyStop();
  if(rv){radarShow();return}
  radarStop();
  const V={weather:vWeather,prayer:vPrayer,cal:vCal};
@@ -690,6 +760,569 @@ function enableNotif(){
  Notification.requestPermission().then(p=>{DB.settings.notif=p==="granted";save();openSettings()});
 }
 
+/* ===== حسابات فلكية (دقة كافية للعرض: ~0.1°-1°) ===== */
+const D2R=Math.PI/180,R2D=180/Math.PI,TAU=Math.PI*2;
+const rev=x=>x-360*Math.floor(x/360);
+const jdNow=ms=>ms/86400000+2440587.5;
+function precess(raH,dec,jd){ /* J2000 → تاريخ اليوم */
+ const T=(jd-2451545)/36525,as=D2R/3600;
+ const ze=(2306.2181*T+0.30188*T*T)*as,z=(2306.2181*T+1.09468*T*T)*as,th=(2004.3109*T-0.42665*T*T)*as;
+ const a=raH*15*D2R,d=dec*D2R,A=Math.cos(d)*Math.sin(a+ze),B=Math.cos(th)*Math.cos(d)*Math.cos(a+ze)-Math.sin(th)*Math.sin(d),C=Math.sin(th)*Math.cos(d)*Math.cos(a+ze)+Math.cos(th)*Math.sin(d);
+ return[(Math.atan2(A,B)+z+TAU*2)%TAU,Math.asin(Math.max(-1,Math.min(1,C)))];
+}
+function gmstDeg(jd){return rev(280.46061837+360.98564736629*(jd-2451545))}
+/* ra,dec (راديان) → ارتفاع/سمت (راديان) والسمت من الشمال شرقاً */
+function eqToHor(ra,dec,lstDeg,latDeg){
+ const H=lstDeg*D2R-ra,la=latDeg*D2R,sa=Math.sin(dec)*Math.sin(la)+Math.cos(dec)*Math.cos(la)*Math.cos(H);
+ const alt=Math.asin(Math.max(-1,Math.min(1,sa)));
+ const y=-Math.cos(dec)*Math.sin(H),x=Math.sin(dec)*Math.cos(la)-Math.cos(dec)*Math.sin(la)*Math.cos(H);
+ return[alt,(Math.atan2(y,x)+TAU)%TAU];
+}
+function kepler(M,e){
+ let E=M+e*R2D*sinD(M)*(1+e*cosD(M));
+ for(let i=0;i<8;i++){const d=(E-e*R2D*sinD(E)-M)/(1-e*cosD(E));E-=d;if(Math.abs(d)<1e-5)break}
+ return E;
+}
+const ELM={
+ Mercury:d=>[48.3313+3.24587e-5*d,7.0047+5.00e-8*d,29.1241+1.01444e-5*d,0.387098,0.205635+5.59e-10*d,168.6562+4.0923344368*d],
+ Venus:d=>[76.6799+2.46590e-5*d,3.3946+2.75e-8*d,54.8910+1.38374e-5*d,0.723330,0.006773-1.302e-9*d,48.0052+1.6021302244*d],
+ Mars:d=>[49.5574+2.11081e-5*d,1.8497-1.78e-8*d,286.5016+2.92961e-5*d,1.523688,0.093405+2.516e-9*d,18.6021+0.5240207766*d],
+ Jupiter:d=>[100.4542+2.76854e-5*d,1.3030-1.557e-7*d,273.8777+1.64505e-5*d,5.20256,0.048498+4.469e-9*d,19.8950+0.0830853001*d],
+ Saturn:d=>[113.6634+2.38980e-5*d,2.4886-1.081e-7*d,339.3939+2.97661e-5*d,9.55475,0.055546-9.499e-9*d,316.9670+0.0334442282*d]
+};
+function sunGeo(d){
+ const w=282.9404+4.70935e-5*d,e=0.016709-1.151e-9*d,M=rev(356.0470+0.9856002585*d),E=kepler(M,e);
+ const xv=cosD(E)-e,yv=Math.sqrt(1-e*e)*sinD(E),v=Math.atan2(yv,xv)*R2D,r=Math.hypot(xv,yv),lon=rev(v+w);
+ return{lon,r,M,L:rev(w+M),x:r*cosD(lon),y:r*sinD(lon)};
+}
+function eclToEq(x,y,z,d){
+ const ec=23.4393-3.563e-7*d,xe=x,ye=y*cosD(ec)-z*sinD(ec),ze=y*sinD(ec)+z*cosD(ec);
+ return[(Math.atan2(ye,xe)+TAU)%TAU,Math.atan2(ze,Math.hypot(xe,ye))];
+}
+function planetGeo(name,d,sun){
+ const[N,i,w,a,e,M0]=ELM[name](d),M=rev(M0),E=kepler(M,e);
+ const xv=a*(cosD(E)-e),yv=a*Math.sqrt(1-e*e)*sinD(E),v=Math.atan2(yv,xv)*R2D,r=Math.hypot(xv,yv);
+ let xh=r*(cosD(N)*cosD(v+w)-sinD(N)*sinD(v+w)*cosD(i)),yh=r*(sinD(N)*cosD(v+w)+cosD(N)*sinD(v+w)*cosD(i)),zh=r*sinD(v+w)*sinD(i);
+ if(name==="Jupiter"||name==="Saturn"){
+  const Mj=rev(19.8950+0.0830853001*d),Ms=rev(316.9670+0.0334442282*d);
+  let lon=Math.atan2(yh,xh)*R2D,lat=Math.atan2(zh,Math.hypot(xh,yh))*R2D,rr=Math.hypot(xh,yh,zh),dl=0,db=0;
+  if(name==="Jupiter")dl=-0.332*sinD(2*Mj-5*Ms-67.6)-0.056*sinD(2*Mj-2*Ms+21)+0.042*sinD(3*Mj-5*Ms+21)-0.036*sinD(Mj-2*Ms)+0.022*cosD(Mj-Ms)+0.023*sinD(2*Mj-3*Ms+52)-0.016*sinD(Mj-5*Ms-69);
+  else{dl=0.812*sinD(2*Mj-5*Ms-67.6)-0.229*cosD(2*Mj-4*Ms-2)+0.119*sinD(Mj-2*Ms-3)+0.046*sinD(2*Mj-6*Ms-69)+0.014*sinD(Mj-3*Ms+32);db=-0.020*cosD(2*Mj-4*Ms-2)+0.018*sinD(2*Mj-6*Ms-49)}
+  lon+=dl;lat+=db;xh=rr*cosD(lon)*cosD(lat);yh=rr*sinD(lon)*cosD(lat);zh=rr*sinD(lat);
+ }
+ const xg=xh+sun.x,yg=yh+sun.y,zg=zh,R=Math.hypot(xg,yg,zg),eq=eclToEq(xg,yg,zg,d);
+ const s=sun.r,FV=Math.acos(Math.max(-1,Math.min(1,(r*r+R*R-s*s)/(2*r*R))))*R2D,rl=5*Math.log10(r*R);
+ let mag={Mercury:-0.36+rl+0.027*FV+2.2e-13*Math.pow(FV,6),Venus:-4.34+rl+0.013*FV+4.2e-7*Math.pow(FV,3),Mars:-1.51+rl+0.016*FV,Jupiter:-9.25+rl+0.014*FV,Saturn:-8.88+rl+0.044*FV}[name];
+ return{ra:eq[0],dec:eq[1],dist:R,mag,r};
+}
+function moonGeo(d,sun){
+ const N=rev(125.1228-0.0529538083*d),i=5.1454,w=rev(318.0634+0.1643573223*d),a=60.2666,e=0.0549,M=rev(115.3654+13.0649929509*d);
+ const E=kepler(M,e),xv=a*(cosD(E)-e),yv=a*Math.sqrt(1-e*e)*sinD(E),v=Math.atan2(yv,xv)*R2D,r=Math.hypot(xv,yv);
+ const xh=r*(cosD(N)*cosD(v+w)-sinD(N)*sinD(v+w)*cosD(i)),yh=r*(sinD(N)*cosD(v+w)+cosD(N)*sinD(v+w)*cosD(i)),zh=r*sinD(v+w)*sinD(i);
+ let lon=Math.atan2(yh,xh)*R2D,lat=Math.atan2(zh,Math.hypot(xh,yh))*R2D;
+ const Ms=sun.M,Mm=M,Lm=rev(N+w+M),Ls=sun.L,D=rev(Lm-Ls),F=rev(Lm-N);
+ lon+=-1.274*sinD(Mm-2*D)+0.658*sinD(2*D)-0.186*sinD(Ms)-0.059*sinD(2*Mm-2*D)-0.057*sinD(Mm-2*D+Ms)+0.053*sinD(Mm+2*D)+0.046*sinD(2*D-Ms)+0.041*sinD(Mm-Ms)-0.035*sinD(D)-0.031*sinD(Mm+Ms)-0.015*sinD(2*F-2*D)+0.011*sinD(Mm-4*D);
+ lat+=-0.173*sinD(F-2*D)-0.055*sinD(Mm-F-2*D)-0.046*sinD(Mm+F-2*D)+0.033*sinD(F+2*D)+0.017*sinD(2*Mm+F);
+ const rr=r-0.58*cosD(Mm-2*D)-0.46*cosD(2*D);
+ const eq=eclToEq(rr*cosD(lon)*cosD(lat),rr*sinD(lon)*cosD(lat),rr*sinD(lat),d);
+ return{ra:eq[0],dec:eq[1],dist:rr,lon};
+}
+/* يحسب كل أجرام المجموعة الشمسية: ra/dec (راديان) */
+function solarSystem(jd){
+ const d=jd-2451543.5,sun=sunGeo(d),out={};
+ const se=eclToEq(sun.x,sun.y,0,d);
+ out.Sun={ra:se[0],dec:se[1],dist:sun.r,mag:-26.7,lon:sun.lon};
+ for(const n of Object.keys(ELM))out[n]=planetGeo(n,d,sun);
+ const m=moonGeo(d,sun);m.mag=-12;out.Moon=m;
+ const dl=rev(m.lon-sun.lon);
+ m.elong=Math.acos(Math.max(-1,Math.min(1,cosD(m.lon-sun.lon)*1)))*R2D;
+ m.illum=(1-cosD(dl))/2;m.age=dl/360*29.530588;m.waxing=dl<180;
+ return out;
+}
+/* درب التبانة: نقاط على المستوى المجري (إحداثيات J2000) */
+function milkyWay(n){
+ const aG=192.85948*D2R,dG=27.12825*D2R,lN=122.93192*D2R;let s=12345;const rnd=()=>(s=(s*16807)%2147483647)/2147483647;
+ const g=()=>{let t=0;for(let i=0;i<4;i++)t+=rnd();return(t-2)*1.15};
+ const out=[];
+ for(let i=0;i<n;i++){
+  const l=rnd()*360,core=Math.exp(-Math.pow(((l+180)%360-180)/55,2)),b=g()*(7+5*core)*D2R,L=l*D2R;
+  const sd=Math.sin(b)*Math.sin(dG)+Math.cos(b)*Math.cos(dG)*Math.cos(lN-L),dec=Math.asin(sd);
+  const ra=aG+Math.atan2(Math.cos(b)*Math.sin(lN-L),Math.sin(b)*Math.cos(dG)-Math.cos(b)*Math.sin(dG)*Math.cos(lN-L));
+  out.push([(ra%TAU+TAU)%TAU,dec,(0.25+0.75*core)*(0.5+rnd()*0.5)*Math.exp(-Math.abs(b*R2D)/12)]);
+ }
+ return out;
+}
+
+const SKY_STARS=[["alCMa",6.7525,-16.716,-1.46,"A",8.6,"الشعرى اليمانية","Sirius"],["alCar",6.3992,-52.696,-0.74,"F",310.0,"سهيل","Canopus"],["alBoo",14.261,19.182,-0.05,"K",37.0,"السماك الرامح","Arcturus"],["alCen",14.66,-60.835,-0.01,"G",4.4,"رجل القنطورس","Rigil Kentaurus"],["alLyr",18.6156,38.784,0.03,"A",25.0,"النسر الواقع","Vega"],["alAur",5.2782,45.998,0.08,"G",43.0,"العيوق","Capella"],["beOri",5.2423,-8.202,0.13,"B",860.0,"رِجل الجبار","Rigel"],["alCMi",7.655,5.225,0.34,"F",11.5,"الشعرى الشامية","Procyon"],["alEri",1.6286,-57.237,0.46,"B",139.0,"آخر النهر","Achernar"],["alOri",5.9195,7.407,0.5,"M",550.0,"إبط الجوزاء","Betelgeuse"],["beCen",14.0637,-60.373,0.61,"B",390.0,"حضار","Hadar"],["alAql",19.8464,8.868,0.76,"A",17.0,"النسر الطائر","Altair"],["alCru",12.4433,-63.099,0.77,"B",320.0,"ألفا الصليب","Acrux"],["alTau",4.5987,16.509,0.85,"K",65.0,"الدبران","Aldebaran"],["alVir",13.4199,-11.161,0.97,"B",250.0,"السماك الأعزل","Spica"],["alSco",16.4901,-26.432,1.06,"M",550.0,"قلب العقرب","Antares"],["beGem",7.7553,28.026,1.14,"K",34.0,"رأس التوأم المؤخّر","Pollux"],["alPsA",22.9608,-29.622,1.16,"A",25.0,"فم الحوت","Fomalhaut"],["alCyg",20.6905,45.28,1.25,"A",2600.0,"ذنب الدجاجة","Deneb"],["beCru",12.7953,-59.689,1.25,"B",280.0,"بيتا الصليب","Mimosa"],["alLeo",10.1395,11.967,1.35,"B",79.0,"قلب الأسد","Regulus"],["epCMa",6.9771,-28.972,1.5,"B",430.0,"عذارى","Adhara"],["alGem",7.5767,31.888,1.58,"A",51.0,"رأس التوأم المقدّم","Castor"],["laSco",17.5601,-37.104,1.62,"B",570.0,"الشولة","Shaula"],["gaCru",12.5194,-57.113,1.64,"M",88.0,"غاما الصليب","Gacrux"],["gaOri",5.4188,6.35,1.64,"B",250.0,"منكب الجوزاء","Bellatrix"],["beTau",5.4382,28.608,1.65,"B",130.0,"الناطح","Elnath"],["beCar",9.22,-69.717,1.68,"A",113.0,"ميابلاسيدوس","Miaplacidus"],["epOri",5.6036,-1.202,1.69,"B",2000.0,"النظام","Alnilam"],["alGru",22.1372,-46.961,1.74,"B",101.0,"ألفا الكركي","Alnair"],["zeOri",5.6793,-1.943,1.77,"O",1260.0,"النطاق","Alnitak"],["epUMa",12.9005,55.96,1.77,"A",83.0,"الحوار","Alioth"],["alPer",3.4054,49.861,1.79,"F",510.0,"مرفق الثريا","Mirfak"],["alUMa",11.0621,61.751,1.79,"K",124.0,"الدُّبّ","Dubhe"],["deCMa",7.1398,-26.393,1.83,"F",1600.0,"الوزن","Wezen"],["epSgr",18.4029,-34.385,1.85,"B",143.0,"قوس الرامي","Kaus Australis"],["etUMa",13.7923,49.313,1.86,"B",104.0,"قائد بنات نعش","Alkaid"],["thSco",17.622,-42.998,1.87,"F",270.0,"سرجس","Sargas"],["epCar",8.3752,-59.509,1.86,"K",630.0,"أفيور","Avior"],["beAur",5.9921,44.947,1.9,"A",82.0,"منكب ذي العنان","Menkalinan"],["alTrA",16.8111,-69.028,1.92,"K",415.0,"ألفا المثلث الجنوبي","Atria"],["gaGem",6.6285,16.399,1.93,"A",109.0,"الهنعة","Alhena"],["alPav",20.4275,-56.735,1.94,"B",180.0,"الطاووس","Peacock"],["deVel",8.745,-54.709,1.96,"A",80.0,"دلتا الشراع","Alsephina"],["beCMa",6.3783,-17.956,1.98,"B",500.0,"المرزم","Mirzam"],["alHya",9.4598,-8.659,1.98,"K",177.0,"الفرد","Alphard"],["alUMi",2.5303,89.264,1.98,"F",433.0,"القطب (النجم الشمالي)","Polaris"],["alAri",2.1196,23.462,2.0,"K",66.0,"رأس الحمل","Hamal"],["gaLeo",10.3329,19.842,2.01,"K",130.0,"الجبهة","Algieba"],["beCet",0.7265,-17.987,2.04,"K",96.0,"الضفدع الثاني","Diphda"],["siSgr",18.9211,-26.297,2.05,"B",228.0,"نونكي","Nunki"],["thCen",14.1114,-36.37,2.06,"K",61.0,"منكنت","Menkent"],["alAnd",0.1398,29.091,2.06,"B",97.0,"سرّة الفرس","Alpheratz"],["beAnd",1.1622,35.621,2.05,"M",197.0,"المِراق (المرأة المسلسلة)","Mirach"],["kaOri",5.7959,-9.67,2.06,"B",650.0,"سيف الجبار","Saiph"],["beUMi",14.8451,74.156,2.08,"K",130.0,"الفرقد","Kochab"],["alOph",17.5822,12.56,2.08,"A",49.0,"رأس الحوّاء","Rasalhague"],["bePer",3.1361,40.956,2.1,"B",90.0,"رأس الغول","Algol"],["beLeo",11.8177,14.572,2.14,"A",36.0,"ذنب الأسد","Denebola"],["gaAnd",2.065,42.33,2.1,"K",355.0,"عناق الأرض","Almach"],["zeUMa",13.3988,54.925,2.27,"A",83.0,"الميزار","Mizar"],["alCrB",15.5781,26.715,2.2,"A",75.0,"المنير (الفكّة)","Alphecca"],["gaCyg",20.3705,40.257,2.2,"F",1800.0,"صدر الدجاجة","Sadr"],["alCas",0.6751,56.537,2.24,"K",228.0,"الصدر (ذات الكرسي)","Schedar"],["gaDra",17.9435,51.489,2.23,"K",154.0,"الراس (رأس التنين)","Eltanin"],["deOri",5.5334,-0.299,2.2,"O",1200.0,"المنطقة","Mintaka"],["beCas",0.1529,59.15,2.27,"F",55.0,"الكفّ الخضيب","Caph"],["gaVel",8.1587,-47.337,1.78,"O",840.0,"غاما الشراع","Regor"],["zePup",8.0597,-40.003,2.25,"O",1080.0,"ناووس","Naos"],["deSco",16.0056,-22.622,2.3,"B",400.0,"جبهة العقرب","Dschubba"],["alLup",14.6988,-47.388,2.3,"B",460.0,"ألفا الذئب","Alpha Lupi"],["epCen",13.664,-53.466,2.3,"B",380.0,"إبسيلون القنطورس","Epsilon Cen"],["beUMa",11.0307,56.382,2.37,"A",80.0,"مراق الدب","Merak"],["alPhe",0.4381,-42.306,2.4,"K",85.0,"العنقاء","Ankaa"],["epPeg",21.7364,9.875,2.4,"K",690.0,"أنف الفرس","Enif"],["bePeg",23.0629,28.083,2.42,"M",196.0,"منكب الفرس","Scheat"],["alPeg",23.0794,15.205,2.49,"B",133.0,"مرقب (منكب الفرس)","Markab"],["gaPeg",0.2206,15.184,2.83,"B",390.0,"جناح الفرس","Algenib"],["deCas",1.4303,60.235,2.68,"A",99.0,"الركبة","Ruchbah"],["gaCas",0.9451,60.717,2.47,"B",610.0,"نافي","Navi"],["epCas",1.9067,63.67,3.38,"B",440.0,"سيجين","Segin"],["gaUMa",11.8971,53.695,2.44,"A",84.0,"الفخذ","Phecda"],["deUMa",12.2571,57.033,3.31,"A",81.0,"المغرز","Megrez"],["alCVn",12.9338,38.318,2.9,"A",110.0,"قلب شارل","Cor Caroli"],["alCrv",12.14,-24.729,4.02,"F",49.0,"ألكيبا","Alchiba"],["gaCrv",12.2634,-17.542,2.59,"B",154.0,"الغراب","Gienah Ghurab"],["beCrv",12.5732,-23.397,2.65,"G",140.0,"كراز","Kraz"],["deCrv",12.4977,-16.515,2.95,"B",87.0,"الجناح","Algorab"],["epCrv",12.1685,-22.62,3.0,"K",303.0,"منكار","Minkar"],["beCyg",19.512,27.96,3.08,"K",430.0,"منقار الدجاجة","Albireo"],["deCyg",19.7496,45.131,2.87,"B",165.0,"دلتا الدجاجة","Fawaris"],["epCyg",20.7702,33.97,2.46,"K",72.0,"جِيِنا","Gienah Cygni"],["laOri",5.5855,9.934,3.54,"O",1100.0,"رأس الجبار","Meissa"],["piOri",4.8302,6.961,3.19,"F",26.0,"باي الجبار","Pi3 Orionis"],["beSco",16.0906,-19.805,2.62,"B",530.0,"الإكليل","Acrab"],["piSco",15.9808,-26.114,2.89,"B",590.0,"باي العقرب","Pi Scorpii"],["siSco",16.3532,-25.593,2.89,"B",735.0,"سيغما العقرب","Sigma Scorpii"],["taSco",16.5979,-28.216,2.82,"B",470.0,"تاو العقرب","Tau Scorpii"],["epSco",16.836,-34.293,2.29,"K",65.0,"إبسيلون العقرب","Larawag"],["muSco",16.8644,-38.047,3.04,"B",500.0,"ميو العقرب","Mu1 Scorpii"],["zeSco",16.9091,-42.362,3.62,"K",140.0,"زيتا العقرب","Zeta2 Scorpii"],["etSco",17.203,-43.239,3.33,"F",73.0,"إيتا العقرب","Eta Scorpii"],["ioSco",17.7933,-40.127,3.03,"F",1900.0,"أيوتا العقرب","Iota1 Scorpii"],["kaSco",17.7081,-39.03,2.41,"B",480.0,"كابا العقرب","Girtab Kappa"],["upSco",17.5127,-37.296,2.7,"B",580.0,"لِسات","Lesath"],["epGem",6.7322,25.131,2.98,"G",840.0,"إبسيلون التوأمان","Mebsuta"],["muGem",6.3827,22.514,2.88,"M",230.0,"ميو التوأمان","Tejat"],["etGem",6.248,22.507,3.28,"M",350.0,"إيتا التوأمان","Propus"],["deGem",7.3355,21.982,3.53,"F",59.0,"دلتا التوأمان","Wasat"],["zeGem",7.0685,20.57,3.79,"G",1200.0,"زيتا التوأمان","Mekbuda"],["zeTau",5.6274,21.143,3.0,"B",440.0,"زيتا الثور","Tianguan"],["gaTau",4.3298,15.628,3.65,"K",154.0,"غاما الثور","Gamma Tauri"],["deTau",4.3825,17.543,3.77,"K",153.0,"دلتا الثور","Delta1 Tauri"],["epTau",4.4768,19.18,3.53,"G",150.0,"عين الثور","Ain"],["thTau",4.4779,15.871,3.4,"A",150.0,"ثيتا الثور","Theta2 Tauri"],["Ple1",3.7914,24.105,2.87,"B",440.0,"الثريا (ألسيوني)","Alcyone"],["Ple2",3.819,24.053,3.62,"B",440.0,"أطلس","Atlas"],["Ple3",3.7478,24.113,3.7,"B",440.0,"إلكترا","Electra"],["Ple4",3.7634,24.368,3.87,"B",440.0,"مايا","Maia"],["Ple5",3.7722,23.948,4.18,"B",440.0,"ميروب","Merope"],["Ple6",3.7535,24.467,4.3,"B",440.0,"تايجيتا","Taygeta"],["thAur",5.9953,37.213,2.62,"A",173.0,"ثيتا ممسك الأعنّة","Theta Aurigae"],["ioAur",4.9499,33.166,2.69,"K",500.0,"أيوتا ممسك الأعنّة","Hassaleh"],["epAur",5.0328,43.823,2.99,"F",2000.0,"إبسيلون ممسك الأعنّة","Almaaz"],["etAur",5.1087,41.234,3.17,"B",240.0,"إيتا ممسك الأعنّة","Haedus"],["zePer",3.902,31.884,2.85,"B",980.0,"زيتا حامل رأس الغول","Zeta Persei"],["epPer",3.9642,40.01,2.89,"B",640.0,"إبسيلون حامل رأس الغول","Epsilon Persei"],["dePer",3.7154,47.787,3.01,"B",520.0,"دلتا حامل رأس الغول","Delta Persei"],["gaPer",3.0799,53.506,2.93,"G",250.0,"غاما حامل رأس الغول","Gamma Persei"],["deAnd",0.6555,30.861,3.27,"K",101.0,"دلتا المرأة المسلسلة","Delta Andromedae"],["etCMa",7.4016,-29.303,2.45,"B",2000.0,"إيتا الكلب الأكبر","Aludra"],["omCMa",7.0503,-23.833,3.02,"B",2800.0,"أوميكرون الكلب الأكبر","Omicron2 CMa"],["beCMi",7.4525,8.289,2.89,"B",170.0,"الغميصاء","Gomeisa"],["zeLeo",10.2782,23.417,3.44,"F",274.0,"زيتا الأسد","Adhafera"],["muLeo",9.8791,26.007,3.88,"K",133.0,"ميو الأسد","Rasalas"],["epLeo",9.7642,23.774,2.98,"G",247.0,"إبسيلون الأسد","Algenubi"],["deLeo",11.2351,20.524,2.56,"A",58.0,"الزُبرة","Zosma"],["thLeo",11.2373,15.43,3.34,"A",165.0,"ثيتا الأسد","Chertan"],["gaVir",12.6944,-1.449,2.74,"F",39.0,"الزاوية","Porrima"],["epVir",13.0364,10.959,2.83,"G",110.0,"الأعزل (فيندميتريكس)","Vindemiatrix"],["beVir",11.845,1.765,3.61,"F",36.0,"العوّاء","Zavijava"],["deVir",12.9267,3.397,3.38,"M",202.0,"دلتا العذراء","Minelauva"],["zeVir",13.5782,-0.596,3.37,"A",74.0,"زيتا العذراء","Heze"],["epBoo",14.7498,27.074,2.7,"K",202.0,"إزار","Izar"],["gaBoo",14.5348,38.308,3.03,"A",85.0,"غاما العواء","Seginus"],["beBoo",15.0324,40.391,3.5,"G",219.0,"نكّار","Nekkar"],["deBoo",15.2583,33.315,3.47,"G",117.0,"دلتا العواء","Delta Bootis"],["rhBoo",14.531,30.371,3.58,"K",150.0,"رو العواء","Rho Bootis"],["etBoo",13.9112,18.398,2.68,"G",37.0,"مُفرد الرامح","Muphrid"],["beCrB",15.4635,29.106,3.68,"F",114.0,"نُسَكان","Nusakan"],["gaCrB",15.7127,26.296,3.84,"A",146.0,"غاما الإكليل الشمالي","Gamma CrB"],["deCrB",15.8268,26.068,4.63,"G",179.0,"دلتا الإكليل الشمالي","Delta CrB"],["epCrB",15.9592,26.878,4.15,"K",230.0,"إبسيلون الإكليل الشمالي","Epsilon CrB"],["thCrB",15.5493,31.359,4.14,"B",380.0,"ثيتا الإكليل الشمالي","Theta CrB"],["alLib",14.8479,-16.042,2.75,"A",77.0,"الزُّبانى الجنوبي","Zubenelgenubi"],["beLib",15.2835,-9.383,2.61,"B",185.0,"الزُّبانى الشمالي","Zubeneschamali"],["deOph",16.2391,-3.694,2.74,"M",170.0,"دلتا الحوّاء","Yed Prior"],["epOph",16.3053,-4.693,3.24,"G",107.0,"إبسيلون الحوّاء","Yed Posterior"],["zeOph",16.6194,-10.567,2.56,"O",366.0,"زيتا الحوّاء","Han"],["etOph",17.173,-15.725,2.43,"A",84.0,"سابك","Sabik"],["beOph",17.7246,4.567,2.77,"K",82.0,"كلب الراعي","Cebalrai"],["gaAql",19.7708,10.613,2.72,"K",460.0,"الطائر الأول (طرزد)","Tarazed"],["beAql",19.9219,6.407,3.71,"G",45.0,"الشاهين","Alshain"],["beLyr",18.8347,33.363,3.52,"B",960.0,"شلياق","Sheliak"],["gaLyr",18.9824,32.69,3.25,"B",620.0,"سلفات","Sulafat"],["deLyr",18.9087,36.899,4.3,"M",900.0,"دلتا القيثارة","Delta2 Lyrae"],["zeLyr",18.7464,37.605,4.36,"A",154.0,"زيتا القيثارة","Zeta1 Lyrae"],["deDra",19.2093,67.662,3.07,"G",97.0,"الطيس","Altais"],["beDra",17.5072,52.301,2.79,"G",380.0,"الرأس (رستبان)","Rastaban"],["xiDra",17.8921,56.873,3.75,"K",112.0,"كساي التنين","Grumium"],["nuDra",17.5365,55.173,4.88,"A",99.0,"نيو التنين","Kuma"],["alDra",14.0732,64.376,3.65,"A",303.0,"الثعبان","Thuban"],["gaUMi",15.3455,71.834,3.05,"A",487.0,"الفرقد الثاني","Pherkad"],["deUMi",17.5369,86.586,4.36,"A",183.0,"دلتا الدب الأصغر","Yildun"],["epUMi",16.7661,82.037,4.21,"G",347.0,"إبسيلون الدب الأصغر","Epsilon UMi"],["zeUMi",15.7343,77.795,4.32,"A",380.0,"زيتا الدب الأصغر","Zeta UMi"],["etUMi",16.2918,75.755,4.95,"F",97.0,"إيتا الدب الأصغر","Eta UMi"],["alCor",13.4204,54.988,3.99,"A",82.0,"السُّها","Alcor"],["alLep",5.5455,-17.822,2.58,"F",1300.0,"الأرنب","Arneb"],["beLep",5.4709,-20.759,2.84,"G",160.0,"نهال","Nihal"],["alCol",5.6608,-34.074,2.65,"B",260.0,"الحمامة","Phact"],["beCol",5.8496,-35.768,3.12,"K",87.0,"بيتا الحمامة","Wazn"],["alCet",3.038,4.09,2.53,"M",249.0,"المنكر","Menkar"],["zeSgr",19.0435,-29.88,2.6,"A",89.0,"عسكلة","Ascella"],["deSgr",18.35,-29.828,2.7,"K",306.0,"كاوس ميديا","Kaus Media"],["laSgr",18.4661,-25.422,2.81,"K",78.0,"كاوس بوريالس","Kaus Borealis"],["gaSgr",18.0966,-30.424,2.99,"K",97.0,"النَّصل","Alnasl"],["phSgr",18.7608,-26.991,3.17,"B",235.0,"فاي الرامي","Phi Sagittarii"],["taSgr",19.1156,-27.67,3.32,"K",120.0,"تاو الرامي","Tau Sagittarii"],["deCap",21.784,-16.127,2.85,"A",39.0,"ذنَب الجدي","Deneb Algedi"],["beCap",20.35,-14.781,3.05,"G",330.0,"سعد الذابح","Dabih"],["alCap",20.2943,-12.545,3.57,"G",109.0,"الجدي (الجدي الأول)","Algedi"],["gaCap",21.6683,-16.662,3.68,"A",139.0,"ناشرة","Nashira"],["beAqr",21.526,-5.571,2.91,"G",540.0,"سعد السعود","Sadalsuud"],["alAqr",22.096,-0.32,2.96,"G",520.0,"سعد الملك","Sadalmelik"],["deAqr",22.9108,-15.821,3.27,"A",160.0,"الساق","Skat"],["zeAqr",22.4804,-0.02,3.65,"F",100.0,"زيتا الدلو","Zeta Aquarii"],["deCru",12.2524,-58.749,2.79,"B",360.0,"دلتا الصليب","Delta Crucis"],["gaCen",12.6916,-48.96,2.17,"A",130.0,"مُخلِفين","Muhlifain"],["etCen",14.5918,-42.158,2.31,"B",310.0,"إيتا القنطورس","Eta Centauri"],["deCen",12.1394,-50.722,2.6,"B",395.0,"دلتا القنطورس","Delta Centauri"],["zeCen",13.925,-47.288,2.55,"B",380.0,"زيتا القنطورس","Zeta Centauri"],["beLup",14.9756,-43.134,2.68,"B",460.0,"بيتا الذئب","Beta Lupi"],["kaVel",9.3689,-55.011,2.5,"B",570.0,"ماركب","Markeb"],["laVel",9.1333,-43.433,2.21,"K",545.0,"سهيل الشراع","Suhail"],["ioCar",9.2848,-59.275,2.25,"F",690.0,"إيوتا القاعدة","Aspidiske"]];
+const SKY_CONS=[["Ori","الجبّار","Orion",[["alOri","laOri"],["laOri","gaOri"],["alOri","zeOri"],["zeOri","epOri"],["epOri","deOri"],["deOri","gaOri"],["zeOri","kaOri"],["deOri","beOri"]]],["UMa","الدب الأكبر (بنات نعش الكبرى)","Ursa Major",[["alUMa","beUMa"],["beUMa","gaUMa"],["gaUMa","deUMa"],["deUMa","alUMa"],["deUMa","epUMa"],["epUMa","zeUMa"],["zeUMa","etUMa"]]],["UMi","الدب الأصغر (بنات نعش الصغرى)","Ursa Minor",[["alUMi","deUMi"],["deUMi","epUMi"],["epUMi","zeUMi"],["zeUMi","etUMi"],["etUMi","gaUMi"],["gaUMi","beUMi"],["beUMi","zeUMi"]]],["Cas","ذات الكرسي","Cassiopeia",[["beCas","alCas"],["alCas","gaCas"],["gaCas","deCas"],["deCas","epCas"]]],["Cyg","الدجاجة","Cygnus",[["alCyg","gaCyg"],["gaCyg","beCyg"],["epCyg","gaCyg"],["gaCyg","deCyg"]]],["Lyr","القيثارة","Lyra",[["zeLyr","deLyr"],["deLyr","gaLyr"],["gaLyr","beLyr"],["beLyr","zeLyr"],["alLyr","zeLyr"]]],["Aql","النسر الطائر","Aquila",[["gaAql","alAql"],["alAql","beAql"]]],["Sco","العقرب","Scorpius",[["beSco","deSco"],["deSco","piSco"],["deSco","siSco"],["siSco","alSco"],["alSco","taSco"],["taSco","epSco"],["epSco","muSco"],["muSco","zeSco"],["zeSco","etSco"],["etSco","thSco"],["thSco","ioSco"],["ioSco","kaSco"],["kaSco","laSco"],["laSco","upSco"]]],["Leo","الأسد","Leo",[["alLeo","gaLeo"],["gaLeo","zeLeo"],["zeLeo","muLeo"],["muLeo","epLeo"],["gaLeo","deLeo"],["deLeo","beLeo"],["beLeo","thLeo"],["thLeo","deLeo"],["alLeo","thLeo"]]],["Vir","العذراء","Virgo",[["beVir","gaVir"],["gaVir","deVir"],["deVir","epVir"],["gaVir","zeVir"],["zeVir","alVir"]]],["Boo","العوّاء","Bootes",[["alBoo","epBoo"],["epBoo","deBoo"],["deBoo","beBoo"],["beBoo","gaBoo"],["gaBoo","rhBoo"],["rhBoo","alBoo"],["alBoo","etBoo"]]],["CrB","الإكليل الشمالي","Corona Borealis",[["epCrB","deCrB"],["deCrB","gaCrB"],["gaCrB","alCrB"],["alCrB","beCrB"],["beCrB","thCrB"]]],["Gem","التوأمان","Gemini",[["alGem","epGem"],["epGem","muGem"],["muGem","etGem"],["beGem","deGem"],["deGem","zeGem"],["zeGem","gaGem"]]],["Tau","الثور","Taurus",[["epTau","deTau"],["deTau","gaTau"],["gaTau","thTau"],["thTau","alTau"],["alTau","zeTau"],["epTau","beTau"]]],["CMa","الكلب الأكبر","Canis Major",[["beCMa","alCMa"],["alCMa","deCMa"],["deCMa","epCMa"],["deCMa","etCMa"],["deCMa","omCMa"]]],["CMi","الكلب الأصغر","Canis Minor",[["beCMi","alCMi"]]],["Aur","ممسك الأعنّة","Auriga",[["alAur","beAur"],["beAur","thAur"],["thAur","beTau"],["beTau","ioAur"],["ioAur","alAur"]]],["Per","حامل رأس الغول","Perseus",[["gaPer","alPer"],["alPer","epPer"],["epPer","zePer"],["alPer","dePer"],["alPer","bePer"]]],["And","المرأة المسلسلة","Andromeda",[["alAnd","deAnd"],["deAnd","beAnd"],["beAnd","gaAnd"]]],["Peg","الفرس الأعظم","Pegasus",[["alPeg","bePeg"],["bePeg","alAnd"],["alAnd","gaPeg"],["gaPeg","alPeg"],["alPeg","epPeg"]]],["Oph","الحوّاء","Ophiuchus",[["alOph","beOph"],["deOph","epOph"],["epOph","zeOph"],["zeOph","etOph"]]],["Lib","الميزان","Libra",[["alLib","beLib"]]],["Sgr","الرامي","Sagittarius",[["gaSgr","deSgr"],["deSgr","laSgr"],["laSgr","phSgr"],["phSgr","siSgr"],["siSgr","taSgr"],["taSgr","zeSgr"],["zeSgr","epSgr"],["epSgr","gaSgr"],["deSgr","epSgr"],["zeSgr","phSgr"]]],["Cap","الجدي","Capricornus",[["alCap","beCap"],["beCap","gaCap"],["gaCap","deCap"],["deCap","alCap"]]],["Aqr","الدلو","Aquarius",[["beAqr","alAqr"],["zeAqr","deAqr"]]],["Cru","الصليب الجنوبي","Crux",[["alCru","gaCru"],["beCru","deCru"]]],["Cen","قنطورس","Centaurus",[["alCen","beCen"],["gaCen","deCen"]]],["Crv","الغراب","Corvus",[["gaCrv","deCrv"],["deCrv","beCrv"],["beCrv","epCrv"],["epCrv","gaCrv"]]],["Dra","التنين","Draco",[["gaDra","beDra"],["beDra","nuDra"],["nuDra","xiDra"],["xiDra","gaDra"]]],["Lep","الأرنب","Lepus",[["alLep","beLep"]]],["Vel","الشراع","Vela",[["gaVel","laVel"],["laVel","kaVel"],["kaVel","deVel"]]],["Car","القاعدة (كارينا)","Carina",[["alCar","beCar"],["beCar","ioCar"],["ioCar","epCar"]]],["Hya","الشجاع (الحيّة)","Hydra",[]]];
+
+/* ===== واجهة السماء ===== */
+const SKV={ver:1};
+const SK={cv:null,g:null,w:0,h:0,dpr:1,mode:"touch",sensor:false,perm:"idle",az:180,alt:40,fov:62,
+ B:null,tB:null,yaw:0,decl:0,lines:true,names:3,grid:false,mw:true,sel:null,tgt:null,tOff:0,raf:0,last:0,
+ objs:[],pre:null,preAt:0,ss:null,ssAt:0,ctr:null,sunAlt:-30,lat:24.7136,lon:46.6753,mwPts:null,sprites:{},toastT:0,pt:null,evAt:0,rawHead:null,lastEv:null,started:false};
+try{const v=JSON.parse(localStorage.getItem("tqsi_sky_v1")||"{}");if(v){["lines","names","grid","mw","yaw"].forEach(k=>{if(v[k]!==undefined)SK[k]=v[k]});if(v.mode)SK.mode=v.mode}}catch(e){}
+function skSave(){try{localStorage.setItem("tqsi_sky_v1",JSON.stringify({lines:SK.lines,names:SK.names,grid:SK.grid,mw:SK.mw,yaw:SK.yaw,mode:SK.mode}))}catch(e){}}
+const SPC={O:"#9db4ff",B:"#aabfff",A:"#d8e4ff",F:"#fff8ee",G:"#ffe9ad",K:"#ffc98e",M:"#ff9f80"};
+const SKS=new Map(),SKC=new Map(),SKD=[];
+SKY_STARS.forEach((r,i)=>{SKS.set(r[0],{i,key:r[0],ra:r[1],dec:r[2],mag:r[3],sp:r[4],ly:r[5],ar:r[6],en:r[7],con:"",t:"star"})});
+SKY_CONS.forEach(c=>SKC.set(c[0],{code:c[0],ar:c[1],en:c[2],lines:c[3]}));
+/* الثريا اسمها عنقود تاو */
+SKS.forEach(s=>{if(/^Ple/.test(s.key))s.con="Tau";else{const m=s.key.match(/([A-Za-z]{3})_?$/);s.con=m?m[1]:""}});
+const SKPL=[["Sun","الشمس","Sun"],["Moon","القمر","Moon"],["Mercury","عطارد","Mercury"],["Venus","الزهرة","Venus"],["Mars","المريخ","Mars"],["Jupiter","المشتري","Jupiter"],["Saturn","زحل","Saturn"]];
+const SKPC={Sun:"#ffd36a",Moon:"#f2eedc",Mercury:"#cfc6bb",Venus:"#fff3cf",Mars:"#ff7a5a",Jupiter:"#f3deb7",Saturn:"#efd9a0"};
+const SKNOTE={alCar:"في الجزيرة العربية يُرى سهيل في أواخر أغسطس، وطلوعه عند أهل الصحراء علامة على قرب انكسار القيظ.",
+ alCMa:"ألمع نجم في سماء الليل. ورد ذكر «الشِّعرى» في سورة النجم.",alTau:"من منازل القمر العربية، وسُمّي الدبران لأنه «يدبر» الثريا أي يتبعها.",
+ alUMi:"يكاد يثبت في الشمال، تدلّك الزاوية بينه وبين الأفق تقريباً على خط عرضك.",alSco:"قلب العقرب، ومن منازل القمر العربية (القلب)، لونه أحمر لأنه عملاق أحمر.",
+ Pleiades:"عنقود مفتوح تُرى منه ست إلى سبع نجوم بالعين المجردة، وارتبط ظهوره عند العرب بمواسم الأمطار.",alVir:"السماك الأعزل، ومن منازل القمر العربية (السِّماك).",alBoo:"السماك الرامح، ثالث ألمع نجوم السماء الليلية."};
+const SKDSO=[["Pleiades",3.79,24.12,1.6,"الثريا","Pleiades (M45)","Tau",444,"عنقود"],["M31",0.7123,41.269,3.4,"مجرّة المرأة المسلسلة","Andromeda Galaxy (M31)","And",2500000,"مجرّة"],["M42",5.5881,-5.391,4.0,"سديم الجبّار","Orion Nebula (M42)","Ori",1344,"سديم"],["M44",8.67,19.67,3.7,"المَعلَف (خلية النحل)","Beehive Cluster (M44)","Cnc",577,"عنقود"]];
+const SKDIR=["شمال","شمال شرق","شرق","جنوب شرق","جنوب","جنوب غرب","غرب","شمال غرب"];
+const skdir=a=>SKDIR[Math.round(((a%360)+360)%360/45)%8];
+const skfmt=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+const norm=v=>{const l=Math.hypot(v[0],v[1],v[2])||1;return[v[0]/l,v[1]/l,v[2]/l]};
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+function rotZcw(v,deg){const a=-deg*D2R,c=Math.cos(a),s=Math.sin(a);return[v[0]*c-v[1]*s,v[0]*s+v[1]*c,v[2]]} /* دوران مع عقارب الساعة (بوصلة) */
+function basisFromAzAlt(az,alt){
+ const a=az*D2R,l=alt*D2R,d=[Math.cos(l)*Math.sin(a),Math.cos(l)*Math.cos(a),Math.sin(l)];
+ const r=[Math.cos(a),-Math.sin(a),0],u=cross(r,d);return{d,u,r};
+}
+function basisFromEuler(al,be,ga){
+ const a=al*D2R,b=be*D2R,g=ga*D2R,ca=Math.cos(a),sa=Math.sin(a),cb=Math.cos(b),sb=Math.sin(b),cg=Math.cos(g),sg=Math.sin(g);
+ const R11=ca*cg-sa*sb*sg,R12=-cb*sa,R13=cg*sa*sb+ca*sg,R21=cg*sa+ca*sb*sg,R22=ca*cb,R23=sa*sg-ca*cg*sb,R31=-cb*sg,R32=sb,R33=cb*cg;
+ return{d:[-R13,-R23,-R33],u:[R12,R22,R32],r:[R11,R21,R31]};
+}
+function skToast(t,ms){const e=$("#sktoast");if(!e)return;e.textContent=t;e.classList.add("on");clearTimeout(SK.toastT);SK.toastT=setTimeout(()=>e.classList.remove("on"),ms||2600)}
+/* ---------- الحساسات ---------- */
+function skOnOrient(e){
+ if(e.alpha==null&&e.webkitCompassHeading==null)return;
+ SK.evAt=performance.now();SK.lastEv=e;
+ if(SK.mode!=="sensor")return;
+ if(e.beta==null||e.gamma==null)return;
+ let al=e.alpha||0;
+ const B=basisFromEuler(al,e.beta,e.gamma);
+ /* iOS: نستخدم بوصلة الجهاز لضبط الاتجاه، لأن alpha هناك نسبي */
+ if(typeof e.webkitCompassHeading==="number"&&!e.absolute){
+  const du=B.d[2];
+  if(Math.abs(du)<0.75){
+   const raw=Math.atan2(B.d[0],B.d[1])*R2D,diff=((e.webkitCompassHeading-raw+540)%360)-180;
+   SK.hdOff=SK.hdOff==null?diff:SK.hdOff+((((diff-SK.hdOff)+540)%360)-180)*0.08;
+  }
+  if(SK.hdOff!=null){["d","u","r"].forEach(k=>{B[k]=rotZcw(B[k],SK.hdOff)})}
+ }
+ SK.tB=B;
+}
+async function skEnableSensors(){
+ SK.perm="asking";skUi();
+ try{
+  if(typeof DeviceOrientationEvent!=="undefined"&&typeof DeviceOrientationEvent.requestPermission==="function"){
+   const r=await DeviceOrientationEvent.requestPermission();
+   if(r!=="granted"){SK.perm="denied";SK.mode="touch";skUi();skToast("ما انسمح بالوصول للحساسات — تقدر تحرّك السماء بإصبعك");return}
+  }
+ }catch(err){SK.perm="denied";SK.mode="touch";skUi();skToast("تعذّر تفعيل الحساسات — حرّك السماء بإصبعك");return}
+ window.removeEventListener("deviceorientationabsolute",skOnOrient,true);window.removeEventListener("deviceorientation",skOnOrient,true);
+ const abs=("ondeviceorientationabsolute" in window);
+ window.addEventListener(abs?"deviceorientationabsolute":"deviceorientation",skOnOrient,true);
+ SK.mode="sensor";SK.perm="wait";SK.evAt=0;SK.hdOff=null;skUi();
+ setTimeout(()=>{
+  if(SK.mode==="sensor"&&!SK.evAt){
+   if(abs){window.removeEventListener("deviceorientationabsolute",skOnOrient,true);window.addEventListener("deviceorientation",skOnOrient,true);
+    setTimeout(()=>{if(SK.mode==="sensor"&&!SK.evAt){SK.mode="touch";SK.perm="none";skUi();skToast("جوالك ما يرسل بيانات الحركة — حرّك السماء بإصبعك")}},1400)}
+   else{SK.mode="touch";SK.perm="none";skUi();skToast("جوالك ما يرسل بيانات الحركة — حرّك السماء بإصبعك")}
+  }else{SK.perm="ok";skUi()}
+ },1500);
+ skSave();
+}
+function skDisableSensors(){
+ window.removeEventListener("deviceorientationabsolute",skOnOrient,true);window.removeEventListener("deviceorientation",skOnOrient,true);
+ SK.mode="touch";SK.perm="idle";if(SK.B){const d=SK.B.d;SK.az=((Math.atan2(d[0],d[1])*R2D)+360)%360;SK.alt=Math.asin(Math.max(-1,Math.min(1,d[2])))*R2D}
+ skSave();skUi();
+}
+/* ---------- حسابات الإطار ---------- */
+function skRefresh(now){
+ const loc=locNow();SK.lat=loc.lat;SK.lon=loc.lon;
+ const ms=now+SK.tOff*60000,jd=jdNow(ms);SK.jd=jd;SK.lst=gmstDeg(jd)+SK.lon;
+ if(!SK.pre||Math.abs(jd-SK.preAt)>0.02){
+  SK.preAt=jd;SK.pre=[];SKS.forEach(s=>{const p=precess(s.ra,s.dec,jd);s.ra2=p[0];s.dec2=p[1]});
+  SKDSO.forEach(o=>{const p=precess(o[1],o[2],jd);o.ra2=p[0];o.dec2=p[1]});
+ }
+ if(!SK.ss||Math.abs(jd-SK.ssAt)>0.0007){SK.ssAt=jd;SK.ss=solarSystem(jd)}
+ /* إعلان تقريبي للانحراف المغناطيسي (السعودية والخليج ≈ +3..5°) */
+ SK.decl=(SK.lat>10&&SK.lat<35&&SK.lon>33&&SK.lon<62)?4:0;
+}
+function skHor(ra,dec){const h=eqToHor(ra,dec,SK.lst,SK.lat);return h}
+function skVec(alt,az){return[Math.cos(alt)*Math.sin(az),Math.cos(alt)*Math.cos(az),Math.sin(alt)]}
+function skProj(v){
+ const B=SK.B,z=dot(v,B.d);if(z<=0.03)return null;
+ const f=SK.f;return[SK.w/2+f*dot(v,B.r)/z,SK.h/2-f*dot(v,B.u)/z,z];
+}
+/* ---------- الرسم ---------- */
+function skSprite(col,sz){
+ const k=col+sz;if(SK.sprites[k])return SK.sprites[k];
+ const c=document.createElement("canvas");c.width=c.height=sz;const g=c.getContext("2d"),r=sz/2;
+ const gr=g.createRadialGradient(r,r,0,r,r,r);gr.addColorStop(0,col);gr.addColorStop(.18,col);gr.addColorStop(.4,col+"55");gr.addColorStop(1,col+"00");
+ g.fillStyle=gr;g.fillRect(0,0,sz,sz);return SK.sprites[k]=c;
+}
+function skResize(){
+ const cv=SK.cv;if(!cv)return;const dpr=Math.min(2,window.devicePixelRatio||1),w=cv.clientWidth,h=cv.clientHeight;
+ if(!w||!h)return;SK.dpr=dpr;SK.w=w;SK.h=h;cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);
+}
+function skFrame(ts){
+ SK.raf=requestAnimationFrame(skFrame);
+ if(!SK.cv||!SK.cv.clientWidth)return;
+ if(SK.cv.width!==Math.round(SK.cv.clientWidth*SK.dpr))skResize();
+ const dt=Math.min(.1,(ts-(SK.last||ts))/1000);SK.last=ts;
+ skRefresh(Date.now());
+ /* الاتجاه */
+ if(SK.mode==="sensor"&&SK.tB){
+  let tB=SK.tB;
+  const rot=v=>rotZcw(v,SK.yaw+SK.decl);
+  const t={d:rot(tB.d),u:rot(tB.u),r:rot(tB.r)};
+  if(!SK.B)SK.B={d:t.d.slice(),u:t.u.slice(),r:t.r.slice()};
+  else{
+   const k=dot(SK.B.d,t.d)<0.92?0.65:1-Math.exp(-dt/0.07);
+   ["d","u"].forEach(n=>{SK.B[n]=norm(SK.B[n].map((x,i)=>x+(t[n][i]-x)*k))});
+   SK.B.u=norm(cross(cross(SK.B.d,SK.B.u),SK.B.d).map((x,i)=>x)); /* تعامد */
+   SK.B.u=norm(SK.B.u.map((x,i)=>x));
+   SK.B.r=norm(cross(SK.B.d,SK.B.u));
+  }
+ }else if(SK.mode!=="sensor"){
+  SK.B=basisFromAzAlt(SK.az,SK.alt);
+ }
+ if(!SK.B)SK.B=basisFromAzAlt(SK.az,SK.alt);
+ SK.f=(SK.h/2)/Math.tan(SK.fov*D2R/2);
+ skDraw(ts/1000);
+}
+function skDraw(t){
+ const g=SK.g,W=SK.w,H=SK.h,dpr=SK.dpr,B=SK.B,S=SK.ss;
+ g.setTransform(dpr,0,0,dpr,0,0);
+ /* ارتفاع الشمس وسطوع السماء */
+ const sh=skHor(S.Sun.ra,S.Sun.dec),sunAlt=sh[0]*R2D;SK.sunAlt=sunAlt;
+ const dark=Math.max(0,Math.min(1,(-sunAlt-1)/14));
+ const mix=(a,b,k)=>a.map((x,i)=>Math.round(x+(b[i]-x)*k));
+ const nightT=[4,8,20],nightB=[10,19,46],dayT=[28,70,130],dayB=[96,150,210],twT=[22,34,76],twB=[120,80,92];
+ let top=mix(dayT,nightT,dark),bot=mix(dayB,nightB,dark);
+ if(sunAlt<2&&sunAlt>-14){const k=Math.sin(Math.max(0,Math.min(1,(sunAlt+14)/16))*Math.PI);top=mix(top,twT,k*.5);bot=mix(bot,twB,k*.55)}
+ const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,`rgb(${top})`);gr.addColorStop(1,`rgb(${bot})`);g.fillStyle=gr;g.fillRect(0,0,W,H);
+ const sa=Math.max(0,Math.min(1,(-sunAlt-3)/9)); /* ظهور النجوم */
+ const zf=Math.max(.8,Math.min(1.7,Math.sqrt(60/SK.fov)));
+ /* درب التبانة */
+ if(SK.mw&&sa>.05){
+  if(!SK.mwPts)SK.mwPts=milkyWay(2600);
+  const sp=skSprite("#8fa6dc",64);g.globalCompositeOperation="lighter";
+  const rr=12*zf;
+  for(let i=0;i<SK.mwPts.length;i++){
+   const m=SK.mwPts[i],p0=precessCached(m[0],m[1]),h=eqToHor(p0[0],p0[1],SK.lst,SK.lat);
+   const p=skProj(skVec(h[0],h[1]));if(!p)continue;
+   if(p[0]<-40||p[0]>W+40||p[1]<-40||p[1]>H+40)continue;
+   g.globalAlpha=Math.min(.06,.012+m[2]*.05)*sa*(h[0]<0?.4:1);g.drawImage(sp,p[0]-rr,p[1]-rr,rr*2,rr*2);
+  }
+  g.globalAlpha=1;g.globalCompositeOperation="source-over";
+ }
+ SK.objs.length=0;
+ const cx=W/2,cy=H/2;
+ /* شبكة */
+ if(SK.grid)skGrid(g,W,H);
+ /* خطوط الأبراج */
+ const lab=[];
+ const ptc=new Map();
+ const P=s=>{let p=ptc.get(s);if(p!==undefined)return p;const h=skHor(s.ra2,s.dec2);s.alt=h[0];s.az=h[1];const pp=skProj(skVec(h[0],h[1]));p=pp?{x:pp[0],y:pp[1],z:pp[2]}:null;ptc.set(s,p);return p};
+ if(SK.lines&&sa>.05){
+  g.lineWidth=1;
+  SKC.forEach(c=>{
+   if(!c.lines.length)return;let sx=0,sy=0,n=0;
+   g.beginPath();
+   for(const[a,b]of c.lines){const A=SKS.get(a),Bs=SKS.get(b);if(!A||!Bs)continue;const pa=P(A),pb=P(Bs);if(!pa||!pb)continue;
+    g.moveTo(pa.x,pa.y);g.lineTo(pb.x,pb.y);sx+=pa.x+pb.x;sy+=pa.y+pb.y;n+=2}
+   g.strokeStyle=`rgba(130,165,255,${.34*sa})`;g.stroke();
+   if(n&&SK.fov<95&&sx/n>10&&sx/n<W-10&&sy/n>60&&sy/n<H-90)lab.push({x:sx/n,y:sy/n,txt:c.ar.split(" (")[0],sub:c.en,kind:"con",pr:0});
+  });
+ }
+ /* النجوم */
+ g.textBaseline="middle";
+ const stars=[];
+ SKS.forEach(s=>{
+  const p=P(s);if(!p||p.x<-20||p.x>W+20||p.y<-20||p.y>H+20)return;
+  const mg=s.mag,r=Math.max(.7,Math.min(7,(0.9+(4.8-mg)*0.62)*zf*(mg<1?1.05:1)));
+  const below=s.alt<0,al=Math.min(1,(1.15-mg*.09+.15))*sa*(below?.3:1)*(.92+.08*Math.sin(t*2.7+s.i*1.7));
+  if(al<.03)return;
+  const col=SPC[s.sp]||"#fff";
+  if(mg<3.2){const gl=r*(mg<1?7:4.6);g.globalAlpha=al*.9;g.drawImage(skSprite(col,64),p.x-gl,p.y-gl,gl*2,gl*2)}
+  g.globalAlpha=Math.min(1,al*1.05);g.fillStyle=col;g.beginPath();g.arc(p.x,p.y,r*.62,0,TAU);g.fill();
+  g.globalAlpha=1;
+  const o={x:p.x,y:p.y,t:"star",s,mag:mg,r,name:s.ar,en:s.en,below};SK.objs.push(o);
+  const lim=SK.fov>75?1.6:SK.fov>45?2.4:SK.fov>28?3.2:SK.fov>14?4:5;
+  if(mg<=lim&&!below&&sa>.3&&!/^(?:Ple[2-6])$/.test(s.key)&&!(/ \w+ Scorpii| Orionis$/.test(s.en)&&mg>2.6))lab.push({x:p.x+r+5,y:p.y,txt:s.ar,sub:s.en,kind:"star",pr:10-mg,o});
+ });
+ /* أجرام عميقة */
+ SKDSO.forEach((d,i)=>{
+  const h=skHor(d.ra2,d.dec2),pp=skProj(skVec(h[0],h[1]));if(!pp||h[0]<0)return;
+  const rr=10*zf;g.globalAlpha=.55*sa;g.strokeStyle="#9fd0ff";g.setLineDash([3,3]);g.beginPath();g.arc(pp[0],pp[1],rr,0,TAU);g.stroke();g.setLineDash([]);g.globalAlpha=1;
+  const o={x:pp[0],y:pp[1],t:"dso",d,mag:d[3],r:rr,name:d[4],en:d[5],below:h[0]<0,alt:h[0],az:h[1]};SK.objs.push(o);
+  if(sa>.3&&pp[0]>0&&pp[0]<W&&pp[1]>0&&pp[1]<H)lab.push({x:pp[0]+rr+4,y:pp[1],txt:d[4],sub:d[5],kind:"dso",pr:9,o});
+ });
+ /* الكواكب والقمر والشمس */
+ SKPL.forEach(([k,ar,en])=>{
+  const b=S[k],h=skHor(b.ra,b.dec);let alt=h[0];
+  if(k==="Moon"){alt-=Math.asin(1/b.dist)*Math.cos(alt)} /* اختلاف المنظر */
+  const pp=skProj(skVec(alt,h[1]));b.alt=alt;b.az=h[1];if(!pp)return;
+  if(pp[0]<-30||pp[0]>W+30||pp[1]<-30||pp[1]>H+30){return}
+  const vis=k==="Sun"||k==="Moon"?1:Math.max(0,Math.min(1,(-sunAlt-(b.mag<-3?0:3))/(b.mag<-3?4:9)));
+  if(vis<.03)return;
+  g.globalAlpha=vis*(alt<0?.35:1);skBody(g,k,pp[0],pp[1],b,zf,h);g.globalAlpha=1;
+  const o={x:pp[0],y:pp[1],t:"planet",k,b,mag:b.mag,r:k==="Sun"||k==="Moon"?16:8,name:ar,en,below:alt<0};SK.objs.push(o);
+  lab.push({x:pp[0]+(k==="Sun"||k==="Moon"?22:13),y:pp[1],txt:ar,sub:en,kind:"planet",pr:20,o,col:SKPC[k]});
+ });
+ /* الأرض (الأفق) */
+ skGround(g,W,H,dark);
+ /* بطاقات الأسماء */
+ g.textAlign="left";
+ const placed=[],mode=SK.names;
+ lab.sort((a,b)=>b.pr-a.pr);
+ for(const L of lab){
+  if(mode===0&&L.kind!=="planet")continue;
+  const ar=mode===1||mode===3?L.txt:"",en=mode===2||mode===3?L.sub:"";
+  const useAr=L.kind==="con"?(mode===2?"":L.txt):ar,useEn=L.kind==="con"?(mode===2||mode===3?L.sub:""):en;
+  const t1=mode===2?useEn:useAr,t2=mode===3?useEn:"";
+  if(!t1)continue;
+  g.font=(L.kind==="con"?"500 11px":"700 13px")+" Tajawal,sans-serif";
+  const w1=g.measureText(t1).width;g.font="500 10px Tajawal,sans-serif";const w2=t2?g.measureText(t2).width:0;
+  const bw=Math.max(w1,w2)+4,bh=t2?28:16,x=L.kind==="con"?L.x-bw/2:L.x,y=L.y-bh/2;
+  if(x<4||x+bw>W-4||y<150||y+bh>H-100)continue;
+  let hit=false;for(const q of placed)if(x<q[0]+q[2]&&x+bw>q[0]&&y<q[1]+q[3]&&y+bh>q[1]){hit=true;break}
+  if(hit)continue;placed.push([x,y,bw,bh]);
+  g.fillStyle=L.kind==="con"?"rgba(150,180,255,.62)":(L.col||"rgba(255,255,255,.95)");
+  g.shadowColor="rgba(0,0,0,.8)";g.shadowBlur=4;
+  g.font=(L.kind==="con"?"500 11px":"700 13px")+" Tajawal,sans-serif";g.textAlign=L.kind==="con"?"center":"left";
+  const tx=L.kind==="con"?L.x:x;g.fillText(t1,tx,t2?y+8:y+8);
+  if(t2){g.font="500 10px Tajawal,sans-serif";g.fillStyle="rgba(200,215,255,.7)";g.fillText(t2,tx,y+21)}
+  g.shadowBlur=0;
+ }
+ g.textAlign="left";
+ /* الهدف */
+ skTarget(g,W,H);
+ /* مركز الشاشة */
+ skReticle(g,W,H);
+ skHud();
+}
+function precessCached(ra,dec){ /* مجرة: دوران بسيط بالزمن (يكفي لعرض مرئي) */
+ const T=(SK.jd-2451545)/36525,dra=(3.075+1.336*Math.sin(ra)*Math.tan(dec))*15/3600*D2R*T*100,dd=20.04/3600*D2R*Math.cos(ra)*T*100;
+ return[ra+dra,dec+dd];
+}
+function skBody(g,k,x,y,b,zf,h){
+ const c=SKPC[k];
+ if(k==="Sun"){
+  g.globalCompositeOperation="lighter";g.drawImage(skSprite("#ffcf70",128),x-70,y-70,140,140);g.globalCompositeOperation="source-over";
+  g.fillStyle="#fff4c7";g.beginPath();g.arc(x,y,13,0,TAU);g.fill();return;
+ }
+ if(k==="Moon"){
+  const R=16*Math.max(.9,Math.min(1.5,zf));
+  g.globalCompositeOperation="lighter";g.globalAlpha*=.7;g.drawImage(skSprite("#bcc8ff",128),x-R*3.2,y-R*3.2,R*6.4,R*6.4);g.globalAlpha/=.7;g.globalCompositeOperation="source-over";
+  const sun=SK.ss.Sun,pm=skVec(skHor(b.ra,b.dec)[0],skHor(b.ra,b.dec)[1]),ps=skVec(skHor(sun.ra,sun.dec)[0],skHor(sun.ra,sun.dec)[1]);
+  const v=[ps[0]-pm[0]*dot(ps,pm),ps[1]-pm[1]*dot(ps,pm),ps[2]-pm[2]*dot(ps,pm)];
+  const th=Math.atan2(dot(v,SK.B.u),dot(v,SK.B.r));
+  g.save();g.translate(x,y);g.rotate(-th);
+  g.fillStyle="rgba(70,82,120,.55)";g.beginPath();g.arc(0,0,R,0,TAU);g.fill();
+  const k2=b.illum,xt=R*(1-2*k2);
+  g.fillStyle="#f6f2df";g.beginPath();g.moveTo(0,-R);g.arc(0,0,R,-Math.PI/2,Math.PI/2,false);
+  if(xt>=0)g.ellipse(0,0,Math.max(.01,xt),R,0,Math.PI/2,-Math.PI/2,true);else g.ellipse(0,0,Math.max(.01,-xt),R,0,Math.PI/2,Math.PI*1.5,false);
+  g.closePath();g.fill();g.restore();return;
+ }
+ const r=Math.max(2.6,Math.min(9,6.2-b.mag*.95))*Math.max(.9,Math.min(1.4,zf));
+ g.globalCompositeOperation="lighter";g.drawImage(skSprite(c,64),x-r*4,y-r*4,r*8,r*8);g.globalCompositeOperation="source-over";
+ g.fillStyle=c;g.beginPath();g.arc(x,y,r*.75,0,TAU);g.fill();
+ if(k==="Saturn"){g.strokeStyle="rgba(240,220,160,.85)";g.lineWidth=1.4;g.beginPath();g.ellipse(x,y,r*1.5,r*.5,-.35,0,TAU);g.stroke()}
+}
+function skGround(g,W,H,dark){
+ const B=SK.B,f=SK.f,gx=B.r[2]/f,gy=-B.u[2]/f,g0=B.d[2],gl=Math.hypot(gx,gy);
+ g.save();
+ if(gl<1e-6){if(g0<0){g.fillStyle="rgba(3,5,12,.72)";g.fillRect(0,0,W,H)}g.restore();return}
+ const nx=gx/gl,ny=gy/gl,d0=g0/gl,px=W/2-nx*d0,py=H/2-ny*d0; /* نقطة على خط الأفق */
+ g.translate(px,py);g.rotate(Math.atan2(ny,nx));
+ const L=Math.max(W,H)*3;
+ const gr=g.createLinearGradient(0,0,-220,0);gr.addColorStop(0,"rgba(8,12,26,.78)");gr.addColorStop(1,"rgba(3,5,12,.9)");
+ g.fillStyle=gr;g.fillRect(-L,-L,L,2*L);
+ /* وهج الأفق */
+ const gl2=g.createLinearGradient(40,0,0,0);gl2.addColorStop(0,"rgba(120,150,255,0)");gl2.addColorStop(1,`rgba(120,150,255,${.12*(1-dark*.5)})`);
+ g.fillStyle=gl2;g.fillRect(0,-L,40,2*L);
+ g.strokeStyle="rgba(170,195,255,.55)";g.lineWidth=1.2;g.beginPath();g.moveTo(0,-L);g.lineTo(0,L);g.stroke();
+ g.restore();
+ /* بوصلة على الأفق */
+ const dirs=[[0,"شمال","N"],[45,"ش.شرق",""],[90,"شرق","E"],[135,"ج.شرق",""],[180,"جنوب","S"],[225,"ج.غرب",""],[270,"غرب","W"],[315,"ش.غرب",""]];
+ g.textAlign="center";
+ for(const[a,ar,en]of dirs){
+  const p=skProj(skVec(0,a*D2R));if(!p)continue;
+  if(p[0]<14||p[0]>W-14||p[1]<30||p[1]>H-80)continue;
+  g.fillStyle=en?"#ffd27a":"rgba(255,255,255,.55)";g.font=(en?"800 14px":"600 10.5px")+" Tajawal,sans-serif";g.shadowColor="rgba(0,0,0,.9)";g.shadowBlur=5;
+  g.fillText(ar+(en?" "+en:""),p[0],p[1]-12);g.shadowBlur=0;
+  g.strokeStyle="#ffd27a";g.lineWidth=en?2:1;g.beginPath();g.moveTo(p[0],p[1]-3);g.lineTo(p[0],p[1]+3);g.stroke();
+ }
+ g.textAlign="left";
+}
+function skGrid(g,W,H){
+ g.lineWidth=.8;g.strokeStyle="rgba(120,160,255,.16)";
+ g.beginPath();
+ for(let alt=-60;alt<=60;alt+=30){let first=true;for(let az=0;az<=360;az+=4){const p=skProj(skVec(alt*D2R,az*D2R));if(!p){first=true;continue}if(first){g.moveTo(p[0],p[1]);first=false}else g.lineTo(p[0],p[1])}}
+ for(let az=0;az<360;az+=30){let first=true;for(let alt=-85;alt<=85;alt+=5){const p=skProj(skVec(alt*D2R,az*D2R));if(!p){first=true;continue}if(first){g.moveTo(p[0],p[1]);first=false}else g.lineTo(p[0],p[1])}}
+ g.stroke();
+}
+function skTarget(g,W,H){
+ const T=SK.tgt;if(!T)return;
+ const o=skFind(T);if(!o){SK.tgt=null;return}
+ const v=skVec(o.alt,o.az),B=SK.B,z=dot(v,B.d),X=dot(v,B.r),Y=dot(v,B.u),ang=Math.acos(Math.max(-1,Math.min(1,z)))*R2D;
+ const p=skProj(v);const t=performance.now()/1000;
+ g.strokeStyle="#ffd27a";g.fillStyle="#ffd27a";g.lineWidth=2;
+ if(p&&p[0]>20&&p[0]<W-20&&p[1]>70&&p[1]<H-100){
+  const rr=22+4*Math.sin(t*4);g.beginPath();g.arc(p[0],p[1],rr,0,TAU);g.stroke();
+  g.font="800 12px Tajawal,sans-serif";g.textAlign="center";g.shadowColor="#000";g.shadowBlur=4;g.fillText(o.ar+" • "+skfmt(Math.round(ang))+"°",p[0],p[1]+rr+14);g.shadowBlur=0;g.textAlign="left";
+ }else{
+  const a=Math.atan2(-Y,X),R=Math.min(W,H)*0.36,ax=W/2+Math.cos(a)*R,ay=H/2+Math.sin(a)*R*1.15;
+  g.save();g.translate(ax,ay);g.rotate(a);g.beginPath();g.moveTo(16,0);g.lineTo(-8,-11);g.lineTo(-3,0);g.lineTo(-8,11);g.closePath();g.globalAlpha=.75+.25*Math.sin(t*5);g.fill();g.restore();
+  g.font="800 12px Tajawal,sans-serif";g.textAlign="center";g.shadowColor="#000";g.shadowBlur=4;
+  g.fillText(o.ar+" • "+skfmt(Math.round(ang))+"° "+(o.alt<0?"(تحت الأفق)":""),Math.max(70,Math.min(W-70,ax)),ay+(ay>H/2?-18:22));g.shadowBlur=0;g.textAlign="left";
+ }
+}
+function skReticle(g,W,H){
+ const cx=W/2,cy=H/2;
+ g.strokeStyle="rgba(255,255,255,.35)";g.lineWidth=1;
+ g.beginPath();g.arc(cx,cy,22,0,TAU);g.moveTo(cx-34,cy);g.lineTo(cx-26,cy);g.moveTo(cx+26,cy);g.lineTo(cx+34,cy);g.moveTo(cx,cy-34);g.lineTo(cx,cy-26);g.moveTo(cx,cy+26);g.lineTo(cx,cy+34);g.stroke();
+ let best=null,bd=1e9;
+ for(const o of SK.objs){if(o.below&&o.t!=="planet")continue;const dd=Math.hypot(o.x-cx,o.y-cy);if(dd>46+(o.r||0))continue;const sc=dd-Math.max(0,3-o.mag)*3;if(sc<bd){bd=sc;best=o}}
+ SK.ctr=best;
+}
+function skFind(T){
+ if(T.t==="star"){const s=SKS.get(T.key);return s?{ar:s.ar,en:s.en,alt:s.alt,az:s.az}:null}
+ if(T.t==="planet"){const b=SK.ss&&SK.ss[T.k];if(!b)return null;const p=SKPL.find(a=>a[0]===T.k);return{ar:p[1],en:p[2],alt:b.alt,az:b.az}}
+ if(T.t==="dso"){const d=SKDSO.find(x=>x[0]===T.id);if(!d)return null;const h=skHor(d.ra2,d.dec2);return{ar:d[4],en:d[5],alt:h[0],az:h[1]}}
+ return null;
+}
+/* ---------- الواجهة ---------- */
+let skHudT=0;
+function skHud(){
+ const now=performance.now();if(now-skHudT<120)return;skHudT=now;
+ const d=SK.B.d,az=((Math.atan2(d[0],d[1])*R2D)+360)%360,alt=Math.asin(Math.max(-1,Math.min(1,d[2])))*R2D;
+ const e=$("#skread");if(e)e.textContent=skdir(az)+" "+skfmt(Math.round(az))+"° • ارتفاع "+skfmt(Math.round(alt))+"°";
+ const c=SK.ctr,ce=$("#skctr");
+ if(ce){if(c){ce.style.display="flex";ce.innerHTML='<b>'+esc(c.name)+'</b><span>'+esc(c.en||"")+'</span>';ce.dataset.k=c.t+(c.s?c.s.key:c.k||c.d&&c.d[0]||"")}else ce.style.display="none"}
+ const tm=$("#sktime");if(tm)tm.textContent=SK.tOff?((SK.tOff>0?"+":"−")+skfmt(Math.abs(Math.round(SK.tOff/60*10)/10))+" س"):"الآن";
+ const tg=$("#sktgt");if(tg){if(SK.tgt){const o=skFind(SK.tgt);tg.style.display=o?"flex":"none";if(o)$("#sktgtn").textContent="🎯 "+o.ar}else tg.style.display="none"}
+ const dy=$("#skday");if(dy)dy.style.display=SK.sunAlt>-3?"block":"none";
+}
+function skUi(){
+ const root=$("#sky");if(!root)return;
+ const sens=SK.mode==="sensor";
+ $("#skmode").classList.toggle("on",sens);
+ $("#skmode").innerHTML=sens?"🧭 الحساسات":"✋ باللمس";
+ $("#skperm").style.display=(SK.perm==="idle"||SK.perm==="denied"||SK.perm==="none")&&SK.mode!=="sensor"&&!SK.dismiss?"flex":"none";
+ $("#sklines").classList.toggle("on",SK.lines);
+ $("#skgrid").classList.toggle("on",SK.grid);
+ $("#skmw").classList.toggle("on",SK.mw);
+ $("#sknames").textContent=["بدون أسماء","عربي","English","عربي + English"][SK.names];
+ $("#sknames").classList.toggle("on",SK.names>0);
+}
+function skSelect(o){
+ if(!o){$("#skinfo").classList.remove("on");SK.sel=null;return}
+ SK.sel=o;const e=$("#skinfo");let h="";
+ const row=(a,b)=>`<div class="r"><span>${a}</span><b>${b}</b></div>`;
+ let ar,en,type,cons="",rows="",note="",alt,az,key,tgt;
+ if(o.t==="star"){const s=o.s;ar=s.ar;en=s.en;type="نجم";const c=SKC.get(s.con);cons=c?c.ar.split(" (")[0]+" • "+c.en:"";alt=s.alt;az=s.az;
+  rows=row("القدر الظاهري",skfmt(s.mag.toFixed(2)))+(s.ly?row("البُعد",skfmt(s.ly>=1000?(s.ly/1000).toFixed(1)+" ألف":Math.round(s.ly))+" سنة ضوئية"):"")+row("اللون",({O:"أزرق",B:"أزرق مبيض",A:"أبيض",F:"أبيض مصفرّ",G:"أصفر",K:"برتقالي",M:"أحمر"})[s.sp]||"-");note=SKNOTE[s.key]||"";tgt={t:"star",key:s.key}}
+ else if(o.t==="dso"){const d=o.d;ar=d[4];en=d[5];type=d[8];const c=SKC.get(d[6]);cons=c?c.ar.split(" (")[0]+" • "+c.en:"";alt=o.alt;az=o.az;rows=row("القدر الظاهري",skfmt(d[3]))+row("البُعد",skfmt(d[7]>=1e6?(d[7]/1e6).toFixed(1)+" مليون":Math.round(d[7]))+" سنة ضوئية");note=SKNOTE[d[0]]||"";tgt={t:"dso",id:d[0]}}
+ else{const b=o.b,p=SKPL.find(a=>a[0]===o.k);ar=p[1];en=p[2];type=o.k==="Sun"?"نجم (الشمس)":o.k==="Moon"?"قمر":"كوكب";alt=b.alt;az=b.az;
+  if(o.k==="Moon"){const pa=b.illum,ph=skMoonPhase(b);rows=row("الطور",ph)+row("المضيء",skfmt(Math.round(pa*100))+"٪")+row("عمر القمر",skfmt(b.age.toFixed(1))+" يوم")}
+  else if(o.k==="Sun"){rows=row("المسافة",skfmt(b.dist.toFixed(3))+" وحدة فلكية")}
+  else rows=row("القدر الظاهري",skfmt(b.mag.toFixed(1)))+row("المسافة من الأرض",skfmt(b.dist.toFixed(2))+" وحدة فلكية");
+  tgt={t:"planet",k:o.k}}
+ const ad=alt*R2D;
+ rows+=row("الارتفاع الآن",skfmt(Math.round(ad))+"° "+(ad<0?"(تحت الأفق)":""))+row("الاتجاه",skdir(az*R2D)+" "+skfmt(Math.round(az*R2D))+"°");
+ e.innerHTML=`<button class="x" id="skinfox" aria-label="إغلاق">✕</button><div class="t1">${esc(ar)}</div><div class="t2" dir="ltr">${esc(en)}</div><div class="tg"><i>${esc(type)}</i>${cons?`<i>${esc(cons)}</i>`:""}</div><div class="rs">${rows}</div>${note?`<div class="nt">${esc(note)}</div>`:""}<div class="bt"><button id="skgo">🎯 دلّني عليه</button><button id="skcal" ${SK.mode==="sensor"?"":"disabled"}>معايرة البوصلة</button></div>`;
+ e.classList.add("on");
+ $("#skinfox").onclick=()=>skSelect(null);
+ $("#skgo").onclick=()=>{SK.tgt=tgt;skSelect(null);skToast("اتبع السهم الذهبي لين توصل للهدف")};
+ $("#skcal").onclick=()=>{
+  const al=alt,azm=az*R2D,d=SK.B.d,cur=Math.atan2(d[0],d[1])*R2D;
+  const dd=((azm-cur+540)%360)-180;SK.yaw=((SK.yaw+dd)%360+360)%360;skSave();skSelect(null);skToast("تمّت المعايرة — اتجاه البوصلة صار على الجرم")
+ };
+}
+function skMoonPhase(b){
+ const k=b.illum,w=b.waxing;
+ if(k<.03)return"محاق (قمر جديد)";if(k<.4)return w?"هلال متزايد":"هلال متناقص";if(k<.6)return w?"تربيع أول":"تربيع أخير";if(k<.97)return w?"أحدب متزايد":"أحدب متناقص";return"بدر";
+}
+function skSearchOpen(){
+ const w=$("#sksearch");w.classList.add("on");$("#skq").value="";skSearchRender("");setTimeout(()=>$("#skq").focus(),50);
+}
+function skSearchRender(q){
+ q=q.trim().toLowerCase();
+ const items=[];
+ SKPL.forEach(([k,ar,en])=>{const b=SK.ss[k];items.push({t:"planet",k,ar,en,mag:b.mag,alt:b.alt,type:k==="Moon"?"قمر":k==="Sun"?"الشمس":"كوكب",key:k})});
+ SKDSO.forEach(d=>{const h=skHor(d.ra2,d.dec2);items.push({t:"dso",id:d[0],ar:d[4],en:d[5],mag:d[3],alt:h[0],type:d[8]})});
+ SKS.forEach(s=>{if(s.mag<=3.1&&!/^Ple[2-6]$/.test(s.key)){const h=skHor(s.ra2,s.dec2);s.alt=h[0];s.az=h[1];items.push({t:"star",key:s.key,ar:s.ar,en:s.en,mag:s.mag,alt:h[0],type:"نجم"})}});
+ const f=items.filter(x=>!q||x.ar.includes(q)||x.en.toLowerCase().includes(q)||(q.length>1&&(SKC.get(x.key&&x.key.slice(-3))||{ar:""}).ar.includes(q)));
+ f.sort((a,b)=>((b.alt>0)-(a.alt>0))||a.mag-b.mag);
+ $("#sklist").innerHTML=f.slice(0,80).map((x,i)=>`<button data-i="${i}" class="${x.alt>0?"":"dn"}"><span class="a">${esc(x.ar)}</span><span class="e" dir="ltr">${esc(x.en)}</span><span class="m">${x.alt>0?"فوق الأفق":"تحت الأفق"}</span></button>`).join("")||'<div class="sub" style="padding:14px">ما لقيت نتيجة</div>';
+ $("#sklist").querySelectorAll("button").forEach(bn=>bn.onclick=()=>{
+  const x=f[+bn.dataset.i];SK.tgt=x.t==="star"?{t:"star",key:x.key}:x.t==="planet"?{t:"planet",k:x.key}:{t:"dso",id:x.id};
+  $("#sksearch").classList.remove("on");skToast(x.alt>0?"اتبع السهم الذهبي":"الجرم تحت الأفق حالياً — السهم يدلك على مكانه",2800);
+ });
+}
+/* ---------- اللمس ---------- */
+function skBind(){
+ const cv=SK.cv;if(!cv||cv._b)return;cv._b=1;
+ const pts=new Map();let moved=0,startD=0,startFov=0,t0=0,x0=0,y0=0;
+ cv.addEventListener("pointerdown",e=>{cv.setPointerCapture(e.pointerId);pts.set(e.pointerId,[e.clientX,e.clientY]);if(pts.size===1){moved=0;t0=performance.now();x0=e.clientX;y0=e.clientY}if(pts.size===2){const a=[...pts.values()];startD=Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1]);startFov=SK.fov}});
+ cv.addEventListener("pointermove",e=>{
+  if(!pts.has(e.pointerId))return;const p=pts.get(e.pointerId),dx=e.clientX-p[0],dy=e.clientY-p[1];pts.set(e.pointerId,[e.clientX,e.clientY]);
+  if(pts.size===2){const a=[...pts.values()],d=Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1]);if(startD>0)SK.fov=Math.max(12,Math.min(95,startFov*startD/d));moved=99;return}
+  moved+=Math.abs(dx)+Math.abs(dy);
+  if(SK.mode!=="sensor"){const k=SK.fov/SK.h;SK.az=((SK.az-dx*k)%360+360)%360;SK.alt=Math.max(-89,Math.min(89,SK.alt+dy*k))}
+ });
+ const up=e=>{
+  const had=pts.has(e.pointerId);pts.delete(e.pointerId);
+  if(had&&pts.size===0&&moved<8&&performance.now()-t0<450)skTap(e.clientX,e.clientY);
+ };
+ cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",e=>pts.delete(e.pointerId));
+ cv.addEventListener("wheel",e=>{e.preventDefault();SK.fov=Math.max(12,Math.min(95,SK.fov*(e.deltaY>0?1.1:.9)))},{passive:false});
+}
+function skTap(x,y){
+ const r=SK.cv.getBoundingClientRect(),px=x-r.left,py=y-r.top;let best=null,bd=1e9;
+ for(const o of SK.objs){const d=Math.hypot(o.x-px,o.y-py);const rad=38+(o.r||0);const sc=d-(o.mag<1?10:0)+Math.max(0,o.mag)*2;if(d<rad&&sc<bd){bd=sc;best=o}}
+ if(best)skSelect(best);else skSelect(null);
+}
+/* ---------- تشغيل/إيقاف ---------- */
+function skyShow(){
+ const root=$("#sky");if(!root)return;
+ SK.cv=$("#skcv");SK.g=SK.cv.getContext("2d");
+ skBind();skResize();skUi();
+ if(!SK.raf)SK.raf=requestAnimationFrame(skFrame);
+ if(SK.mode==="sensor"&&SK.perm!=="ok"&&SK.perm!=="wait"){
+  /* أندرويد يعمل بدون إذن: نشغّله تلقائياً. آيفون يحتاج ضغطة */
+  if(typeof DeviceOrientationEvent==="undefined"||typeof DeviceOrientationEvent.requestPermission!=="function")skEnableSensors();
+  else{SK.mode="touch"}
+ }
+ $("#skcity").textContent="📍 "+locNow().label;
+}
+function skyStop(){if(SK.raf){cancelAnimationFrame(SK.raf);SK.raf=0}}
+function skInit(){
+ $("#skpermgo").onclick=()=>skEnableSensors();
+ $("#skpermno").onclick=()=>{SK.dismiss=true;skUi()};
+ $("#skmode").onclick=()=>{if(SK.mode==="sensor")skDisableSensors();else skEnableSensors()};
+ $("#sklines").onclick=()=>{SK.lines=!SK.lines;skSave();skUi()};
+ $("#skgrid").onclick=()=>{SK.grid=!SK.grid;skSave();skUi()};
+ $("#skmw").onclick=()=>{SK.mw=!SK.mw;skSave();skUi()};
+ $("#sknames").onclick=()=>{SK.names=(SK.names+1)%4;skSave();skUi()};
+ $("#skfind").onclick=skSearchOpen;
+ $("#skq").oninput=e=>skSearchRender(e.target.value);
+ $("#sksearchx").onclick=()=>$("#sksearch").classList.remove("on");
+ $("#sktm").onclick=()=>{SK.tOff=Math.max(-1440,SK.tOff-60)};
+ $("#sktp").onclick=()=>{SK.tOff=Math.min(1440,SK.tOff+60)};
+ $("#sktime").onclick=()=>{SK.tOff=0};
+ $("#skctr").onclick=()=>{const c=SK.ctr;if(c)skSelect(c)};
+ $("#sktgtx").onclick=()=>{SK.tgt=null};
+ window.addEventListener("resize",skResize);
+}
+
+skInit();
+
 /* ============ radar (RainViewer) ============ */
 /* الخريطة تقرّب لحد الشوارع (17). صور الرادار جاهزة لحد زوم 7 فقط وتكبيرها أكثر يملأ ذاكرة Safari،
    فطبقات الرادار نفسها سقفها RADMAX وفوقه تختفي (والخريطة تكمل)، مع ≤4 طبقات حيّة. */
@@ -722,11 +1355,13 @@ async function radarShow(){
   const Lf=RV.Lf=window.L,loc=locNow();
   const map=RV.map=Lf.map("rmap",{zoomControl:false,attributionControl:false,minZoom:3,maxZoom:MAXZ,zoomSnap:1,zoomDelta:1,fadeAnimation:false,markerZoomAnimation:false,worldCopyJump:true}).setView([loc.lat,loc.lon],6);
   const bp=map.createPane("bpane");bp.style.zIndex=200;bp.style.filter="invert(1) hue-rotate(200deg) saturate(.5) brightness(.78) contrast(.9)";
-  map.createPane("rpane").style.zIndex=250;map.createPane("fpane").style.zIndex=251;
+  map.createPane("rpane").style.zIndex=250;map.createPane("fpane").style.zIndex=251;map.createPane("npane").style.zIndex=252;ncEnsure();
   map.getPane("fpane").style.willChange="transform";
   Lf.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{pane:"bpane",maxZoom:MAXZ,maxNativeZoom:19,keepBuffer:2}).addTo(map);
   RV.marker=Lf.marker([loc.lat,loc.lon],{icon:Lf.divIcon({className:"",html:'<div class="rdot"></div>',iconSize:[16,16],iconAnchor:[8,8]}),interactive:false,keyboard:false}).addTo(map);
   map.on("zoomend",()=>{applyFc();rHint()});
+  map.on("zoomstart",()=>{if(RV.ncv)RV.ncv.style.visibility="hidden"});
+  map.on("zoomend viewreset moveend",()=>{ncPlace();ncCheck()});
   setTimeout(()=>{try{map.invalidateSize()}catch(e){}},80);
   rmsg("");RV.booting=false;
   radarLoad();
@@ -748,9 +1383,10 @@ async function fetchSteer(){
 const DIRN=["الشمال","الشمال الشرقي","الشرق","الجنوب الشرقي","الجنوب","الجنوب الغربي","الغرب","الشمال الغربي"];
 function windChip(){
  const e=$("#rwind");if(!e)return;
- if(!RV.steer||RV.mode==="sat"){e.style.display="none";return}
- const to=(RV.steer.dir+180)%360;
- e.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" style="transform:rotate('+to+'deg);flex:none" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V4M5.5 10.5L12 4l6.5 6.5"/></svg><span>السحب نحو '+DIRN[Math.round(to/45)%8]+" • "+Math.round(RV.steer.sp*3.6*STEER_K)+" كم/س</span>";
+ if((!RV.steer&&!ncReady())||RV.mode==="sat"){e.style.display="none";return}
+ const m=ncReady()&&RV.nc.mv&&RV.nc.mv.own?RV.nc.mv:null;
+ const to=m?m.to:(RV.steer.dir+180)%360,spd=m?Math.round(m.sp*3.6):Math.round(RV.steer.sp*3.6*STEER_K);
+ e.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" style="transform:rotate('+to+'deg);flex:none" fill="none" stroke="#ffd27a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V4M5.5 10.5L12 4l6.5 6.5"/></svg><span>السحب نحو '+DIRN[Math.round(to/45)%8]+" • "+spd+" كم/س</span>";
  e.style.display="flex";
 }
 async function radarLoad(){
@@ -777,6 +1413,7 @@ function clearLayers(){
  Object.keys(RV.live).forEach(k=>{try{map.removeLayer(RV.live[k])}catch(e){}});RV.live={};
  if(RV.fc){try{map.removeLayer(RV.fc)}catch(e){}RV.fc=null}
  const fp=map.getPane("fpane");if(fp)fp.style.transform="";
+ ncHide();
 }
 const hm=ts=>{const d=new Date(ts*1000);return pad(d.getHours())+":"+pad(d.getMinutes())};
 function radarBuild(){
@@ -800,6 +1437,185 @@ function radarBuild(){
  const ln=$("#rlnow");ln.textContent=hasF?"الآن":"";ln.style.left=(hasF?(RV.nPast-1)/den*100:0)+"%";
  windChip();
  RV.lastTxt="";renderPos(sat?N-1:RV.nPast-1);
+ if(!sat)ncStart();
+}
+/* ===== توقّع محسوب من حركة السحب الفعلية =====
+   نقدّر حركة الغيوم (وتكبّرها/تصغّرها) من فرق آخر لقطات الرادار الحقيقية، ثم نكمّل نفس الحركة للأمام.
+   هذا تقدير خوارزمي (مو توقّع رسمي) ويضعف مع المدى. لو الصور ما انقرأت نرجع لإزاحة الرياح. */
+const NC={N:5,T:128,W:640,G:320,BS:32,ST:16,R:8,tok:0,tm:0};
+const ncTz=()=>Math.max(4,Math.min(7,Math.round(RV.map.getZoom())));
+function ncCenter(tz){const c=RV.map.getCenter(),n=1<<tz,s=Math.sin(c.lat*Math.PI/180);return{x:Math.floor((c.lng+180)/360*n),y:Math.floor((0.5-Math.log((1+s)/(1-s))/(4*Math.PI))*n)}}
+function ncTile(path,z,x,y){
+ return new Promise(res=>{
+  const n=1<<z;if(y<0||y>=n)return res(null);
+  const im=new Image();im.crossOrigin="anonymous";
+  const to=setTimeout(()=>{im.onload=im.onerror=null;res(null)},9000);
+  im.onload=()=>{clearTimeout(to);res(im)};im.onerror=()=>{clearTimeout(to);res(null)};
+  im.src=RV.host+path+"/256/"+z+"/"+(((x%n)+n)%n)+"/"+y+"/2/1_1.png";
+ });
+}
+async function ncMosaic(path,tz,x0,y0,tok){
+ const cv=document.createElement("canvas");cv.width=cv.height=NC.W;
+ const g=cv.getContext("2d",{willReadFrequently:true});let got=0;
+ const jobs=[];
+ for(let j=0;j<NC.N;j++)for(let i=0;i<NC.N;i++)jobs.push(ncTile(path,tz,x0+i,y0+j).then(im=>{if(im){got++;g.drawImage(im,i*NC.T,j*NC.T,NC.T,NC.T)}}));
+ await Promise.all(jobs);
+ if(tok!==NC.tok)throw new Error("stale");
+ if(!got)throw new Error("notiles");
+ return g.getImageData(0,0,NC.W,NC.W); /* يرمي خطأ أمني لو الصور ما تسمح بالقراءة */
+}
+function ncGrid(d){
+ const W=NC.W,G=NC.G,a=new Float32Array(G*G),p=d.data;
+ for(let y=0;y<G;y++)for(let x=0;x<G;x++){const i=(y*2*W+x*2)*4+3;a[y*G+x]=(p[i]+p[i+4]+p[i+W*4]+p[i+W*4+4])/1020}
+ return a;
+}
+const ncMed=a=>{const s=Array.from(a).sort((x,y)=>x-y);return s.length?s[s.length>>1]:0};
+/* مطابقة كتل: كل كتلة (32×32 خلية) نبحث وين كانت في اللقطة الأقدم */
+function ncMotion(A0,A1){
+ const G=NC.G,BS=NC.BS,ST=NC.ST,R=NC.R,nb=Math.floor((G-BS)/ST)+1,K=2*R+1,NB=nb*nb;
+ const vx=new Float32Array(NB),vy=new Float32Array(NB),gr=new Float32Array(NB).fill(1),ok=new Uint8Array(NB);
+ for(let by=0;by<nb;by++)for(let bx=0;bx<nb;bx++){
+  const x0=bx*ST,y0=by*ST,bi=by*nb+bx;let s1=0;
+  for(let y=0;y<BS;y+=2)for(let x=0;x<BS;x+=2)s1+=A1[(y0+y)*G+x0+x];
+  if(s1<8)continue;
+  let best=1e18,bdx=0,bdy=0;const S=new Float32Array(K*K).fill(1e18);
+  for(let dy=-R;dy<=R;dy++)for(let dx=-R;dx<=R;dx++){
+   const xs=x0-dx,ys=y0-dy;if(xs<0||ys<0||xs+BS>G||ys+BS>G)continue;
+   let s=0;
+   for(let y=0;y<BS;y+=2){const r1=(y0+y)*G+x0,r0=(ys+y)*G+xs;for(let x=0;x<BS;x+=2)s+=Math.abs(A1[r1+x]-A0[r0+x])}
+   S[(dy+R)*K+dx+R]=s;if(s<best){best=s;bdx=dx;bdy=dy}
+  }
+  let s0=0;{const xs=x0-bdx,ys=y0-bdy;for(let y=0;y<BS;y+=2)for(let x=0;x<BS;x+=2)s0+=A0[(ys+y)*G+xs+x]}
+  if(!(best<0.55*(s1+s0)))continue;
+  let fx=0,fy=0;const ci=(bdy+R)*K+bdx+R;
+  if(bdx>-R&&bdx<R){const l=S[ci-1],r=S[ci+1],dn=l-2*best+r;if(dn>1e-6&&l<1e17&&r<1e17)fx=Math.max(-.5,Math.min(.5,.5*(l-r)/dn))}
+  if(bdy>-R&&bdy<R){const l=S[ci-K],r=S[ci+K],dn=l-2*best+r;if(dn>1e-6&&l<1e17&&r<1e17)fy=Math.max(-.5,Math.min(.5,.5*(l-r)/dn))}
+  vx[bi]=bdx+fx;vy[bi]=bdy+fy;gr[bi]=Math.max(.6,Math.min(1.6,(s1+1)/(s0+1)));ok[bi]=1;
+ }
+ const gx=[],gy=[];for(let i=0;i<NB;i++)if(ok[i]){gx.push(vx[i]);gy.push(vy[i])}
+ if(gx.length<3)return null;
+ const mx=ncMed(gx),my=ncMed(gy);
+ for(let i=0;i<NB;i++)if(ok[i]&&(Math.abs(vx[i]-mx)>4||Math.abs(vy[i]-my)>4))ok[i]=0;
+ /* نعبّي الكتل الضعيفة من جيرانها */
+ const fvx=vx.slice(),fvy=vy.slice(),fgr=gr.slice();
+ for(let by=0;by<nb;by++)for(let bx=0;bx<nb;bx++){
+  const bi=by*nb+bx;if(ok[bi])continue;
+  let sw=0,ax=0,ay=0;
+  for(let y=Math.max(0,by-4);y<=Math.min(nb-1,by+4);y++)for(let x=Math.max(0,bx-4);x<=Math.min(nb-1,bx+4);x++){
+   const j=y*nb+x;if(!ok[j])continue;const w=1/(1+(x-bx)*(x-bx)+(y-by)*(y-by));sw+=w;ax+=w*vx[j];ay+=w*vy[j]}
+  fvx[bi]=sw?ax/sw:mx;fvy[bi]=sw?ay/sw:my;fgr[bi]=1;
+ }
+ const sm=a=>{const o=a.slice();for(let y=0;y<nb;y++)for(let x=0;x<nb;x++){let s=0,n=0;for(let j=Math.max(0,y-1);j<=Math.min(nb-1,y+1);j++)for(let i=Math.max(0,x-1);i<=Math.min(nb-1,x+1);i++){s+=a[j*nb+i];n++}o[y*nb+x]=s/n}return o};
+ let a=fvx,b=fvy,c=fgr;for(let k=0;k<2;k++){a=sm(a);b=sm(b);c=sm(c)}
+ return{nb,vx:a,vy:b,gr:c,mx,my,nOk:gx.length};
+}
+/* نحوّل حقل الكتل لحقل لكل بكسل: إزاحة (بكسل/10 دقايق) ومعدل نمو */
+function ncFields(M,uni){
+ const W=NC.W,nb=M.nb,ST=NC.ST,BS=NC.BS,VX=new Float32Array(W*W),VY=new Float32Array(W*W),LG=new Float32Array(W*W);
+ for(let y=0;y<W;y++){
+  const fy=Math.max(0,Math.min(nb-1.001,(y/2-BS/2)/ST)),j=fy|0,ty=fy-j;
+  for(let x=0;x<W;x++){
+   const fx=Math.max(0,Math.min(nb-1.001,(x/2-BS/2)/ST)),i=fx|0,tx=fx-i,k=j*nb+i;
+   const w00=(1-tx)*(1-ty),w10=tx*(1-ty),w01=(1-tx)*ty,w11=tx*ty,o=y*W+x;
+   VX[o]=M.vx[k]*w00+M.vx[k+1]*w10+M.vx[k+nb]*w01+M.vx[k+nb+1]*w11;
+   VY[o]=M.vy[k]*w00+M.vy[k+1]*w10+M.vy[k+nb]*w01+M.vy[k+nb+1]*w11;
+   const g=M.gr[k]*w00+M.gr[k+1]*w10+M.gr[k+nb]*w01+M.gr[k+nb+1]*w11;
+   LG[o]=uni?0:Math.log(g)*0.5*0.6; /* لكل 10 دقايق، مخفّف */
+  }
+ }
+ return{VX,VY,LG};
+}
+function ncAdvect(src,F,k){
+ const W=NC.W,out=new Uint8ClampedArray(W*W*4),p=src.data,dec=Math.exp(-0.008*k),VX=F.VX,VY=F.VY,LG=F.LG,W1=W-1;
+ for(let y=0;y<W;y++)for(let x=0;x<W;x++){
+  let sx=x,sy=y,ii=y*W+x;
+  for(let it=0;it<2;it++){
+   const ix=sx<0?0:sx>W1?W1:Math.round(sx),iy=sy<0?0:sy>W1?W1:Math.round(sy);ii=iy*W+ix;
+   sx=x-VX[ii]*k;sy=y-VY[ii]*k;
+  }
+  if(sx<0||sy<0||sx>=W1||sy>=W1)continue;
+  const x0=sx|0,y0=sy|0,fx=sx-x0,fy=sy-y0,i00=(y0*W+x0)*4,i10=i00+4,i01=i00+W*4,i11=i01+4;
+  const a00=p[i00+3],a10=p[i10+3],a01=p[i01+3],a11=p[i11+3];
+  if(!(a00|a10|a01|a11))continue;
+  const w00=(1-fx)*(1-fy)*a00,w10=fx*(1-fy)*a10,w01=(1-fx)*fy*a01,w11=fx*fy*a11,A=w00+w10+w01+w11;
+  if(A<.5)continue;
+  const o=(y*W+x)*4,m=Math.exp(LG[ii]*k)*dec;
+  out[o]=(p[i00]*w00+p[i10]*w10+p[i01]*w01+p[i11]*w11)/A;
+  out[o+1]=(p[i00+1]*w00+p[i10+1]*w10+p[i01+1]*w01+p[i11+1]*w11)/A;
+  out[o+2]=(p[i00+2]*w00+p[i10+2]*w10+p[i01+2]*w01+p[i11+2]*w11)/A;
+  out[o+3]=A*m;
+ }
+ return out;
+}
+const ncYield=()=>new Promise(r=>setTimeout(r,0));
+function ncEnsure(){
+ if(RV.ncv||!RV.map)return;
+ const pane=RV.map.getPane("npane");if(!pane)return;
+ const c=RV.ncv=document.createElement("canvas");c.width=c.height=NC.W;
+ c.style.cssText="position:absolute;left:0;top:0;pointer-events:none;opacity:0;visibility:hidden;image-rendering:auto";
+ pane.appendChild(c);
+}
+function ncHide(){if(RV.ncv){RV.ncv.style.opacity=0;RV.ncv.style.visibility="hidden"}}
+function ncReady(){return !!(RV.nc&&RV.nc.ready&&RV.nc.F)}
+function ncPlace(){
+ const n=RV.nc,c=RV.ncv,m=RV.map;if(!c||!m)return;
+ if(!ncReady()||m.getZoom()>RADMAX){c.style.visibility="hidden";return}
+ const S=256,nw=m.unproject([n.x0*S,n.y0*S],n.tz),se=m.unproject([(n.x0+NC.N)*S,(n.y0+NC.N)*S],n.tz);
+ const p1=m.latLngToLayerPoint(nw),p2=m.latLngToLayerPoint(se),st=c.style;
+ st.left=p1.x+"px";st.top=p1.y+"px";st.width=(p2.x-p1.x)+"px";st.height=(p2.y-p1.y)+"px";st.visibility="visible";
+}
+function ncDraw(k){
+ const n=RV.nc,c=RV.ncv;if(!ncReady()||!c)return;
+ const a=Math.min(n.F.length-1,Math.floor(k)),t=Math.max(0,Math.min(1,k-a)),b=Math.min(n.F.length-1,a+1),key=a+"|"+t.toFixed(3);
+ if(c._k===key)return;c._k=key;
+ const g=c.getContext("2d");g.clearRect(0,0,NC.W,NC.W);g.globalCompositeOperation="lighter";
+ g.globalAlpha=1-t;g.drawImage(n.F[a],0,0);
+ if(t>.001&&b!==a){g.globalAlpha=t;g.drawImage(n.F[b],0,0)}
+ g.globalAlpha=1;
+}
+async function ncStart(){
+ const tok=++NC.tok,map=RV.map;
+ RV.nc=null;ncHide();if(RV.ncv)RV.ncv._k="";
+ const at=$("#rattr");if(at)at.textContent=RV.attr0||at.textContent;
+ if(!map||RV.mode!=="radar"||RV.real.length||RV.past.length<3||map.getZoom()>RADMAX)return;
+ const tz=ncTz(),c=ncCenter(tz),x0=c.x-2,y0=c.y-2,P=RV.past,n=P.length;
+ RV.nc={loading:true,tz,cx:c.x,cy:c.y};
+ try{
+  const [d0,d1]=await Promise.all([ncMosaic(P[n-3].path,tz,x0,y0,tok),ncMosaic(P[n-1].path,tz,x0,y0,tok)]);
+  await ncYield();if(tok!==NC.tok)return;
+  const A0=ncGrid(d0),A1=ncGrid(d1);let tot=0;for(let i=0;i<A1.length;i++)tot+=A1[i];
+  let M=ncMotion(A0,A1),uni=false;
+  const lat=map.getCenter().lat,cellM=4*156543.03392*Math.cos(lat*Math.PI/180)/(1<<tz);
+  if(!M){
+   if(!RV.steer)throw new Error("nomotion");
+   const to=((RV.steer.dir+180)%360)*Math.PI/180,d=RV.steer.sp*STEER_K*1200/cellM,nb=Math.floor((NC.G-NC.BS)/NC.ST)+1,N2=nb*nb;
+   M={nb,vx:new Float32Array(N2).fill(d*Math.sin(to)),vy:new Float32Array(N2).fill(-d*Math.cos(to)),gr:new Float32Array(N2).fill(1),mx:d*Math.sin(to),my:-d*Math.cos(to),nOk:0};uni=true;
+  }
+  const sp=Math.hypot(M.mx,M.my)*cellM/1200;
+  if(sp>45)throw new Error("fast");
+  const F=ncFields(M,uni),frames=[];
+  for(let k=0;k<=FCSTEPS;k++){
+   await ncYield();if(tok!==NC.tok)return;
+   const cv=document.createElement("canvas");cv.width=cv.height=NC.W;
+   cv.getContext("2d").putImageData(new ImageData(k?ncAdvect(d1,F,k):d1.data,NC.W,NC.W),0,0);frames.push(cv);
+  }
+  if(tok!==NC.tok)return;
+  RV.nc={ready:true,F:frames,tz,x0,y0,cx:c.x,cy:c.y,mv:{sp,to:(Math.atan2(M.mx,-M.my)*180/Math.PI+360)%360,own:!uni,nOk:M.nOk},empty:tot<1};
+  ncEnsure();ncPlace();windChip();
+  const at2=$("#rattr");if(at2){RV.attr0=RV.attr0||at2.textContent;at2.textContent="أبيض: رادار حقيقي • ذهبي: توقّع محسوب من حركة السحب بين آخر اللقطات (تقدير، مو رسمي) • RainViewer • © OpenStreetMap"}
+  RV.lastTxt="";renderPos(RV.pos);
+ }catch(e){
+  if(tok===NC.tok){RV.nc={failed:true,tz,cx:c.x,cy:c.y};if(e&&e.message!=="stale")console.warn("nowcast fallback:",e.message)}
+ }
+}
+function ncCheck(){
+ clearTimeout(NC.tm);
+ NC.tm=setTimeout(()=>{
+  const m=RV.map;if(!m||RV.mode!=="radar"||RV.real.length||RV.loading||RV.past.length<3||m.getZoom()>RADMAX)return;
+  const tz=ncTz(),c=ncCenter(tz),n=RV.nc;
+  if(n&&n.tz===tz&&Math.abs(c.x-n.cx)<=1&&Math.abs(c.y-n.cy)<=1)return;
+  ncStart();
+ },700);
 }
 function liveLayer(i){
  if(!RV.live[i]){
@@ -820,17 +1636,28 @@ function fcShift(min){
  return[d*Math.sin(to)/mpp,-d*Math.cos(to)/mpp];
 }
 function shiftTo(min){const s=fcShift(min);RV.map.getPane("fpane").style.transform="translate3d("+s[0].toFixed(2)+"px,"+s[1].toFixed(2)+"px,0)"}
-function applyFc(){if(!RV.map||!RV.fcOn||RV.pos<RV.nPast-1)return;shiftTo((RV.pos-(RV.nPast-1))*FCMIN)}
+function applyFc(){if(!RV.map||!RV.fcOn||RV.pos<RV.nPast-1||ncReady())return;shiftTo((RV.pos-(RV.nPast-1))*FCMIN)}
 /* pos رقم عشري بين اللقطات: نمزج اللقطتين بالتدريج بدل القفز */
 function renderPos(pos){
  const N=RV.frames.length;if(!N||!RV.map)return;
  pos=Math.max(0,Math.min(N-1,pos));RV.pos=pos;
  const i=Math.floor(pos),t=pos-i,j=Math.min(N-1,i+1);
  if(RV.fcOn&&pos>=RV.nPast-1){
-  if(Object.keys(RV.live).length){Object.keys(RV.live).forEach(k=>RV.live[k].setOpacity(0));liveCleanup([])}
-  RV.fc.setOpacity(OP);shiftTo((pos-(RV.nPast-1))*FCMIN);
+  const kk=pos-(RV.nPast-1);
+  if(ncReady()){
+   /* توقّع محسوب: أول نص خطوة نمزج آخر لقطة حقيقية مع أول لقطة محسوبة عشان ما تنقفز */
+   if(kk<.5){const Lr=liveLayer(RV.nPast-1);Lr.setOpacity(OP*(1-kk*2));liveCleanup([RV.nPast-1])}
+   else if(Object.keys(RV.live).length){Object.keys(RV.live).forEach(k=>RV.live[k].setOpacity(0));liveCleanup([])}
+   if(RV.fc){RV.fc.setOpacity(0);RV.map.getPane("fpane").style.transform=""}
+   ncDraw(kk);if(RV.ncv){RV.ncv.style.opacity=OP*Math.min(1,kk*2);ncPlace()}
+  }else{
+   if(Object.keys(RV.live).length){Object.keys(RV.live).forEach(k=>RV.live[k].setOpacity(0));liveCleanup([])}
+   if(RV.ncv)RV.ncv.style.opacity=0;
+   RV.fc.setOpacity(OP);shiftTo(kk*FCMIN);
+  }
  }else{
   if(RV.fc){RV.fc.setOpacity(0);RV.map.getPane("fpane").style.transform=""}
+  if(RV.ncv&&RV.ncv.style.opacity!=="0")RV.ncv.style.opacity=0;
   { const jj=Math.min(N-1,i+1),keep0=[i,jj];if(jj+1<(RV.fcOn?RV.nPast:N))keep0.push(jj+1);liveCleanup(keep0) }
   const A=liveLayer(i);
   if(t<.002){A.setOpacity(OP);if(RV.live[j]&&j!==i)RV.live[j].setOpacity(0)}
@@ -843,7 +1670,7 @@ function renderPos(pos){
  const f=RV.frames[i],g=RV.frames[j],tm=f.time+(g.time-f.time)*t,lastPast=RV.past.length&&RV.mode==="radar"?RV.past[RV.past.length-1].time:f.time;
  const isF=RV.mode==="radar"&&pos>RV.nPast-1+.02&&(RV.fcOn||RV.real.length>0);
  let b,cls="rbadge";
- if(isF){b="توقّع "+(RV.real.length?"":"تقديري ")+"+"+Math.max(1,Math.round((tm-lastPast)/60))+" د";cls+=" f"}
+ if(isF){b="توقّع "+(RV.real.length?"":ncReady()?"محسوب ":"تقديري ")+"+"+Math.max(1,Math.round((tm-lastPast)/60))+" د";cls+=" f"}
  else{const diff=Math.round((Date.now()/1000-tm)/60);b=diff<=12?"الآن":"قبل "+(diff>=60?Math.floor(diff/60)+" س "+(diff%60?(diff%60)+" د":""):diff+" د")}
  const key=hm(tm)+"|"+b;
  if(key!==RV.lastTxt){RV.lastTxt=key;$("#rtime").textContent=hm(tm);const be=$("#rbadge");be.textContent=b;be.className=cls}
@@ -916,7 +1743,7 @@ function tick(){
  if(S.view==="radar"&&RV.map&&!RV.loading&&!RV.timer&&Date.now()-RV.fts>10*6e4)radarLoad();
 }
 setInterval(tick,1000);
-document.addEventListener("visibilitychange",()=>{if(document.hidden)radarStop();if(!document.hidden){fetchWx();if(S.view==="radar")radarShow();if(S.view==="prayer"){S.keep=true;render()}}});
+document.addEventListener("visibilitychange",()=>{if(document.hidden){radarStop();skyStop()}if(!document.hidden&&S.view==="sky")skyShow();if(document.hidden)return;if(!document.hidden){fetchWx();if(S.view==="radar")radarShow();if(S.view==="prayer"){S.keep=true;render()}}});
 
 /* ============ PWA ============ */
 (function(){
