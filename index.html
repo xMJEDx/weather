@@ -1620,41 +1620,47 @@ function ncBlur(a,r){
  }
  return o;
 }
-function ncPrep(d){
- const n=NC.W*NC.W,p=d.data,A=new Float32Array(n),R=new Float32Array(n),G=new Float32Array(n),B=new Float32Array(n);
- for(let i=0;i<n;i++){const al=p[i*4+3];if(!al)continue;A[i]=al;R[i]=p[i*4]*al;G[i]=p[i*4+1]*al;B[i]=p[i*4+2]*al}
- const a=ncBlur(A,5),r=ncBlur(R,5),g=ncBlur(G,5),b=ncBlur(B,5);
- return{a,r,g,b};
+/* شدّة تقريبية من لون بلاطة RainViewer (أزرق فاتح ← أزرق غامق ← أصفر ← برتقالي ← أحمر ← بنفسجي) */
+function ncInt(r,g,b){
+ const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;if(d<12)return .5;
+ let hh=mx===r?((g-b)/d)%6:mx===g?(b-r)/d+2:(r-g)/d+4;hh*=60;if(hh<0)hh+=360;
+ if(hh>=180&&hh<=265)return(hh-180)/85*.5;
+ if(hh>=300)return 1;
+ if(hh<=100)return .5+(100-hh)/100*.5;
+ return .3;
 }
-/* دورة حياة السحابة: الإزاحة بالحركة المقاسة + نمو/تلاشي حسب اتجاه الشدة + تآكل الخلايا الضعيفة/الصغيرة + تشوّه عضوي بسيط.
-   (معدل الاضمحلال افتراض إحصائي — مو توقّع حقيقي لكل خلية) */
+/* تحليل الحقل لخمس مستويات حجم (هرم لابلاسي) — كل مستوى له عمر مختلف، مثل أسلوب S-PROG/STEPS في التوقّع الرادارّي */
+function ncPrep(d){
+ const n=NC.W*NC.W,p=d.data,A=new Float32Array(n),P=new Float32Array(n),NB=48,ls=new Float64Array(NB*3),ln=new Float64Array(NB);
+ for(let i=0;i<n;i++){const al=p[i*4+3]/255;if(al<.02)continue;const I=ncInt(p[i*4],p[i*4+1],p[i*4+2]);A[i]=al;P[i]=I*al;
+  if(al>.4){const q=Math.min(NB-1,Math.round(I*(NB-1)));ls[q*3]+=p[i*4];ls[q*3+1]+=p[i*4+1];ls[q*3+2]+=p[i*4+2];ln[q]++}}
+ const lut=[];for(let q=0;q<NB;q++)lut.push(ln[q]>3?[ls[q*3]/ln[q],ls[q*3+1]/ln[q],ls[q*3+2]/ln[q]]:null);
+ let last=null;for(let q=0;q<NB;q++){if(lut[q])last=lut[q];else if(last)lut[q]=last}
+ last=null;for(let q=NB-1;q>=0;q--){if(lut[q])last=lut[q];else if(last)lut[q]=last}
+ if(!lut[0])return null;
+ const pyr=X=>{const b2=ncBlur(X,2),b4=ncBlur(X,4),b8=ncBlur(X,8),b16=ncBlur(X,16),L=[];const sub=(u,v)=>{const o=new Float32Array(n);for(let i=0;i<n;i++)o[i]=u[i]-v[i];return o};
+  L.push(sub(X,b2),sub(b2,b4),sub(b4,b8),sub(b8,b16),b16);return L};
+ return{A:pyr(A),P:pyr(P),lut,NB};
+}
+const NC_TAU=[2.2,4.5,9,20,80]; /* عمر كل مستوى بوحدة 10 دقايق: التفاصيل الدقيقة تتلاشى أسرع، والكتل الكبيرة تدوم */
 function ncAdvect(src,F,k,PB){
- const W=NC.W,out=new Uint8ClampedArray(W*W*4),p=src.data,VX=F.VX,VY=F.VY,LG=F.LG,W1=W-1;
- const th=14*Math.min(1,k/3),wd=12,gf=Math.min(1,k/4),amp=1.7*Math.sqrt(k),ph=k*.35;
+ const W=NC.W,n=W*W,out=new Uint8ClampedArray(n*4),VX=F.VX,VY=F.VY,LG=F.LG,W1=W-1,NB=PB.NB,lut=PB.lut;
+ const dj=NC_TAU.map(t=>Math.exp(-k/t)),CA=new Float32Array(n),CP=new Float32Array(n);
+ for(let i=0;i<n;i++){let a=0,q=0;for(let j=0;j<5;j++){a+=dj[j]*PB.A[j][i];q+=dj[j]*PB.P[j][i]}CA[i]=a>0?a:0;CP[i]=q>0?q:0}
+ const tr=.05*Math.min(1,k/2);
  for(let y=0;y<W;y++)for(let x=0;x<W;x++){
   let sx=x,sy=y,ii=y*W+x;
-  for(let it=0;it<2;it++){
-   const ix=sx<0?0:sx>W1?W1:Math.round(sx),iy=sy<0?0:sy>W1?W1:Math.round(sy);ii=iy*W+ix;
-   sx=x-VX[ii]*k;sy=y-VY[ii]*k;
-  }
-  if(amp){sx+=amp*Math.sin(y*.037+ph+x*.011);sy+=amp*Math.sin(x*.029-ph*1.3+y*.013)}
+  for(let it=0;it<2;it++){const ix=sx<0?0:sx>W1?W1:Math.round(sx),iy=sy<0?0:sy>W1?W1:Math.round(sy);ii=iy*W+ix;sx=x-VX[ii]*k;sy=y-VY[ii]*k}
   if(sx<0||sy<0||sx>=W1||sy>=W1)continue;
-  const ci=(Math.round(sy)*W+Math.round(sx)),ba=PB.a[ci];
-  if(ba<1.5)continue;
-  const weak=1-Math.min(1,ba/150),f=Math.exp((LG[ii]*1.0)*k-(0.018+0.05*weak)*k);
-  const eff=ba*f;
-  let m=k?(eff-th)/wd:1;if(m<=0)continue;if(m>1)m=1;m=m*m*(3-2*m);
-  const x0=sx|0,y0=sy|0,fx=sx-x0,fy=sy-y0,i00=(y0*W+x0)*4,i10=i00+4,i01=i00+W*4,i11=i01+4;
-  const a00=p[i00+3],a10=p[i10+3],a01=p[i01+3],a11=p[i11+3];
-  const w00=(1-fx)*(1-fy)*a00,w10=fx*(1-fy)*a10,w01=(1-fx)*fy*a01,w11=fx*fy*a11,A=w00+w10+w01+w11;
-  const o=(y*W+x)*4;let r,g,b,al;
-  const halo=Math.min(255,ba*1.15)*gf;
-  if(A>=.5&&A>=halo*.6){r=(p[i00]*w00+p[i10]*w10+p[i01]*w01+p[i11]*w11)/A;g=(p[i00+1]*w00+p[i10+1]*w10+p[i01+1]*w01+p[i11+1]*w11)/A;b=(p[i00+2]*w00+p[i10+2]*w10+p[i01+2]*w01+p[i11+2]*w11)/A;al=A}
-  else{const s=PB.a[ci]||1;r=PB.r[ci]/s;g=PB.g[ci]/s;b=PB.b[ci]/s;al=halo}
-  const fa=f<1?f:1;al*=m*(0.45+0.55*fa);
-  if(f<1){const q=(1-f)*.45;r+=(150-r)*q;g+=(205-g)*q;b+=(255-b)*q}
-  if(al<2)continue;
-  out[o]=r;out[o+1]=g;out[o+2]=b;out[o+3]=al;
+  const x0=sx|0,y0=sy|0,fx=sx-x0,fy=sy-y0,i0=y0*W+x0,w00=(1-fx)*(1-fy),w10=fx*(1-fy),w01=(1-fx)*fy,w11=fx*fy;
+  let A=CA[i0]*w00+CA[i0+1]*w10+CA[i0+W]*w01+CA[i0+W+1]*w11;
+  if(A<.03)continue;
+  const Pv=CP[i0]*w00+CP[i0+1]*w10+CP[i0+W]*w01+CP[i0+W+1]*w11;
+  A*=Math.exp(LG[ii]*k);if(A>1)A=1;
+  let al=(A-tr)/(1-tr);if(al<=.02)continue;
+  let I=Pv/(CA[i0]*w00+CA[i0+1]*w10+CA[i0+W]*w01+CA[i0+W+1]*w11+1e-6);I=I<0?0:I>1?1:I;
+  const c=lut[Math.round(I*(NB-1))],o=(y*W+x)*4;
+  out[o]=c[0];out[o+1]=c[1];out[o+2]=c[2];out[o+3]=al*255;
  }
  return out;
 }
@@ -1704,7 +1710,7 @@ async function ncStart(){
   }
   const sp=Math.hypot(M.mx,M.my)*cellM/(NC.DT*600);
   if(sp>45)throw new Error("fast");
-  const F=ncFields(M,uni),frames=[],PB=ncPrep(d1);
+  const F=ncFields(M,uni),frames=[],PB=ncPrep(d1);if(!PB)throw new Error("nomotion");
   for(let k=0;k<=FCSTEPS;k++){
    await ncYield();if(tok!==NC.tok)return;
    const cv=document.createElement("canvas");cv.width=cv.height=NC.W;
@@ -1714,7 +1720,7 @@ async function ncStart(){
   RV.nc={ready:true,F:frames,tz,x0,y0,cx:c.x,cy:c.y,mv:{sp,to:(Math.atan2(M.mx,-M.my)*180/Math.PI+360)%360,own:!uni,nOk:M.nOk},empty:tot<1};
   ncEnsure();ncPlace();windChip();
   const at2=$("#rattr");if(at2){RV.attr0=RV.attr0||at2.textContent;at2.textContent="أبيض: رادار حقيقي • ذهبي: توقّع محسوب من حركة السحب بين آخر اللقطات (تقدير، مو رسمي) • RainViewer • © OpenStreetMap"}
-  ncDiag(uni?"ما لقيت أمطار كافية بالمنطقة لقياس حركتها، فاستخدمت اتجاه الرياح العلوية ("+Math.round(sp*3.6)+" كم/س)":"التوقّع محسوب من حركة السحب الفعلية: "+M.nOk+" منطقة قياس • "+Math.round(sp*3.6)+" كم/س نحو "+DIRN[Math.round(RV.nc.mv.to/45)%8]+" • فرق "+(NC.DT*10)+" دقيقة بين اللقطات • الحجم: تكبر/تصغر/تختفي حسب اتجاه الشدة (معدل التلاشي افتراض إحصائي)");
+  ncDiag(uni?"ما لقيت أمطار كافية بالمنطقة لقياس حركتها، فاستخدمت اتجاه الرياح العلوية ("+Math.round(sp*3.6)+" كم/س)":"التوقّع محسوب من حركة السحب الفعلية: "+M.nOk+" منطقة قياس • "+Math.round(sp*3.6)+" كم/س نحو "+DIRN[Math.round(RV.nc.mv.to/45)%8]+" • فرق "+(NC.DT*10)+" دقيقة بين اللقطات • التفاصيل الصغيرة تذوب أسرع من الكتل الكبيرة (أسلوب S-PROG) وتتغير الشدة حسب الاتجاه المقاس — افتراضات إحصائية مو توقّع رسمي");
   RV.lastTxt="";renderPos(RV.pos);
  }catch(e){
   if(tok===NC.tok){RV.nc={failed:true,tz,cx:c.x,cy:c.y};const msg=e&&e.message||"";if(msg!=="stale"){console.warn("nowcast fallback:",e);ncDiag("تعذّر حساب الحركة ("+(msg==="notiles"?"صور الرادار ما انقرأت":/secur|taint|insecure/i.test(msg+(e&&e.name))?"المتصفح منع قراءة الصور":msg==="fast"?"قياس غير منطقي":msg==="nomotion"?"ما فيه سحب كافية":msg)+") — الحركة المعروضة إزاحة تقديرية بالرياح فقط")}}
