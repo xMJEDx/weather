@@ -1622,7 +1622,7 @@ function ncBlur(a,r){
 }
 /* شدّة تقريبية من لون بلاطة RainViewer (أزرق فاتح ← أزرق غامق ← أصفر ← برتقالي ← أحمر ← بنفسجي) */
 function ncInt(r,g,b){
- const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;if(d<12)return .5;
+ const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn;if(d<12)return .08;
  let hh=mx===r?((g-b)/d)%6:mx===g?(b-r)/d+2:(r-g)/d+4;hh*=60;if(hh<0)hh+=360;
  if(hh>=180&&hh<=265)return(hh-180)/85*.5;
  if(hh>=300)return 1;
@@ -1632,7 +1632,7 @@ function ncInt(r,g,b){
 /* تحليل الحقل لخمس مستويات حجم (هرم لابلاسي) — كل مستوى له عمر مختلف، مثل أسلوب S-PROG/STEPS في التوقّع الرادارّي */
 function ncPrep(d){
  const n=NC.W*NC.W,p=d.data,A=new Float32Array(n),P=new Float32Array(n),NB=48,ls=new Float64Array(NB*3),ln=new Float64Array(NB);
- for(let i=0;i<n;i++){const al=p[i*4+3]/255;if(al<.02)continue;const I=ncInt(p[i*4],p[i*4+1],p[i*4+2]);A[i]=al;P[i]=I*al;
+ for(let i=0;i<n;i++){const al=p[i*4+3]/255;if(al<.02)continue;const I=al<.55?.05:ncInt(p[i*4],p[i*4+1],p[i*4+2]);A[i]=al;P[i]=I*al;
   if(al>.4){const q=Math.min(NB-1,Math.round(I*(NB-1)));ls[q*3]+=p[i*4];ls[q*3+1]+=p[i*4+1];ls[q*3+2]+=p[i*4+2];ln[q]++}}
  const lut=[];for(let q=0;q<NB;q++)lut.push(ln[q]>3?[ls[q*3]/ln[q],ls[q*3+1]/ln[q],ls[q*3+2]/ln[q]]:null);
  let last=null;for(let q=0;q<NB;q++){if(lut[q])last=lut[q];else if(last)lut[q]=last}
@@ -1642,7 +1642,7 @@ function ncPrep(d){
   L.push(sub(X,b2),sub(b2,b4),sub(b4,b8),sub(b8,b16),b16);return L};
  return{A:pyr(A),P:pyr(P),lut,NB};
 }
-const NC_TAU=[2.2,4.5,9,20,80]; /* عمر كل مستوى بوحدة 10 دقايق: التفاصيل الدقيقة تتلاشى أسرع، والكتل الكبيرة تدوم */
+const NC_TAU=[5,9,16,32,140]; /* عمر كل مستوى بوحدة 10 دقايق: التفاصيل الدقيقة تتلاشى أسرع، والكتل الكبيرة تدوم */
 function ncAdvect(src,F,k,PB){
  const W=NC.W,n=W*W,out=new Uint8ClampedArray(n*4),VX=F.VX,VY=F.VY,LG=F.LG,W1=W-1,NB=PB.NB,lut=PB.lut;
  const dj=NC_TAU.map(t=>Math.exp(-k/t)),CA=new Float32Array(n),CP=new Float32Array(n);
