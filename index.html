@@ -132,6 +132,8 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 #sheetWrap.on{display:flex}
 #sheetBody{background:#141a3d;color:#fff;width:100%;max-width:720px;max-height:90vh;overflow-y:auto;border-radius:28px 28px 0 0;padding:14px 16px calc(24px + var(--safe-b));border:1px solid var(--ln);animation:up .24s ease}
 @keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.shd{position:sticky;top:-14px;z-index:3;display:flex;justify-content:flex-start;margin:-14px -16px 6px;padding:12px 14px 6px;background:linear-gradient(180deg,#141a3d 70%,rgba(20,26,61,0))}
+.shx{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;font:700 13.5px Tajawal,sans-serif;border-radius:20px;padding:7px 14px;-webkit-tap-highlight-color:transparent}.shx:active{transform:scale(.94)}
 .grab{width:42px;height:5px;border-radius:5px;background:var(--ln);margin:0 auto 12px}
 .toast{position:fixed;top:calc(var(--safe-t) + 12px);left:50%;transform:translateX(-50%);background:#fff;color:#12204a;padding:10px 18px;border-radius:16px;font-weight:800;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:90%;text-align:center;animation:fade .2s}
 /* prayer */
@@ -334,7 +336,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
   <div class="rdiag" id="rdiag" onclick="this.classList.toggle('open')"></div>
   <div class="rattr">أبيض: رادار حقيقي • ذهبي: توقّع تقديري باتجاه الرياح • RainViewer • © OpenStreetMap</div>
  </div>
- <div class="rmsg" id="rmsg"><div><div id="rmsgt" style="margin-bottom:14px"></div><button class="btn" id="rretry">إعادة المحاولة</button></div></div>
+ <div class="rmsg" id="rmsg"><div><div id="rmsgt" style="margin-bottom:14px"></div><button class="btn" id="rretry">إعادة المحاولة</button> <button class="btn" style="background:rgba(255,255,255,.14);color:#fff" onclick="rmsg('');go('weather')">رجوع</button></div></div>
 </div>
 <div id="sky">
  <canvas id="skcv"></canvas>
@@ -462,8 +464,25 @@ const S={view:"weather",anchor:new Date(),pdate:new Date(),
  wx:{data:null,air:null,ts:0,key:"",loading:false,err:false,lastTry:0}};
 (function(){try{const c=JSON.parse(localStorage.getItem(WKEY));if(c&&c.data){S.wx.data=c.data;S.wx.ts=c.ts;S.wx.key=c.key;S.wx.air=c.air||null}}catch(e){}})();
 function toast(m){const e=document.createElement("div");e.className="toast";e.textContent=m;document.body.appendChild(e);setTimeout(()=>e.remove(),3000)}
-function sheet(h){$("#sheetBody").innerHTML='<div class="grab"></div>'+h;$("#sheetWrap").classList.add("on")}
-function closeSheet(){$("#sheetWrap").classList.remove("on")}
+function sheet(h){
+ const b=$("#sheetBody"),w=$("#sheetWrap"),was=w.classList.contains("on");
+ b.innerHTML='<div class="shd"><button class="shx" onclick="closeSheet()" aria-label="رجوع">› رجوع</button></div><div class="grab"></div>'+h;
+ b.style.transform="";b.scrollTop=0;w.classList.add("on");
+ if(!was){try{history.pushState({sh:1},"")}catch(e){}}
+}
+function closeSheet(fromPop){
+ const w=$("#sheetWrap");if(!w.classList.contains("on"))return;
+ w.classList.remove("on");
+ if(fromPop!==true){try{if(history.state&&history.state.sh){window._pb=1;history.back()}}catch(e){}}
+}
+addEventListener("popstate",()=>{if(window._pb){window._pb=0;return}closeSheet(true)});
+addEventListener("keydown",e=>{if(e.key==="Escape"){closeSheet();try{skSelect(null)}catch(x){}}});
+(function(){ /* سحب للأسفل لإغلاق النافذة */
+ let y0=null,dy=0;const b=()=>$("#sheetBody");
+ document.addEventListener("touchstart",e=>{const s=b();if(!s||!s.contains(e.target)||s.scrollTop>0){y0=null;return}y0=e.touches[0].clientY;dy=0},{passive:true});
+ document.addEventListener("touchmove",e=>{if(y0==null)return;dy=e.touches[0].clientY-y0;if(dy>0)b().style.transform="translateY("+dy+"px)";else{b().style.transform="";}},{passive:true});
+ document.addEventListener("touchend",()=>{if(y0==null)return;const s=b();y0=null;if(dy>110){closeSheet();setTimeout(()=>{s.style.transform=""},300)}else{s.style.transition="transform .25s";s.style.transform="";setTimeout(()=>{s.style.transition=""},260)}dy=0},{passive:true});
+})();
 
 /* ============ location ============ */
 function locNow(){
