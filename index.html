@@ -103,6 +103,30 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 @keyframes vin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .vin{animation:vin .4s cubic-bezier(.2,.8,.3,1)}
 @media(max-height:720px){.rattr{display:none}.rdiag{font-size:10px;line-height:1.45;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.rdiag.open{-webkit-line-clamp:unset}.rpanel{padding:10px 14px 8px;bottom:calc(80px + var(--safe-b))}.rtime{font-size:26px}}
+
+.pill.rain{gap:10px;padding:10px 12px 10px 16px;background:linear-gradient(135deg,rgba(70,140,255,.32),rgba(40,70,170,.28));border:1px solid rgba(140,190,255,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 6px 22px rgba(40,100,255,.22);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);text-align:start}
+.pill.rain .ri{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.16);font-size:18px;animation:rpulse 2.4s ease-in-out infinite}
+.pill.rain b{display:block;font-size:14px;line-height:1.25}.pill.rain small{display:block;font-size:11.5px;font-weight:500;color:rgba(235,242,255,.78);margin-top:1px}
+.pill.rain .rp{width:46px;height:5px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden;margin-top:5px}.pill.rain .rp i{display:block;height:100%;background:linear-gradient(90deg,#8ec5ff,#fff);border-radius:3px}
+.pill.rain>i.ch{font-style:normal;opacity:.6;font-size:18px}
+@keyframes rpulse{0%,100%{box-shadow:0 0 0 0 rgba(150,200,255,.45)}50%{box-shadow:0 0 0 8px rgba(150,200,255,0)}}
+.pill.dust{background:linear-gradient(135deg,rgba(230,170,70,.3),rgba(150,95,30,.26));border:1px solid rgba(255,205,120,.35);margin-inline-start:8px}
+.dst .big{display:flex;align-items:center;gap:14px}
+.dst .num{font-size:40px;font-weight:800;line-height:1}.dst .num small{font-size:13px;font-weight:600;color:var(--sub);margin-inline-start:4px}
+.dst .lv{padding:5px 12px;border-radius:20px;font-weight:800;font-size:13px;color:#10142a}
+.dst .gauge{position:relative;height:10px;border-radius:6px;margin:14px 0 4px;background:linear-gradient(90deg,#4cd48a 0 18%,#e8d34a 18% 40%,#f2992e 40% 62%,#ee5b4a 62% 82%,#a43bd1 82%)}
+.dst .gauge u{position:absolute;top:-4px;width:6px;height:18px;border-radius:4px;background:#fff;box-shadow:0 0 0 2px rgba(10,15,36,.8);transform:translateX(50%)}
+.dst .adv{font-size:13px;line-height:1.7;color:rgba(235,240,255,.85);margin-top:8px}
+.dst .hrs{display:flex;align-items:flex-end;gap:3px;height:58px;margin-top:14px;direction:ltr}
+.dst .hrs i{flex:1;border-radius:3px 3px 1px 1px;min-height:3px}
+.dst .hl{display:flex;justify-content:space-between;font-size:10.5px;color:var(--sub);margin-top:4px;direction:ltr}
+.evh{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}.evh b{font-size:17px}
+.evs{margin:14px 0 6px;font-size:12px;font-weight:800;color:#d9b45f;letter-spacing:.3px}
+.evr{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.07)}
+.evr:first-of-type{border-top:0}
+.evr .ei{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:rgba(255,255,255,.07);flex:none}
+.evr .et{flex:1;min-width:0}.evr .et b{display:block;font-size:14px}.evr .et span{display:block;font-size:12px;color:var(--sub);margin-top:2px;line-height:1.5}
+.evr .ev{font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:12px;background:rgba(120,200,160,.18);color:#9ee6bf;white-space:nowrap}.evr .ev.no{background:rgba(255,255,255,.07);color:var(--sub)}
 /* sheet */
 #sheetWrap{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:60;display:none;align-items:flex-end;justify-content:center}
 #sheetWrap.on{display:flex}
@@ -315,7 +339,7 @@ label.l{display:block;font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
 <div id="sky">
  <canvas id="skcv"></canvas>
  <div class="sktop"><div class="rd"><div class="skc" id="skcity">📍</div><div class="skc" id="skread">--</div></div><button class="skc" id="skmode">✋ باللمس</button></div>
- <div class="skchips"><button class="skc" id="sknames">عربي + English</button><button class="skc" id="sklines">الأبراج</button><button class="skc" id="skmw">درب التبانة</button><button class="skc" id="skgrid">الشبكة</button></div>
+ <div class="skchips"><button class="skc" id="sknames">عربي + English</button><button class="skc" id="sklines">الأبراج</button><button class="skc" id="skmw">درب التبانة</button><button class="skc" id="skgrid">الشبكة</button><button class="skc" id="skev">📅 أحداث</button></div>
  <div id="sktgt"><span id="sktgtn"></span><button id="sktgtx" aria-label="إلغاء">✕</button></div>
  <div id="skctr" role="button"></div>
  <div id="skday">☀️ الشمس فوق الأفق الحين — هذا عرض فلكي، النجوم موجودة لكن ما تُرى بالعين إلا بعد الغروب</div>
@@ -522,9 +546,9 @@ async function fetchWx(force){
 }
 async function fetchAir(loc,key){
  try{
-  const r=await fetch("https://air-quality-api.open-meteo.com/v1/air-quality?latitude="+loc.lat+"&longitude="+loc.lon+"&current=us_aqi,pm10,dust&timezone=auto");
+  const r=await fetch("https://air-quality-api.open-meteo.com/v1/air-quality?latitude="+loc.lat+"&longitude="+loc.lon+"&current=us_aqi,pm10,dust&hourly=pm10,dust&forecast_days=2&timezone=auto");
   if(!r.ok)return;const j=await r.json();
-  if(j&&j.current&&S.wx.key===key){S.wx.air=j.current;persistWx();softRender()}
+  if(j&&j.current&&S.wx.key===key){S.wx.air=Object.assign({},j.current,{h:j.hourly||null});persistWx();softRender()}
  }catch(e){}
 }
 function persistWx(){try{localStorage.setItem(WKEY,JSON.stringify({key:S.wx.key,ts:S.wx.ts,data:S.wx.data,air:S.wx.air}))}catch(e){}}
@@ -692,7 +716,7 @@ function vWeather(){
  const at=n=>c.nx[n]?Math.round(c.nx[n].temp)+"°":"—",em=n=>c.nx[n]?wxInfo(c.nx[n].c,c.nx[n].day).e:"";
  h+=`<div class="hero2">${skyScene(c)}<div class="hero"><div class="t">${c.temp}°</div><div class="c">${c.info.n}</div><div class="hl">المحسوسة ${c.feels}°</div>
  <div class="mm"><span>↑ ${c.hi}°</span><span>↓ ${c.lo}°</span></div>
- <div class="pill" onclick="go('radar')">${c.rs?"🌧️ "+c.line:(c.diff>=2?"📈 ":c.diff<=-2?"📉 ":"➖ ")+c.trend}</div></div></div>`;
+ ${c.rs?rainPill(c):`<div class="pill" onclick="go('radar')">${(c.diff>=2?"📈 ":c.diff<=-2?"📉 ":"➖ ")+c.trend}</div>`}${dustPill()}</div></div>`;
  /* sparkline */
  const pts=c.nx.map(x=>x.temp),mx=Math.max.apply(null,pts),mn=Math.min.apply(null,pts),rg=Math.max(1,mx-mn);
  const xy=pts.map((v,i)=>[i/(pts.length-1)*240,52-(v-mn)/rg*44]);
@@ -718,16 +742,39 @@ function vWeather(){
  <div><span class="sub">${ic("therm",15)} المحسوسة</span><b>${c.feels}°</b></div></div></div>`;
  const sr=dl.sunrise[0],ss=dl.sunset[0],nowS=cur.time,pr=Math.max(0,Math.min(1,(new Date(nowS)-new Date(sr))/(new Date(ss)-new Date(sr))));
  h+=`<div class="card"><h3>الشروق والغروب</h3><div class="row"><div>🌅<div class="sub">الشروق</div><b>${t12(sr.slice(11,16))}</b></div><div class="sp"><div class="sunbar"><i style="width:${pr*100}%"></i><u style="inset-inline-start:${pr*100}%"></u></div></div><div style="text-align:end">🌇<div class="sub">الغروب</div><b>${t12(ss.slice(11,16))}</b></div></div></div>`;
- if(air&&air.us_aqi!=null){
-  const a=Math.round(air.us_aqi),lab=a<=50?"جيدة":a<=100?"متوسطة":a<=150?"حساسة":"سيئة";
-  h+=`<div class="card"><h3>جودة الهواء والغبار</h3><div class="grid2"><div><span class="sub">AQI</span><b>${a}</b><span class="sub">${lab}</span></div><div><span class="sub">الغبار (µg/m³)</span><b>${air.dust!=null?Math.round(air.dust):"—"}</b><span class="sub">PM10 ${air.pm10!=null?Math.round(air.pm10):"—"}</span></div></div></div>`;
- }
+ if(air)h+=dustCard(air);
  h+=seasonCard(now);
  h+=`<div class="sub" style="text-align:center;margin:4px 0 8px">آخر تحديث ${pad(new Date(S.wx.ts).getHours())}:${pad(new Date(S.wx.ts).getMinutes())}${S.wx.err?" • بيانات محفوظة":""} • Open-Meteo</div>`;
  return h;
 }
 
 /* ---- calendar ---- */
+function rainPill(c){
+ const i=Math.max(1,c.nx.indexOf(c.rs)),p=c.rs.p||0,heavy=wxInfo(c.rs.c,1).rain;
+ const when=i<=1?"خلال ساعة":i===2?"بعد ساعتين":"بعد "+i+" ساعات";
+ return`<div class="pill rain" onclick="go('radar')"><span class="ri">🌧️</span><div><b>مطر متوقع ${when}</b><small>الساعة ${hourLabel(c.rs.t)} • احتمال ${p||"عالٍ"}${p?"٪":""}${heavy?" • أمطار فعلية بالتوقّع":""}</small>${p?`<div class="rp"><i style="width:${Math.min(100,p)}%"></i></div>`:""}</div><i class="ch">›</i></div>`;
+}
+const DUST_L=[[54,"صافٍ","#4cd48a","هواء نظيف، ما فيه قيود على الأنشطة الخارجية."],[154,"غبار خفيف","#e8d34a","مقبول للأغلب؛ الحساسون (ربو/حساسية) يتجنبون المجهود الطويل بالخارج."],[254,"غبار متوسط","#f2992e","يُنصح بكمامة بالخارج، وتقليل الرياضة الخارجية، وإغلاق النوافذ."],[354,"غبار عالٍ","#ee5b4a","تجنّب الخروج قدر الإمكان، كمامة N95 للضرورة، ومرضى الجهاز التنفسي يبقون بالداخل."],[1e9,"عاصفة غبار","#a43bd1","خطر: ابقَ بالداخل، أغلق النوافذ، وتجنّب القيادة إن أمكن."]];
+function dustLv(v){for(const l of DUST_L)if(v<=l[0])return l;return DUST_L[4]}
+function dustVal(a){if(!a)return null;const v=Math.max(a.pm10||0,a.dust||0);return a.pm10==null&&a.dust==null?null:v}
+function dustPill(){
+ const v=dustVal(S.wx.air);if(v==null||v<=154)return"";
+ const l=dustLv(v);return`<div class="pill dust" onclick="document.getElementById('dustcard')&&document.getElementById('dustcard').scrollIntoView({behavior:'smooth',block:'center'})"><span>🌫️</span><div><b>${l[1]}</b><small style="display:block;font-size:11.5px;font-weight:500">PM10 ${Math.round(v)}</small></div></div>`;
+}
+function dustCard(air){
+ const v=dustVal(air);if(v==null&&air.us_aqi==null)return"";
+ const val=v==null?0:v,l=dustLv(val),pos=Math.min(100,val/400*100);
+ let hrs="",pk="";
+ if(air.h&&air.h.time){
+  const now=new Date(),t0=air.h.time.findIndex(x=>new Date(x)>=new Date(now.getTime()-3600e3));const s=Math.max(0,t0),e=Math.min(air.h.time.length,s+24);
+  const arr=[];for(let i=s;i<e;i++){const q=Math.max(air.h.pm10?air.h.pm10[i]||0:0,air.h.dust?air.h.dust[i]||0:0);arr.push({t:air.h.time[i],q})}
+  if(arr.length){const mx=Math.max(60,...arr.map(a=>a.q));
+   hrs=`<div class="hrs">${arr.map(a=>`<i title="${Math.round(a.q)}" style="height:${Math.max(6,a.q/mx*100)}%;background:${dustLv(a.q)[2]}"></i>`).join("")}</div><div class="hl"><span>${hourLabel(arr[0].t)}</span><span>${hourLabel(arr[Math.floor(arr.length/2)].t)}</span><span>${hourLabel(arr[arr.length-1].t)}</span></div>`;
+   const top=arr.reduce((a,b)=>b.q>a.q?b:a);
+   pk=top.q>154?`<div class="adv">⚠️ الذروة المتوقعة الساعة ${hourLabel(top.t)} (PM10 ≈ ${Math.round(top.q)}) — ${dustLv(top.q)[1]}</div>`:`<div class="adv">لا يُتوقع غبار مرتفع خلال الـ٢٤ ساعة القادمة.</div>`}
+ }
+ return`<div class="card dst" id="dustcard"><h3>جودة الهواء والغبار</h3><div class="big"><div class="num">${Math.round(val)}<small>µg/m³ PM10</small></div><span class="lv" style="background:${l[2]}">${l[1]}</span></div><div class="gauge"><u style="inset-inline-start:${pos}%"></u></div><div class="adv">${l[3]}</div>${air.us_aqi!=null?`<div class="adv" style="margin-top:4px;opacity:.7">مؤشر AQI الأمريكي: ${Math.round(air.us_aqi)} • الغبار: ${air.dust!=null?Math.round(air.dust):"—"} µg/m³</div>`:""}${pk}${hrs}</div>`;
+}
 function vCal(){
  const r=monthRange(S.anchor),ws=DB.settings.weekStart,ph=isH();
  const first=addDays(r.s,-((r.s.getDay()-ws+7)%7));
@@ -1329,6 +1376,66 @@ function skMoonPhase(b){
  const k=b.illum,w=b.waxing;
  if(k<.03)return"محاق (قمر جديد)";if(k<.4)return w?"هلال متزايد":"هلال متناقص";if(k<.6)return w?"تربيع أول":"تربيع أخير";if(k<.97)return w?"أحدب متزايد":"أحدب متناقص";return"بدر";
 }
+
+/* ===== أحداث السماء: شروق/غروب، أطوار، اقترانات ===== */
+function skAngSep(a,b){return Math.acos(Math.max(-1,Math.min(1,Math.sin(a.dec)*Math.sin(b.dec)+Math.cos(a.dec)*Math.cos(b.dec)*Math.cos(a.ra-b.ra))))*R2D}
+function skEvents(){
+ const loc=locNow(),lat=loc.lat,lon=loc.lon,t0=Date.now(),names=["Sun","Moon","Mercury","Venus","Mars","Jupiter","Saturn"];
+ const altOf=(ss,n,jd)=>{const b=ss[n],h=eqToHor(b.ra,b.dec,gmstDeg(jd)+lon,lat);return h[0]*R2D};
+ const samples=[];
+ for(let i=0;i<=144;i++){const ms=t0+i*600e3,jd=jdNow(ms),ss=solarSystem(jd),o={ms};names.forEach(n=>o[n]=altOf(ss,n,jd));samples.push(o)}
+ const cross=(n,thr,up)=>{for(let i=1;i<samples.length;i++){const a=samples[i-1][n]-thr,b=samples[i][n]-thr;if(up?(a<0&&b>=0):(a>=0&&b<0))return samples[i-1].ms+(0-a)/(b-a)*600e3}return null};
+ const fm=ms=>ms==null?"—":new Date(ms).toLocaleTimeString("ar",{hour:"numeric",minute:"2-digit"});
+ const out={sun:{set:cross("Sun",-.83,false),rise:cross("Sun",-.83,true),civ:cross("Sun",-6,false),astro:cross("Sun",-18,false),astroEnd:cross("Sun",-18,true)},bodies:[]};
+ const sunAt=ms=>samples.reduce((b,s)=>Math.abs(s.ms-ms)<Math.abs(b.ms-ms)?s:b).Sun;
+ for(const n of names.slice(1)){
+  let best=-90,bm=0,vis=false;samples.forEach(s=>{if(s[n]>best){best=s[n];bm=s.ms}if(s[n]>5&&s.Sun<-6)vis=true});
+  const ss0=solarSystem(jdNow(t0));
+  out.bodies.push({n,rise:cross(n,n==="Moon"?-.83:-.5,true),set:cross(n,n==="Moon"?-.83:-.5,false),maxAlt:best,maxAt:bm,vis,up:samples[0][n]>0,mag:ss0[n].mag,illum:ss0[n].illum,age:ss0[n].age,waxing:ss0[n].waxing});
+ }
+ /* أطوار القمر القادمة */
+ const ph=[];let prev=null;
+ for(let d=0;d<=35&&ph.length<4;d+=.1){
+  const jd=jdNow(t0)+d,ss=solarSystem(jd),dl=((ss.Moon.lon-ss.Sun.lon)%360+360)%360,q=Math.floor(dl/90);
+  if(prev!==null&&q!==prev){ph.push({ms:t0+d*86400e3,q})}prev=q;
+ }
+ out.phases=ph.map(p=>({ms:p.ms,name:["هلال جديد (محاق)","تربيع أول","بدر","تربيع أخير"][p.q]}));
+ /* اقترانات خلال ١٤ يوم: أدنى فصل زاوي */
+ const cj=[],ps=["Moon","Mercury","Venus","Mars","Jupiter","Saturn"];
+ const sepAt=(a,b,jd)=>{const ss=solarSystem(jd);return skAngSep(ss[a],ss[b])};
+ for(let i=0;i<ps.length;i++)for(let j=i+1;j<ps.length;j++){
+  const A=ps[i],B=ps[j],lim=A==="Moon"?6:4;let pv=null,pp=null;
+  for(let d=0;d<=14;d+=.25){const jd=jdNow(t0)+d,s=sepAt(A,B,jd);
+   if(pp!==null&&pv!==null&&pv<pp&&pv<=s&&pv<lim){const ms=t0+(d-.25)*86400e3,jd2=jdNow(ms),alt=Math.max(altOf(solarSystem(jd2),A,jd2),altOf(solarSystem(jd2),B,jd2));cj.push({A,B,sep:pv,ms})}
+   pp=pv;pv=s}
+ }
+ cj.sort((a,b)=>a.ms-b.ms);out.conj=cj.slice(0,8);
+ return out;
+}
+function skEventsOpen(){
+ let E;try{E=skEvents()}catch(e){console.warn(e);skToast("تعذّر حساب الأحداث");return}
+ const fm=ms=>ms==null?"—":new Date(ms).toLocaleTimeString("ar",{hour:"numeric",minute:"2-digit"});
+ const fd=ms=>new Date(ms).toLocaleDateString("ar",{weekday:"long",day:"numeric",month:"long"});
+ const AR={Moon:"القمر",Mercury:"عطارد",Venus:"الزهرة",Mars:"المريخ",Jupiter:"المشتري",Saturn:"زحل"},IC={Moon:"🌙",Mercury:"☿️",Venus:"✨",Mars:"🔴",Jupiter:"🪐",Saturn:"🪐"};
+ let h=`<div class="evh"><b>أحداث السماء</b><span class="sub">${esc(locNow().name||"موقعك")}</span></div>`;
+ h+=`<div class="evs">الشمس والظلام</div>`;
+ h+=`<div class="evr"><div class="ei">🌇</div><div class="et"><b>الغروب ${fm(E.sun.set)}</b><span>نهاية الشفق المدني ${fm(E.sun.civ)} • تبدأ الظلمة الفلكية ${fm(E.sun.astro)}${E.sun.astroEnd?" وتنتهي "+fm(E.sun.astroEnd):""}</span></div></div>`;
+ h+=`<div class="evs">القمر والكواكب خلال الـ٢٤ ساعة القادمة</div>`;
+ for(const b of E.bodies){
+  const tag=b.vis?'<span class="ev">يُرى بالعين</span>':'<span class="ev no">ما يُرى الليلة</span>';
+  let sub=(b.rise?"يطلع "+fm(b.rise):"")+(b.rise&&b.set?" • ":"")+(b.set?"يغيب "+fm(b.set):"");
+  if(!sub)sub=b.up?"فوق الأفق طول الفترة":"تحت الأفق طول الفترة";
+  sub+=" • أعلى ارتفاع "+skfmt(Math.round(Math.max(0,b.maxAlt)))+"° "+fm(b.maxAt);
+  const ex=b.n==="Moon"?" • مضيء "+skfmt(Math.round(b.illum*100))+"٪":" • القدر "+skfmt(b.mag.toFixed(1));
+  h+=`<div class="evr"><div class="ei">${IC[b.n]}</div><div class="et"><b>${AR[b.n]}</b><span>${sub}${ex}</span></div>${tag}</div>`;
+ }
+ h+=`<div class="evs">أطوار القمر القادمة</div>`;
+ h+=E.phases.map(p=>`<div class="evr"><div class="ei">${["🌑","🌓","🌕","🌗"][["هلال جديد (محاق)","تربيع أول","بدر","تربيع أخير"].indexOf(p.name)]}</div><div class="et"><b>${p.name}</b><span>${fd(p.ms)} • ${fm(p.ms)}</span></div></div>`).join("");
+ h+=`<div class="evs">اقترانات قريبة (خلال ١٤ يوم)</div>`;
+ h+=E.conj.length?E.conj.map(c=>`<div class="evr"><div class="ei">🔭</div><div class="et"><b>${AR[c.A]} و${AR[c.B]}</b><span>${fd(c.ms)} • يتقاربان إلى ${skfmt(c.sep.toFixed(1))}°</span></div></div>`).join(""):`<div class="sub" style="padding:8px 0">ما فيه اقترانات قريبة بالفترة هذي.</div>`;
+ h+=`<div class="sub" style="margin-top:12px;font-size:11px;line-height:1.6">الأوقات محسوبة لموقعك بدقة تقريبية (±دقائق) بنماذج فلكية مبسّطة، مو بديل عن التقويم الرسمي للأهلّة.</div>`;
+ sheet(h);
+}
 function skSearchOpen(){
  const w=$("#sksearch");w.classList.add("on");$("#skq").value="";skSearchRender("");setTimeout(()=>$("#skq").focus(),50);
 }
@@ -1389,6 +1496,7 @@ function skInit(){
  $("#skmode").onclick=()=>{if(SK.mode==="sensor")skDisableSensors();else skEnableSensors()};
  $("#sklines").onclick=()=>{SK.lines=!SK.lines;skSave();skUi()};
  $("#skgrid").onclick=()=>{SK.grid=!SK.grid;skSave();skUi()};
+ $("#skev").onclick=()=>skEventsOpen();
  $("#skmw").onclick=()=>{SK.mw=!SK.mw;skSave();skUi()};
  $("#sknames").onclick=()=>{SK.names=(SK.names+1)%4;skSave();skUi()};
  $("#skfind").onclick=skSearchOpen;
